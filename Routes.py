@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request
 from Controller.LandController import LandController
 from Controller.NeighbourController import NeighbourController
+from Controller.SessionController import SessionController
 from db import db, init_db
 from Controller.FarmerController import FarmerController
 from Model.FarmerModel import FarmerModel
@@ -71,5 +72,10 @@ def addNeighbour():
 @app.route('/getallneighbours',methods=['POST'])
 def getallneighbours():
     return NeighbourController.Getallneighbours()
+
+@app.route('/addCropSession',methods=['POST'])
+def addCropSession():
+    return SessionController.AddSession()
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0',port=5001,debug=True)

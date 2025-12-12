@@ -1,4 +1,6 @@
+from Model.ChatModel import ChatModel
 from Model.CityModel import CityModel
+from Model.FarmerModel import FarmerModel
 from Model.LandModel import LandModel
 from db import db
 from flask import jsonify,request
@@ -23,7 +25,7 @@ class LandController:
     def DeleteLand():
         lid=request.form['id']
         try:
-            LandModel.query.filter_by(LandModel.land_id==lid).delete()
+            LandModel.query.filter(LandModel.land_id==lid).delete()
             db.session.commit()
             return jsonify('Land deleted!'),200
         except Exception as e:
@@ -59,7 +61,9 @@ class LandController:
         f_id=request.form['f_id']
         landsLsit=[]
         try:
+
             Lands=LandModel.query.filter(LandModel.farmer_id==f_id).all()
+
             if Lands:
                 for l in Lands:
                     city=CityModel.query.filter(CityModel.city_id==l.city_id).first()
