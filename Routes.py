@@ -1,6 +1,11 @@
 from flask import Flask, jsonify, request
+<<<<<<< HEAD
 from Controller.LandController import LandController
 from Controller.NeighbourController import NeighbourController
+=======
+
+from Controller.LandController import LandController
+>>>>>>> 5483bb9af6f710519026df2de39d9b83ae8f33f7
 from db import db, init_db
 from Controller.FarmerController import FarmerController
 from Model.FarmerModel import FarmerModel
@@ -64,11 +69,14 @@ def getLands():
 def deleteLand():
     return LandController.DeleteLand()
 
+<<<<<<< HEAD
 @app.route('/addNeighbour',methods=['POST'])
 def addNeighbour():
     return NeighbourController.AddNeighbour()
 @app.route('/getallneighbours',methods=['POST'])
 def getallneighbours():
     return NeighbourController.Getallneighbours()
+=======
+>>>>>>> 5483bb9af6f710519026df2de39d9b83ae8f33f7
 if __name__ == '__main__':
     app.run(host='0.0.0.0',port=5001,debug=True)
