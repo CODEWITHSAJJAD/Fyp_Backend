@@ -61,9 +61,7 @@ class LandController:
         f_id=request.form['f_id']
         landsLsit=[]
         try:
-
             Lands=LandModel.query.filter(LandModel.farmer_id==f_id).all()
-
             if Lands:
                 for l in Lands:
                     city=CityModel.query.filter(CityModel.city_id==l.city_id).first()

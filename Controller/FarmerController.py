@@ -15,7 +15,7 @@ class FarmerController:
         password=data['password']
         city=data['city']
         try:
-            city = CityModel.query.filter(CityModel.city_name ==city).first()
+            city = CityModel.query.filter(CityModel.city_name ==city).all()
             city_id=city.city_id
             print(city_id)
             newFarmer=FarmerModel(farmer_name=Farmer_name,phone=Farmer_number,email=Farmer_email,city_id=city_id,farmer_image=None,landmark=landmark,password=password,years_of_experience=2)
@@ -36,12 +36,12 @@ class FarmerController:
                 FarmerModel.phone == user_info
             ), FarmerModel.password==pwd).first()
             if user:
-                return jsonify({
-                    "message":"login Successfull"
-                }),200
-            return jsonify({
-                "message":"invalid username or pwd"
-            }),404
+                return jsonify(
+                   "login Successfull"
+                ),200
+            return jsonify(
+                "invalid username or pwd"
+            ),404
         except Exception as e:
             return jsonify(str(e)),500
     @staticmethod

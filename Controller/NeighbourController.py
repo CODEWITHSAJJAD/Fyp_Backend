@@ -1,6 +1,8 @@
 from flask import request, jsonify
 from sqlalchemy import Null
 
+from Model.CropModel import CropModel
+from Model.CultivationSessionModel import CultivationSessionModel
 from db import db
 import json
 from Model.LandModel import LandModel
@@ -23,7 +25,7 @@ class NeighbourController:
 
             land = LandModel.query.filter(LandModel.land_id==lid).first()
             if not land:
-                return jsonify("Invalid land id"), 400
+                return jsonify("Invalid land id"), 404
 
             city_id = land.city_id
             farmer_id = land.farmer_id
@@ -74,21 +76,68 @@ class NeighbourController:
         except Exception as e:
             db.session.rollback()
             return jsonify(str(e)), 500
+
     @staticmethod
-    def Getallneighbours():
+    def addNeighbourCrop():
+        pass
+
+    @staticmethod
+    def GetAllNeighboursWithLatestCrop():
         try:
             lid = int(request.form['id'])
-            Neighbour=(db.session.query(FarmerModel.farmer_name,FarmerModel.years_of_experience,FarmerModel.phone,LandModel.source_of_water,LandModel.years_of_cultivation).filter(LandModel.land_id == lid)
+            Neighbour=(db.session.query(FarmerModel.farmer_id,FarmerModel.farmer_name,FarmerModel.years_of_experience,FarmerModel.phone,LandModel.source_of_water,LandModel.years_of_cultivation,CropModel.crop_name)
                        .join(NeighbourModel,NeighbourModel.farmer_neighbour_id==FarmerModel.farmer_id).
-                       join(LandModel,LandModel.land_id==NeighbourModel.land_id)
-                       .all())
+                       join(LandModel,LandModel.farmer_id==FarmerModel.farmer_id).
+                       join(CultivationSessionModel,CultivationSessionModel.land_id==LandModel.land_id).
+                       join(CropModel,CropModel.crop_id==CultivationSessionModel.crop_id).
+                       filter(NeighbourModel.land_id == lid,CultivationSessionModel.session_status=='Harvest').
+                       order_by(CultivationSessionModel.sowing_date.desc()).
+                       all())
+
+            if not Neighbour:
+                return jsonify("Invalid land id"), 400
+
+            Neighbours = {}
+
+            for i in Neighbour:
+                if i.farmer_id not in Neighbours:
+                    Neighbours[i.farmer_id] = {
+                        "farmer_id": i.farmer_id,
+                        "farmer_name": i.farmer_name,
+                        "Phone": i.phone,
+                        "Crop": i.crop_name,
+                        "years_of_experience": i.years_of_experience,
+                        "source_of_water": i.source_of_water,
+                        "years_of_cultivation": i.years_of_cultivation,
+                    }
+            Neighbours = list(Neighbours.values())
+
+            return jsonify(Neighbours), 200
+        except Exception as e:
+            db.session.rollback()
+            return jsonify(str(e)), 500
+
+    @staticmethod
+    def GetAllNeighboursWithAllCorps():
+        try:
+            lid = int(request.form['id'])
+            Neighbour=(db.session.query(FarmerModel.farmer_id,FarmerModel.farmer_name,FarmerModel.years_of_experience,FarmerModel.phone,LandModel.source_of_water,LandModel.years_of_cultivation,CropModel.crop_name)
+                       .join(NeighbourModel,NeighbourModel.farmer_neighbour_id==FarmerModel.farmer_id).
+                       join(LandModel,LandModel.farmer_id==FarmerModel.farmer_id).
+                       join(CultivationSessionModel,CultivationSessionModel.land_id==LandModel.land_id).
+                       join(CropModel,CropModel.crop_id==CultivationSessionModel.crop_id).
+                       filter(NeighbourModel.land_id == lid,CultivationSessionModel.session_status=='Harvest').
+                       order_by(CultivationSessionModel.sowing_date.desc()).
+                       all())
             Neighbours=[]
             if not Neighbour:
                 return jsonify("Invalid land id"), 400
             for i in Neighbour:
                 Neighbours.append({
+                    "farmer_id": i.farmer_id,
                     "farmer_name": i.farmer_name,
                     "Phone": i.phone,
+                    "Crop": i.crop_name,
                     "years_of_experience": i.years_of_experience,
                     "source_of_water": i.source_of_water,
                     "years_of_cultivation": i.years_of_cultivation,
@@ -97,3 +146,7 @@ class NeighbourController:
         except Exception as e:
             db.session.rollback()
             return jsonify(str(e)), 500
+
+    @staticmethod
+    def ProfitableNeigboursOfLand():
+        pass

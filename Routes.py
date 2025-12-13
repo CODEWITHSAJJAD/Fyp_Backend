@@ -29,53 +29,58 @@ def welcome():
 def signup():
     return FarmerController.Signup()
 
-@app.route('/edit', methods=['PUT'])
-def edit():
-    return FarmerController.edit()
-
 @app.route('/login', methods=['POST'])
 def login():
     return FarmerController.Login()
+
+@app.route('/FarmerSetting', methods=['PUT'])
+def edit():
+    return FarmerController.edit()
 
 @app.route('/delete',methods=['DELETE'])
 def delete():
     return FarmerController.delete()
 
-@app.route('/getbyid',methods=['POST'])
+@app.route('/getFarmerById',methods=['POST'])
 def get():
     return FarmerController.getbyid()
 
-@app.route('/getallFarmers',methods=['GET'])
+@app.route('/getAllFarmers',methods=['GET'])
 def allFarmers():
     return FarmerController.getallFarmerRecord()
 
-@app.route('/addLand',methods=['POST'])
+@app.route('/addFarmerLand',methods=['POST'])
 def addLand():
     return LandController.AddLand()
 
-@app.route('/editLand',methods=['PUT'])
+@app.route('/editFarmerLand',methods=['PUT'])
 def editLand():
     return LandController.editLand()
 
-@app.route('/getallLands',methods=['GET'])
-def getLands():
+@app.route('/getFarmerAllLands',methods=['GET'])
+def FarmerAllLands():
     return LandController.GetallLands()
 
 @app.route('/deleteLand',methods=['DELETE'])
 def deleteLand():
     return LandController.DeleteLand()
 
+@app.route('/addCropSession',methods=['POST'])
+def addCropSession():
+    return SessionController.AddSession()
+
 @app.route('/addNeighbour',methods=['POST'])
 def addNeighbour():
     return NeighbourController.AddNeighbour()
 
-@app.route('/getallneighbours',methods=['POST'])
-def getallneighbours():
-    return NeighbourController.Getallneighbours()
+@app.route('/GetAllNeighboursWithLatestCrop',methods=['POST'])
+def AllNeighboursWithLatestCrop():
+    return NeighbourController.GetAllNeighboursWithLatestCrop()
 
-@app.route('/addCropSession',methods=['POST'])
-def addCropSession():
-    return SessionController.AddSession()
+@app.route('/GetAllNeighboursWithAllCorps',methods=['POST'])
+def AllNeighboursWithAllCorps():
+    return NeighbourController.GetAllNeighboursWithAllCorps()
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0',port=5001,debug=True)
