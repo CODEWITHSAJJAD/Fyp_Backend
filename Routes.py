@@ -41,7 +41,7 @@ def edit():
 def delete():
     return FarmerController.delete()
 
-@app.route('/getFarmerById',methods=['POST'])
+@app.route('/getFarmerById',methods=['GET'])
 def get():
     return FarmerController.getbyid()
 
@@ -65,22 +65,37 @@ def FarmerAllLands():
 def deleteLand():
     return LandController.DeleteLand()
 
-@app.route('/addCropSession',methods=['POST'])
-def addCropSession():
+@app.route('/addFarmerCropSession',methods=['POST'])
+def addFarmerCropSession():
     return SessionController.AddSession()
 
 @app.route('/addNeighbour',methods=['POST'])
 def addNeighbour():
     return NeighbourController.AddNeighbour()
 
-@app.route('/GetAllNeighboursWithLatestCrop',methods=['POST'])
+@app.route('/addNeighbourCropSession',methods=['POST'])
+def addNeighbourCropSession():
+    return NeighbourController.addNeighbourCropSession()
+
+@app.route('/GetAllNeighboursWithLatestCrop',methods=['GET'])
 def AllNeighboursWithLatestCrop():
     return NeighbourController.GetAllNeighboursWithLatestCrop()
 
-@app.route('/GetAllNeighboursWithAllCorps',methods=['POST'])
+@app.route('/GetAllNeighboursWithAllCorps',methods=['GET'])
 def AllNeighboursWithAllCorps():
     return NeighbourController.GetAllNeighboursWithAllCorps()
 
+@app.route('/ProfitableCropOfLandNeigbours',methods=['GET'])
+def ProfitableCropOfNeigbours():
+    return NeighbourController.ProfitableCropOfLandNeigbours()
+
+@app.route('/getMostProfitableNeighbour',methods=['GET'])
+def getProfitableNeighbour():
+    return NeighbourController.getMostProfitableNeighbour()
+
+@app.route("/getAllCropsOfNeighbour",methods=['GET'])
+def getAllCropsOfNeighbour():
+    return NeighbourController.GetAllCropsOfNeighbour()
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0',port=5001,debug=True)
