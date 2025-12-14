@@ -4,8 +4,8 @@ class FarmerModel(db.Model):
 
     farmer_id = db.Column(db.Integer, primary_key=True, nullable=False,autoincrement=True)
     farmer_name = db.Column(db.String(100))
-    phone = db.Column(db.String(11),unique=True)
-    email = db.Column(db.String(255),unique=True)
+    phone = db.Column(db.String(11),unique=True,nullable=True)
+    email = db.Column(db.String(255),unique=True,nullable=True)
     city_id = db.Column(db.Integer, db.ForeignKey("City.city_id"))
 
     farmer_image = db.Column(db.String(255))

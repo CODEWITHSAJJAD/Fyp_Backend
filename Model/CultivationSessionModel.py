@@ -6,8 +6,8 @@ class CultivationSessionModel(db.Model):
     crop_id = db.Column(db.Integer, db.ForeignKey("Crop.crop_id"))
     land_id = db.Column(db.Integer, db.ForeignKey("Land.land_id"))
 
-    sowing_date = db.Column(db.Date)
-    harwesting_date = db.Column(db.Date)
+    sowing_date = db.Column(db.String(100))
+    harwesting_date = db.Column(db.String(100))
     seed_name = db.Column(db.String(100))
     session_status = db.Column(db.String(100))
     production_in_tons = db.Column(db.String(100))
@@ -16,3 +16,5 @@ class CultivationSessionModel(db.Model):
 
     land_rls = db.relationship("LandModel", back_populates="cultivation_rls")
     crop_rls = db.relationship("CropModel", back_populates="cultivation_rls")
+    per_activity_rls = db.relationship("PerformedActivityModel",
+                                       back_populates="crop_rls")

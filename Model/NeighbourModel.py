@@ -8,4 +8,3 @@ class NeighbourModel(db.Model):
     land_id = db.Column(db.Integer, db.ForeignKey("Land.land_id"))
 
     land_rls = db.relationship("LandModel", back_populates="neighbour_rls")
-

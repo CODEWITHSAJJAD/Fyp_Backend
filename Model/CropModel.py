@@ -9,5 +9,3 @@ class CropModel(db.Model):
 
     cultivation_rls = db.relationship("CultivationSessionModel",
                                       back_populates="crop_rls")
-    per_activity_rls = db.relationship("PerformedActivityModel",
-                                       back_populates="crop_rls")
