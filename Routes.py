@@ -4,17 +4,7 @@ from Controller.NeighbourController import NeighbourController
 from Controller.SessionController import SessionController
 from db import db, init_db
 from Controller.FarmerController import FarmerController
-from Model.FarmerModel import FarmerModel
 from Model.ChatModel import ChatModel
-from Model.CityModel import CityModel
-from Model.ActivityModel import ActivityModel
-from Model.CropModel import CropModel
-from Model.ProvinceModel import ProvinceModel
-from Model.PerformActivityModel import PerformedActivityModel
-from Model.CultivationSessionModel import CultivationSessionModel
-from Model.LandModel import LandModel
-from Model.NeighbourModel import NeighbourModel
-
 app = Flask(__name__)
 init_db(app)
 with app.app_context():

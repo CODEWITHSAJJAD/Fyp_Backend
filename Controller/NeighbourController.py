@@ -1,13 +1,16 @@
 from flask import request, jsonify
 from sqlmodel import or_
+
+from Model.ActivityModel import ActivityModel
+from Model.CityModel import CityModel
 from Model.CropModel import CropModel
 from Model.CultivationSessionModel import CultivationSessionModel
+from Model.PerformActivityModel import PerformedActivityModel
 from db import db
 import json
 from Model.LandModel import LandModel
 from Model.FarmerModel import FarmerModel
 from Model.NeighbourModel import NeighbourModel
-
 
 class NeighbourController:
     @staticmethod
@@ -79,19 +82,31 @@ class NeighbourController:
     @staticmethod
     def addNeighbourCropSession():
         try:
-            data = request.get_json()
-            data["session_status"]="Harvest"
-            existingSession = (CultivationSessionModel.query.
-                               filter(CultivationSessionModel.land_id == data["land_id"], or_(
+            Session_info=request.form["session"]
+            Activities_list=request.form["Activities"]
+            neighbour_session = json.loads(Session_info)
+            ActivityJson = json.loads(Activities_list)
+            neighbour_session["session_status"]="Harvest"
+            existingSession = CultivationSessionModel.query.filter(CultivationSessionModel.land_id == neighbour_session["land_id"], or_(
                 CultivationSessionModel.session_status != "Harvest",
                 CultivationSessionModel.session_status == None
-            )).all())
+            )).all()
             if not existingSession:
                 newSession = CultivationSessionModel(
-                    **data
+                    **neighbour_session
                 )
                 db.session.add(newSession)
                 db.session.commit()
+                session_id = newSession.cultivation_session_id
+                for a in ActivityJson:
+                    activity=ActivityModel.query.filter(ActivityModel.activity_name==a['Activity_id']).first()
+                    activity_id=activity.activity_id
+                    a['Activity_id']=activity_id
+                    a['cultivation_session_id']=session_id
+                    newPerformedActivity=PerformedActivityModel(**a)
+                    db.session.add(newPerformedActivity)
+                db.session.commit()
+
                 return jsonify("Seesion Added"), 200
             return jsonify("Seesion Not Allowed because one is icomplete"), 404
         except Exception as e:
@@ -158,7 +173,6 @@ class NeighbourController:
                 })
             return jsonify(Neighbours), 200
         except Exception as e:
-            db.session.rollback()
             return jsonify(str(e)), 500
 
     @staticmethod
@@ -188,7 +202,6 @@ class NeighbourController:
                 })
             return jsonify(Neighbours), 200
         except Exception as e:
-            db.session.rollback()
             return jsonify(str(e)), 500
 
     @staticmethod
@@ -222,7 +235,6 @@ class NeighbourController:
 
             return jsonify(Neighbours), 200
         except Exception as e:
-            db.session.rollback()
             return jsonify(str(e)), 500
 
     @staticmethod
@@ -240,7 +252,6 @@ class NeighbourController:
 
             Neighbours = {}
 
-
             if Neighbour.farmer_id not in Neighbours:
                 Neighbours[Neighbour.farmer_id] = {
                     "farmer_id": Neighbour.farmer_id,
@@ -256,5 +267,4 @@ class NeighbourController:
 
             return jsonify(Neighbours), 200
         except Exception as e:
-            db.session.rollback()
             return jsonify(str(e)), 500
