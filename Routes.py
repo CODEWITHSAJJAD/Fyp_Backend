@@ -1,10 +1,21 @@
 from flask import Flask, jsonify, request
+from Controller.ActivityController import ActivityController
 from Controller.LandController import LandController
 from Controller.NeighbourController import NeighbourController
 from Controller.SessionController import SessionController
 from db import db, init_db
 from Controller.FarmerController import FarmerController
 from Model.ChatModel import ChatModel
+from Model.LandModel import LandModel
+from Model.CityModel import CityModel
+from Model.CultivationSessionModel import CultivationSessionModel
+from Model.ProvinceModel import ProvinceModel
+from Model.NeighbourModel import NeighbourModel
+from Model.ActivityModel import ActivityModel
+from Model.PerformActivityModel import PerformedActivityModel
+from Model.FarmerModel import FarmerModel
+from Model.CropModel import CropModel
+
 app = Flask(__name__)
 init_db(app)
 with app.app_context():
@@ -86,6 +97,10 @@ def getProfitableNeighbour():
 @app.route("/getAllCropsOfNeighbour",methods=['GET'])
 def getAllCropsOfNeighbour():
     return NeighbourController.GetAllCropsOfNeighbour()
+
+@app.route("/AddFarmerSessionActivity",methods=['POST'])
+def AddFarmerSessionActivity():
+    return ActivityController.AddActivity()
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0',port=5001,debug=True)

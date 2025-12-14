@@ -14,11 +14,10 @@ class SessionController:
             seed=data["seed"]
             land_id=data["land_id"]
             crop_id=data["crop_id"]
-            existingSession=(CultivationSessionModel.query.
-                             filter(CultivationSessionModel.land_id==land_id,or_(
+            existingSession=CultivationSessionModel.query.filter(CultivationSessionModel.land_id==land_id,or_(
             CultivationSessionModel.session_status != "Harvest",
             CultivationSessionModel.session_status == None
-        )).all())
+        )).all()
             if not existingSession:
                 newSession=CultivationSessionModel(
                     crop_id=crop_id,
