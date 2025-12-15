@@ -177,35 +177,6 @@ class NeighbourController:
             return jsonify(str(e)), 500
 
     @staticmethod
-    def GetAllNeighboursWithAllCorps():
-        try:
-            lid = request.form['id']
-            Neighbour=(db.session.query(FarmerModel.farmer_id,FarmerModel.farmer_name,FarmerModel.years_of_experience,FarmerModel.phone,LandModel.source_of_water,LandModel.years_of_cultivation,CropModel.crop_name)
-                       .join(NeighbourModel,NeighbourModel.farmer_neighbour_id==FarmerModel.farmer_id).
-                       join(LandModel,LandModel.farmer_id==FarmerModel.farmer_id).
-                       join(CultivationSessionModel,CultivationSessionModel.land_id==LandModel.land_id).
-                       join(CropModel,CropModel.crop_id==CultivationSessionModel.crop_id).
-                       filter(NeighbourModel.land_id == lid,CultivationSessionModel.session_status=='Harvest').
-                       order_by(CultivationSessionModel.sowing_date.desc()).
-                       all())
-            Neighbours=[]
-            if not Neighbour:
-                return jsonify("Invalid land id"), 400
-            for i in Neighbour:
-                Neighbours.append({
-                    "farmer_id": i.farmer_id,
-                    "farmer_name": i.farmer_name,
-                    "Phone": i.phone,
-                    "Crop": i.crop_name,
-                    "years_of_experience": i.years_of_experience,
-                    "source_of_water": i.source_of_water,
-                    "years_of_cultivation": i.years_of_cultivation,
-                })
-            return jsonify(Neighbours), 200
-        except Exception as e:
-            return jsonify(str(e)), 500
-
-    @staticmethod
     def ProfitableCropOfLandNeigbours():
         try:
             lid = request.form['id']
@@ -234,6 +205,35 @@ class NeighbourController:
                     }
             Neighbours = list(Neighbours.values())
 
+            return jsonify(Neighbours), 200
+        except Exception as e:
+            return jsonify(str(e)), 500
+
+    @staticmethod
+    def GetAllNeighboursWithAllCorps():
+        try:
+            lid = request.form['id']
+            Neighbour=(db.session.query(FarmerModel.farmer_id,FarmerModel.farmer_name,FarmerModel.years_of_experience,FarmerModel.phone,LandModel.source_of_water,LandModel.years_of_cultivation,CropModel.crop_name)
+                       .join(NeighbourModel,NeighbourModel.farmer_neighbour_id==FarmerModel.farmer_id).
+                       join(LandModel,LandModel.farmer_id==FarmerModel.farmer_id).
+                       join(CultivationSessionModel,CultivationSessionModel.land_id==LandModel.land_id).
+                       join(CropModel,CropModel.crop_id==CultivationSessionModel.crop_id).
+                       filter(NeighbourModel.land_id == lid,CultivationSessionModel.session_status=='Harvest').
+                       order_by(CultivationSessionModel.sowing_date.desc()).
+                       all())
+            Neighbours=[]
+            if not Neighbour:
+                return jsonify("Invalid land id"), 404
+            for i in Neighbour:
+                Neighbours.append({
+                    "farmer_id": i.farmer_id,
+                    "farmer_name": i.farmer_name,
+                    "Phone": i.phone,
+                    "Crop": i.crop_name,
+                    "years_of_experience": i.years_of_experience,
+                    "source_of_water": i.source_of_water,
+                    "years_of_cultivation": i.years_of_cultivation,
+                })
             return jsonify(Neighbours), 200
         except Exception as e:
             return jsonify(str(e)), 500

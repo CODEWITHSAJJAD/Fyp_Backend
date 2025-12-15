@@ -17,4 +17,4 @@ class CultivationSessionModel(db.Model):
     land_rls = db.relationship("LandModel", back_populates="cultivation_rls")
     crop_rls = db.relationship("CropModel", back_populates="cultivation_rls")
     per_activity_rls = db.relationship("PerformedActivityModel",
-                                       back_populates="crop_rls")
+                                       back_populates="CultivationSessionModel_rls")

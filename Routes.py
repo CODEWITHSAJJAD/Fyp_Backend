@@ -78,6 +78,14 @@ def getAllSessionsOfFarmerLand():
 def getCurrentSessionOfFarmerLand():
     return SessionController.getCurrentSessionOfFarmerLand()
 
+@app.route('/GetListOfAllActivitiesOfProfitableSession',methods=['GET'])
+def GetListOfAllActivitiesOfProfitableSession():
+    return SessionController.getActivityListOfProfitableSessionOfFarmerLand()
+
+@app.route('/GetProfitableCropSessionOnFarmerLand',methods=['GET'])
+def GetProfitableCropSessionOnFarmerLand():
+    return SessionController.GetProfitableCropSessionOnFarmerLand()
+
 @app.route('/addNeighbour',methods=['POST'])
 def addNeighbour():
     return NeighbourController.AddNeighbour()
@@ -113,6 +121,7 @@ def AddFarmerSessionActivity():
 @app.route("/getAllActivitiesOfFarmer",methods=['GET'])
 def getAllActivitiesOfFarmer():
     return ActivityController.getAllActivitiesOfFarmer()
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0',port=5001,debug=True)

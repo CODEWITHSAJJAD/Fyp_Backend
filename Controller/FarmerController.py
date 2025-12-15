@@ -15,7 +15,7 @@ class FarmerController:
         password=data['password']
         city=data['city']
         try:
-            city = CityModel.query.filter(CityModel.city_name ==city).all()
+            city = CityModel.query.filter(CityModel.city_name ==city).first()
             city_id=city.city_id
             print(city_id)
             newFarmer=FarmerModel(farmer_name=Farmer_name,phone=Farmer_number,email=Farmer_email,city_id=city_id,farmer_image=None,landmark=landmark,password=password,years_of_experience=2)
