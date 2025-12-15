@@ -158,6 +158,7 @@ class NeighbourController:
                          join(CultivationSessionModel,CultivationSessionModel.land_id==LandModel.land_id).
                          join(CropModel,CropModel.crop_id==CultivationSessionModel.crop_id).
                          filter(FarmerModel.farmer_id==Neighbour_Farmer_id)).all()
+
             Neighbours = []
             if not Neighbour:
                 return jsonify("Invalid Neighbour id"), 400

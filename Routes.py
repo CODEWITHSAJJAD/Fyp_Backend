@@ -35,7 +35,7 @@ def login():
     return FarmerController.Login()
 
 @app.route('/FarmerSetting', methods=['PUT'])
-def edit():
+def FarmerSetting():
     return FarmerController.edit()
 
 @app.route('/delete',methods=['DELETE'])
@@ -69,6 +69,14 @@ def deleteLand():
 @app.route('/addFarmerCropSession',methods=['POST'])
 def addFarmerCropSession():
     return SessionController.AddSession()
+
+@app.route('/getAllSessionsOfFarmerLand',methods=['GET'])
+def getAllSessionsOfFarmerLand():
+    return SessionController.getAllSesssionsOfLand()
+
+@app.route('/getCurrentSessionOfFarmerLand',methods=['GET'])
+def getCurrentSessionOfFarmerLand():
+    return SessionController.getCurrentSessionOfFarmerLand()
 
 @app.route('/addNeighbour',methods=['POST'])
 def addNeighbour():
