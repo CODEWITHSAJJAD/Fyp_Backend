@@ -2,10 +2,10 @@ from db import db
 class PerformedActivityModel(db.Model):
     __tablename__ = "Performed_Activity"
 
-    p_activity_id = db.Column(db.Integer, primary_key=True,autoincrement=True)
+    p_activity_id = db.Column(db.Integer, primary_key=True,nullable=False,autoincrement=True)
     cultivation_session_id = db.Column(db.Integer, db.ForeignKey("Cultivation_Session.cultivation_session_id"))
     Activity_id=db.Column(db.Integer, db.ForeignKey("Activity.activity_id"))
-    activity_date = db.Column(db.Date)
+    activity_date = db.Column(db.String(255))
     Activity_type=db.Column(db.String(255))
     quantity_per_acre = db.Column(db.String(20))
 

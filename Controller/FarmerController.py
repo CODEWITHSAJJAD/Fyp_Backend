@@ -1,9 +1,17 @@
-from flask import request,jsonify
+import os
+from datetime import datetime
+from flask import request,jsonify,send_file
+
+from Model.ProvinceModel import ProvinceModel
 from db import db
 from sqlalchemy import or_
 from Model.FarmerModel import FarmerModel
 from Model.CityModel import CityModel
 import json
+
+from url import imageurl
+
+
 class FarmerController:
     @staticmethod
     def Signup():
@@ -14,16 +22,18 @@ class FarmerController:
         landmark=data['landmark']
         password=data['password']
         city=data['city']
+        years0f=data['yearsofexp']
         try:
             city = CityModel.query.filter(CityModel.city_name ==city).first()
             city_id=city.city_id
             print(city_id)
-            newFarmer=FarmerModel(farmer_name=Farmer_name,phone=Farmer_number,email=Farmer_email,city_id=city_id,farmer_image=None,landmark=landmark,password=password,years_of_experience=2)
+            newFarmer=FarmerModel(farmer_name=Farmer_name,phone=Farmer_number,email=Farmer_email,city_id=city_id,farmer_image=None,landmark=landmark,password=password,years_of_experience=years0f)
             db.session.add(newFarmer)
             db.session.commit()
-            return jsonify({'message': 'Farmer Signup successfully'}),200
+            return jsonify(newFarmer.farmer_id),200
         except Exception as e:
             return jsonify(str(e)), 500
+
     @staticmethod
     def Login():
         data=request.get_json()
@@ -37,18 +47,23 @@ class FarmerController:
             ), FarmerModel.password==pwd).first()
             if user:
                 return jsonify(
-                   "login Successfull"
+                    {"name": user.farmer_name,
+                     "id":user.farmer_id}
                 ),200
             return jsonify(
                 "invalid username or pwd"
             ),404
         except Exception as e:
             return jsonify(str(e)),500
+
     @staticmethod
     def edit():
         try:
             data = request.form['farmer']
-            image = request.files['image']
+            update = request.form.get('update_image', 'false').lower() == 'true'
+            print(update)
+            image = request.files.get('image')
+            print(image)
             json_data = json.loads(data)
             id=json_data['id']
             farmer_name = json_data['name']
@@ -57,78 +72,73 @@ class FarmerController:
             landmark = json_data['landmark']
             password = json_data['password']
             city_name = json_data['city']
-            file_path = image.filename
+
+            uploads_dir = "uploads/farmers"
+            save_path=None
+            if image and update :
+                if not os.path.exists(uploads_dir):
+                    os.makedirs(uploads_dir)
+                timestamp = datetime.now().strftime('%Y%m%d_%H%M%S_%f')
+                extension = image.filename.split('.')[-1] if '.' in image.filename else 'jpg'
+                unique_filename = f"{timestamp}.{extension}"
+                save_path = os.path.join(uploads_dir, unique_filename)
+                image.save(save_path)
             city = CityModel.query.filter(CityModel.city_name == city_name).first()
             if not city:
-                return jsonify({"error": f"City '{city_name}' not found"}), 404
+                return jsonify(f"City '{city_name}' not found"), 404
             city_id = city.city_id
             existing_farmer = FarmerModel.query.filter(
                 FarmerModel.farmer_id == id
             ).first()
 
             if not existing_farmer:
-                return jsonify({"error": "Farmer not found"}), 404
+                return jsonify( "Farmer not found"), 404
             existing_farmer.farmer_name=farmer_name
             existing_farmer.phone = farmer_number
             existing_farmer.email = farmer_email
             existing_farmer.city_id = city_id
-            existing_farmer.farmer_image = file_path
+            existing_farmer.farmer_image = save_path if update else existing_farmer.farmer_image
             existing_farmer.landmark = landmark
             existing_farmer.password = password
             existing_farmer.years_of_experience = 2
             db.session.commit()
-            return jsonify({"message": "Farmer Updated successfully"}), 200
-        except KeyError as e:
-            return jsonify({"error": f"Missing field: {str(e)}"}), 400
+            return jsonify("Farmer Updated successfully"), 200
         except Exception as e:
-            db.session.rollback()
             return jsonify({"error": str(e)}), 500
 
     @staticmethod
-    def getbyid():
-        fid=request.form['id']
+    def getbyid(id):
+        fid = id
         try:
-            data=FarmerModel.query.filter(FarmerModel.farmer_id==fid).first()
-            city = CityModel.query.filter(CityModel.city_id == data.city_id).first()
+            # data = FarmerModel.query.filter(FarmerModel.farmer_id == fid).first()
+            data=(db.session.query(FarmerModel.farmer_image,FarmerModel.farmer_name,FarmerModel.phone,FarmerModel.landmark,FarmerModel.email,FarmerModel.years_of_experience,CityModel.city_name,ProvinceModel.province_name).join(CityModel,FarmerModel.city_id==CityModel.city_id).join(ProvinceModel,CityModel.province_id==ProvinceModel.province_id).filter(FarmerModel.farmer_id == fid)).first()
             if data:
+                image_path = data.farmer_image.replace("\\", "/") if data.farmer_image else None
+                print(image_path)
                 return jsonify({
-                    "Name":data.farmer_name,
-                    "Phone":data.phone,
-                    "Email":data.email,
-                    "City":city.city_name,
-                    "Landmark":data.landmark,
-                    "years_of_experience":data.years_of_experience
-                }),200
-            return jsonify({
-                "message":"not found"
-            }),404
+                    "Name": data.farmer_name,
+                    "image":imageurl+image_path,
+                    "Phone": data.phone,
+                    "Email": data.email,
+                    "City": data.city_name,
+                    "Province": data.province_name,
+                    "Landmark": data.landmark,
+                    "years_of_experience": data.years_of_experience
+                }), 200
+            return jsonify("not found"), 404
         except Exception as e:
             return jsonify(str(e)), 500
+
     @staticmethod
-    def delete():
-        fid=request.form['id']
-        FarmerModel.query.filter(FarmerModel.farmer_id==fid).delete()
-        db.session.commit()
-        return ({"message":"Farmer delete successfully"}),200
-    @staticmethod
-    def getallFarmerRecord():
+    def getCities(id):
+        province=id
+        city = []
         try:
-            allfarmers=FarmerModel.query.all()
-            if allfarmers:
-                farmerList=[]
-                for f in allfarmers:
-                    city=CityModel.query.filter(CityModel.city_id==f.city_id).first()
-                    farmerList.append({
-                        "Name":f.farmer_name,
-                        "Phone":f.phone,
-                        "Email":f.email,
-                        "City":city.city_name,
-                        "Landmark":f.landmark,
-                        "years_of_experience":f.years_of_experience
-                    })
-                return jsonify(farmerList),200
-            return jsonify("No record Found"),404
+            cities=CityModel.query.filter(CityModel.province_id == province).all()
+            if cities:
+                for c in cities:
+                    city.append(c.city_name)
+                return jsonify(city),200
+            return jsonify("Not Found"),404
         except Exception as e:
-            return jsonify(str(e)),500
-
-
+            return jsonify(str(e)), 500

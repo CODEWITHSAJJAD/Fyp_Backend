@@ -1,127 +1,275 @@
-from flask import Flask, jsonify, request
+import os
+from flask import Flask, jsonify, send_file, abort
+from werkzeug.security import safe_join
 from Controller.ActivityController import ActivityController
+from Controller.CropController import CropController
 from Controller.LandController import LandController
 from Controller.NeighbourController import NeighbourController
 from Controller.SessionController import SessionController
+from Controller.taskController import TaskContoller
+from Model.CityModel import CityModel
+from Model.ProvinceModel import ProvinceModel
 from db import db, init_db
 from Controller.FarmerController import FarmerController
-from Model.ChatModel import ChatModel
-from Model.LandModel import LandModel
-from Model.CityModel import CityModel
-from Model.CultivationSessionModel import CultivationSessionModel
-from Model.ProvinceModel import ProvinceModel
-from Model.NeighbourModel import NeighbourModel
-from Model.ActivityModel import ActivityModel
-from Model.PerformActivityModel import PerformedActivityModel
-from Model.FarmerModel import FarmerModel
-from Model.CropModel import CropModel
+from Controller.ChatController import ChatController
+from Controller.RecommendationController import RecommendationController
+import pandas as pd
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+os.environ['KMP_DUPLICATE_LIB_OK'] = 'TRUE'
 
-app = Flask(__name__)
+app = Flask(__name__,static_folder="uploads")
+app.config['UPLOAD_FOLDER'] = "uploads"
 init_db(app)
+
 with app.app_context():
     db.create_all()
     print("created")
 
-@app.route('/')
-def welcome():
-    return jsonify({"body": "welcome"})
 
-@app.route('/signup', methods=['POST'])
+# @app.get('/get-image/<path:filename>')
+# def serve_image(filename):
+#     """
+#     Serve images from different directories based on the path
+#     Examples:
+#     - /get-image/uploads/crops/Rabi/Beans.jpg
+#     - /get-image/crops/Rabi/Beans.jpg (without uploads prefix)
+#     - /get-image/farmer/profile_123.jpg
+#     """
+#     try:
+#         filename = filename.lstrip('/')
+#         base_dir = 'uploads'
+#         if filename.startswith('uploads/'):
+#             filename = filename[len('uploads/'):]
+#         file_path = safe_join(base_dir, filename)
+#         base_abs = os.path.abspath(base_dir)
+#         file_abs = os.path.abspath(file_path)
+#         if not os.path.commonpath([base_abs, file_abs]) == base_abs:
+#             abort(403, description="Access denied")
+#         if not os.path.exists(file_path):
+#             if os.path.exists(filename):
+#                 file_path = filename
+#             else:
+#                 name_without_ext, current_ext = os.path.splitext(file_path)
+#                 if not current_ext:
+#                     for ext in ['.jpg', '.jpeg', '.png', '.gif', '.webp']:
+#                         temp_path = f"{name_without_ext}{ext}"
+#                         if os.path.exists(temp_path):
+#                             file_path = temp_path
+#                             break
+#             if not os.path.exists(file_path):
+#                 directory = os.path.dirname(file_path)
+#                 if os.path.exists(directory):
+#                     available_files = os.listdir(directory)
+#
+#                 return jsonify({
+#                     "error": "Image not found",
+#                     "requested": filename,
+#                     "searched_path": file_path
+#                 }), 404
+#         if not os.path.isfile(file_path):
+#             return jsonify({"error": "Path is not a file"}), 400
+#         mime_type = 'image/jpeg'
+#         ext = os.path.splitext(file_path)[1].lower()
+#         if ext == '.png':
+#             mime_type = 'image/png'
+#         elif ext == '.gif':
+#             mime_type = 'image/gif'
+#         elif ext == '.webp':
+#             mime_type = 'image/webp'
+#         elif ext == '.bmp':
+#             mime_type = 'image/bmp'
+#         elif ext in ['.jpg', '.jpeg']:
+#             mime_type = 'image/jpeg'
+#         else:
+#             import mimetypes
+#             guessed_type = mimetypes.guess_type(file_path)[0]
+#             if guessed_type and guessed_type.startswith('image/'):
+#                 mime_type = guessed_type
+#         return send_file(
+#             file_path,
+#             mimetype=mime_type,
+#             as_attachment=False,
+#             download_name=os.path.basename(filename)
+#         )
+#
+#     except Exception as e:
+#         import traceback
+#         print(f"ERROR: {str(e)}")
+#         traceback.print_exc()
+#         return jsonify({"error": str(e)}), 500
+
+@app.get('/getCities/<id>')
+def getCitiy(id):
+    return FarmerController.getCities(id)
+
+@app.post('/signup')
 def signup():
     return FarmerController.Signup()
 
-@app.route('/login', methods=['POST'])
+@app.post('/login')
 def login():
     return FarmerController.Login()
 
-@app.route('/FarmerSetting', methods=['PUT'])
+@app.put('/FarmerSetting')
 def FarmerSetting():
     return FarmerController.edit()
 
-@app.route('/delete',methods=['DELETE'])
-def delete():
-    return FarmerController.delete()
+@app.get('/getFarmerById/<id>')
+def get(id):
+    return FarmerController.getbyid(id)
 
-@app.route('/getFarmerById',methods=['GET'])
-def get():
-    return FarmerController.getbyid()
-
-@app.route('/getAllFarmers',methods=['GET'])
-def allFarmers():
-    return FarmerController.getallFarmerRecord()
-
-@app.route('/addFarmerLand',methods=['POST'])
+@app.post('/addFarmerLand')
 def addLand():
     return LandController.AddLand()
 
-@app.route('/editFarmerLand',methods=['PUT'])
+@app.put('/editFarmerLand')
 def editLand():
     return LandController.editLand()
 
-@app.route('/getFarmerAllLands',methods=['GET'])
-def FarmerAllLands():
-    return LandController.GetallLands()
+@app.get('/getFarmerAllLands/<id>')
+def FarmerAllLands(id):
+    return LandController.GetallLands(id)
 
-@app.route('/deleteLand',methods=['DELETE'])
+@app.get('/getLandByID/<id>')
+def getLandByID(id):
+   return LandController.getLandByID(id)
+
+@app.get('/getLandsWithCurrentSession/<id>')
+def landswithcurrentsession(id):
+    return LandController.getLandWithCurrentSession(id)
+
+@app.delete('/deleteLand')
 def deleteLand():
     return LandController.DeleteLand()
 
-@app.route('/addFarmerCropSession',methods=['POST'])
+@app.get('/getAllCrops')
+def AllCrops():
+    return CropController.getAllCrops()
+
+@app.post('/addFarmerCropSession')
 def addFarmerCropSession():
     return SessionController.AddSession()
 
-@app.route('/getAllSessionsOfFarmerLand',methods=['GET'])
-def getAllSessionsOfFarmerLand():
-    return SessionController.getAllSesssionsOfLand()
+@app.get("/CurrentSessionOfFarmer/<id>")
+def currentsessionofFarmer(id):
+    return SessionController.GetCurrentSessionOfFarmer(id)
 
-@app.route('/getCurrentSessionOfFarmerLand',methods=['GET'])
-def getCurrentSessionOfFarmerLand():
-    return SessionController.getCurrentSessionOfFarmerLand()
+@app.get('/getAllSessionsOfFarmerLand/<id>')
+def getAllSessionsOfFarmerLand(id):
+    return SessionController.getAllSesssionsOfLand(id)
 
-@app.route('/GetListOfAllActivitiesOfProfitableSession',methods=['GET'])
-def GetListOfAllActivitiesOfProfitableSession():
-    return SessionController.getActivityListOfProfitableSessionOfFarmerLand()
+@app.get('/getCurrentSessionOfFarmerLand/<id>')
+def getCurrentSessionOfFarmerLand(id):
+    return SessionController.getCurrentSessionOfFarmerLand(id)
 
-@app.route('/GetProfitableCropSessionOnFarmerLand',methods=['GET'])
-def GetProfitableCropSessionOnFarmerLand():
-    return SessionController.GetProfitableCropSessionOnFarmerLand()
+@app.get('/GetListOfAllActivitiesOfProfitableSession/<id>')
+def GetListOfAllActivitiesOfProfitableSession(id):
+    return SessionController.getActivityListOfProfitableSessionOfFarmerLand(id)
 
-@app.route('/addNeighbour',methods=['POST'])
+@app.get('/GetProfitableCropSessionOnFarmerLand/<id>')
+def GetProfitableCropSessionOnFarmerLand(id):
+    return SessionController.GetProfitableCropSessionOnFarmerLand(id)
+
+@app.post('/seacrhNeighbouringLand')
+def searchNeighbouringLands():
+    return NeighbourController.SeachNeighbour()
+
+
+########Task##################
+@app.post('/seacrhFarmerLands')
+def seacrhFarmerLands():
+    return TaskContoller.SearchFarmer()
+
+@app.post('/count')
+def count():
+    return TaskContoller.ActivityCount()
+
+@app.post('/addNeighbour')
 def addNeighbour():
     return NeighbourController.AddNeighbour()
 
-@app.route('/addNeighbourCropSession',methods=['POST'])
+@app.get('/getNeighbourRequest/<id>')
+def getRequestNeighbour(id):
+    return NeighbourController.GetNeighbourRequests(id)
+
+@app.post('/acceptNeighbourRequest/<id>')
+def acceptNeighbourRequest(id):
+    return NeighbourController.AcceptRequest(id)
+
+@app.delete('/rejectNeighbourRequest/<id>')
+def rejectNeighbourRequest(id):
+    return NeighbourController.RejectRequest(id)
+
+@app.get('/getAllLandsOfNeighbour/<id>')
+def AllLandsOfNeighbour(id):
+    return NeighbourController.GetAllLandsOfNeighbour(id)
+
+@app.post('/addNeighbourCropSession')
 def addNeighbourCropSession():
     return NeighbourController.addNeighbourCropSession()
 
-@app.route('/GetAllNeighboursWithLatestCrop',methods=['GET'])
-def AllNeighboursWithLatestCrop():
-    return NeighbourController.GetAllNeighboursWithLatestCrop()
+@app.get('/GetAllNeighboursWithLatestCrop/<id>')
+def AllNeighboursWithLatestCrop(id):
+    return NeighbourController.GetAllNeighboursWithLatestCrop(lid=id)
 
-@app.route('/GetAllNeighboursWithAllCorps',methods=['GET'])
-def AllNeighboursWithAllCorps():
-    return NeighbourController.GetAllNeighboursWithAllCorps()
+@app.get('/GetAllNeighboursWithAllCorps/<id>')
+def AllNeighboursWithAllCorps(id):
+    return NeighbourController.GetAllNeighboursWithAllCorps(id)
 
-@app.route('/ProfitableCropOfLandNeigbours',methods=['GET'])
-def ProfitableCropOfNeigbours():
-    return NeighbourController.ProfitableCropOfLandNeigbours()
+@app.get('/ProfitableCropOfLandNeigbours/<id>')
+def ProfitableCropOfNeigbours(id):
+    return NeighbourController.ProfitableCropOfLandNeigbours(id)
 
-@app.route('/getMostProfitableNeighbour',methods=['GET'])
-def getProfitableNeighbour():
-    return NeighbourController.getMostProfitableNeighbour()
+@app.get('/getMostProfitableNeighbour/<id>')
+def getProfitableNeighbour(id):
+    return NeighbourController.getMostProfitableNeighbour(id)
 
-@app.route("/getAllCropsOfNeighbour",methods=['GET'])
-def getAllCropsOfNeighbour():
-    return NeighbourController.GetAllCropsOfNeighbour()
+@app.get("/getAllCropsOfNeighbour/<id>")
+def getAllCropsOfNeighbour(id):
+    return NeighbourController.GetAllCropsOfNeighbour(id)
 
-@app.route("/AddFarmerSessionActivity",methods=['POST'])
+@app.get('/getActivitiesList')
+def activitieslist():
+    return ActivityController.getListofActivities()
+
+@app.post("/AddFarmerSessionActivity")
 def AddFarmerSessionActivity():
     return ActivityController.AddActivity()
 
-@app.route("/getAllActivitiesOfFarmer",methods=['GET'])
-def getAllActivitiesOfFarmer():
-    return ActivityController.getAllActivitiesOfFarmer()
+@app.put('/editActivity')
+def editActivity():
+    return ActivityController.EditActivity()
+
+@app.get("/getAllActivitiesOfFarmer/<id>")
+def getAllActivitiesOfFarmer(id):
+    return ActivityController.getAllActivitiesOfFarmer(id)
+
+@app.get('/getSessionPerformedActivities/<id>')
+def PerformedActivities(id):
+    return ActivityController.getSessionPerformedActivities(id)
+
+@app.post("/chat")
+def chat():
+    return ChatController.chat()
+
+@app.get('/getChats/<id>')
+def AllChats(id):
+    return ChatController.getChats(id)
+
+@app.get("/getChatBySession/<id>")
+def getChat(id):
+    return ChatController.getChatBySession(id)
+
+@app.post('/createChatSession')
+def createChatSession():
+    return ChatController.createSession()
+
+@app.post('/recommend-crop')
+def recommend_crop():
+    return RecommendationController.get_recommendations()
+
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0',port=5001,debug=True)
+    app.run(host='0.0.0.0',port=5000,debug=True)
+

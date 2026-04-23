@@ -1,0 +1,575 @@
+# setup_training_data_fixed.py
+import pandas as pd
+import numpy as np
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.preprocessing import LabelEncoder
+from sklearn.naive_bayes import GaussianNB
+import pickle
+import re
+from nltk.stem.porter import PorterStemmer
+import os
+
+print("=" * 60)
+print("SETTING UP AGRICULTURE CHATBOT TRAINING DATA (FIXED)")
+print("=" * 60)
+
+os.makedirs("datasets", exist_ok=True)
+os.makedirs("saved_state", exist_ok=True)
+ps = PorterStemmer()
+
+# ============================================
+# PART 1: EXPANDED INTENT DATASET
+# ============================================
+
+intent_data = [
+    # === CULTIVATION (EXPANDED) ===
+    ["how to grow wheat", "Cultivation"],
+    ["how to grow rice", "Cultivation"],
+    ["how to grow cotton", "Cultivation"],
+    ["how to grow sugarcane", "Cultivation"],
+    ["how to grow maize", "Cultivation"],
+    ["how to grow potato", "Cultivation"],
+    ["how to grow tomato", "Cultivation"],
+    ["how to grow onion", "Cultivation"],
+    ["how to cultivate wheat", "Cultivation"],
+    ["how to cultivate rice", "Cultivation"],
+    ["how to cultivate cotton", "Cultivation"],
+    ["how to cultivate sugarcane", "Cultivation"],
+    ["how to cultivate maize", "Cultivation"],
+    ["i want to grow wheat", "Cultivation"],
+    ["i want to grow rice", "Cultivation"],
+    ["i want to grow cotton", "Cultivation"],
+    ["i want to grow sugarcane", "Cultivation"],
+    ["i want to grow maize", "Cultivation"],
+    ["tell me about wheat cultivation", "Cultivation"],
+    ["tell me about rice farming", "Cultivation"],
+    ["tell me about cotton growing", "Cultivation"],
+    ["tell me about sugarcane", "Cultivation"],
+    ["tell me about maize", "Cultivation"],
+    ["information about wheat", "Cultivation"],
+    ["information about rice", "Cultivation"],
+    ["information about cotton", "Cultivation"],
+    ["details about wheat farming", "Cultivation"],
+    ["details about rice cultivation", "Cultivation"],
+    ["wheat growing guide", "Cultivation"],
+    ["rice cultivation guide", "Cultivation"],
+    ["cotton farming guide", "Cultivation"],
+    ["how to plant wheat", "Cultivation"],
+    ["how to plant rice", "Cultivation"],
+    ["how to plant cotton", "Cultivation"],
+    ["steps to grow wheat", "Cultivation"],
+    ["steps to grow rice", "Cultivation"],
+    ["method to grow wheat", "Cultivation"],
+    ["method to grow rice", "Cultivation"],
+    ["what is the process of growing wheat", "Cultivation"],
+    ["what is the process of growing rice", "Cultivation"],
+    ["can you tell me about wheat", "Cultivation"],
+    ["can you tell me about rice", "Cultivation"],
+    ["can you tell me about cotton", "Cultivation"],
+
+    # === FERTILIZER ===
+    ["fertilizer for wheat", "Fertilizer"],
+    ["fertilizer for rice", "Fertilizer"],
+    ["fertilizer for cotton", "Fertilizer"],
+    ["fertilizer for sugarcane", "Fertilizer"],
+    ["fertilizer for maize", "Fertilizer"],
+    ["what fertilizer to use for wheat", "Fertilizer"],
+    ["best fertilizer for rice", "Fertilizer"],
+    ["how much fertilizer for wheat", "Fertilizer"],
+    ["npk ratio for wheat", "Fertilizer"],
+    ["npk for rice", "Fertilizer"],
+    ["urea for wheat", "Fertilizer"],
+    ["dap for rice", "Fertilizer"],
+    ["manure for cotton", "Fertilizer"],
+    ["fertilizer dose for maize", "Fertilizer"],
+    ["fertilizer recommendation for wheat", "Fertilizer"],
+    ["fertilizer requirement for rice", "Fertilizer"],
+    ["which fertilizer is best for wheat", "Fertilizer"],
+    ["how to apply fertilizer to wheat", "Fertilizer"],
+
+    # === PESTICIDE ===
+    ["pesticide for cotton", "Pesticide"],
+    ["pesticide for rice", "Pesticide"],
+    ["pesticide for wheat", "Pesticide"],
+    ["pesticide for sugarcane", "Pesticide"],
+    ["pests in cotton", "Pesticide"],
+    ["pests in rice", "Pesticide"],
+    ["pests in wheat", "Pesticide"],
+    ["insects in cotton", "Pesticide"],
+    ["insects in rice", "Pesticide"],
+    ["how to control pests in cotton", "Pesticide"],
+    ["how to control pests in rice", "Pesticide"],
+    ["how to control pests in wheat", "Pesticide"],
+    ["pest management in cotton", "Pesticide"],
+    ["pest management in rice", "Pesticide"],
+    ["insecticide for cotton", "Pesticide"],
+    ["insecticide for rice", "Pesticide"],
+    ["whitefly control in cotton", "Pesticide"],
+    ["bollworm control in cotton", "Pesticide"],
+    ["stem borer in rice", "Pesticide"],
+    ["aphids in wheat", "Pesticide"],
+
+    # === IRRIGATION ===
+    ["water requirement for wheat", "Irrigation"],
+    ["water requirement for rice", "Irrigation"],
+    ["water requirement for cotton", "Irrigation"],
+    ["how much water for wheat", "Irrigation"],
+    ["how much water for rice", "Irrigation"],
+    ["irrigation for wheat", "Irrigation"],
+    ["irrigation for rice", "Irrigation"],
+    ["irrigation for cotton", "Irrigation"],
+    ["irrigation for sugarcane", "Irrigation"],
+    ["how many irrigations for wheat", "Irrigation"],
+    ["how many irrigations for rice", "Irrigation"],
+    ["drip irrigation for cotton", "Irrigation"],
+    ["sprinkler irrigation for wheat", "Irrigation"],
+    ["when to irrigate wheat", "Irrigation"],
+    ["when to irrigate rice", "Irrigation"],
+    ["critical stages for irrigation in wheat", "Irrigation"],
+    ["critical stages for irrigation in rice", "Irrigation"],
+
+    # === SOIL ===
+    ["soil for wheat", "Soil"],
+    ["soil for rice", "Soil"],
+    ["soil for cotton", "Soil"],
+    ["best soil for wheat", "Soil"],
+    ["best soil for rice", "Soil"],
+    ["best soil for cotton", "Soil"],
+    ["soil type for wheat", "Soil"],
+    ["soil type for rice", "Soil"],
+    ["soil type for cotton", "Soil"],
+    ["soil ph for wheat", "Soil"],
+    ["soil ph for rice", "Soil"],
+    ["clay soil for rice", "Soil"],
+    ["sandy soil for wheat", "Soil"],
+    ["black soil for cotton", "Soil"],
+    ["loamy soil for wheat", "Soil"],
+    ["how to improve soil for wheat", "Soil"],
+    ["soil preparation for wheat", "Soil"],
+    ["soil preparation for rice", "Soil"],
+
+    # === YIELD ===
+    ["yield of wheat", "Yield"],
+    ["yield of rice", "Yield"],
+    ["yield of cotton", "Yield"],
+    ["yield of sugarcane", "Yield"],
+    ["average yield of wheat", "Yield"],
+    ["average yield of rice", "Yield"],
+    ["how much yield from wheat", "Yield"],
+    ["wheat production per acre", "Yield"],
+    ["rice production per acre", "Yield"],
+    ["cotton yield per acre", "Yield"],
+    ["how to increase wheat yield", "Yield"],
+    ["how to increase rice yield", "Yield"],
+    ["how to increase cotton yield", "Yield"],
+
+    # === DISEASES ===
+    ["diseases in wheat", "Diseases"],
+    ["diseases in rice", "Diseases"],
+    ["diseases in cotton", "Diseases"],
+    ["common diseases of wheat", "Diseases"],
+    ["common diseases of rice", "Diseases"],
+    ["common diseases of cotton", "Diseases"],
+    ["wheat rust", "Diseases"],
+    ["rice blast", "Diseases"],
+    ["cotton leaf curl virus", "Diseases"],
+    ["how to control diseases in wheat", "Diseases"],
+    ["how to control diseases in rice", "Diseases"],
+    ["how to control diseases in cotton", "Diseases"],
+
+    # === VARIETIES ===
+    ["wheat varieties", "Varieties"],
+    ["rice varieties", "Varieties"],
+    ["cotton varieties", "Varieties"],
+    ["sugarcane varieties", "Varieties"],
+    ["maize varieties", "Varieties"],
+    ["best wheat variety", "Varieties"],
+    ["best rice variety", "Varieties"],
+    ["high yielding wheat variety", "Varieties"],
+    ["high yielding rice variety", "Varieties"],
+    ["hybrid wheat", "Varieties"],
+    ["hybrid rice", "Varieties"],
+    ["basmati rice", "Varieties"],
+    ["bt cotton", "Varieties"],
+
+    # === MARKET PRICE ===
+    ["price of wheat", "MarketPrice"],
+    ["price of rice", "MarketPrice"],
+    ["price of cotton", "MarketPrice"],
+    ["wheat market price", "MarketPrice"],
+    ["rice market price", "MarketPrice"],
+    ["cotton market price", "MarketPrice"],
+    ["cost of wheat", "MarketPrice"],
+    ["cost of rice", "MarketPrice"],
+    ["cost of cotton", "MarketPrice"],
+    ["wheat rate today", "MarketPrice"],
+    ["rice rate today", "MarketPrice"],
+    ["mandi price of wheat", "MarketPrice"],
+    ["mandi price of rice", "MarketPrice"],
+
+    # === HARVEST TIME ===
+    ["when to harvest wheat", "HarvestTime"],
+    ["when to harvest rice", "HarvestTime"],
+    ["when to harvest cotton", "HarvestTime"],
+    ["when to harvest sugarcane", "HarvestTime"],
+    ["wheat harvesting time", "HarvestTime"],
+    ["rice harvesting time", "HarvestTime"],
+    ["cotton harvesting time", "HarvestTime"],
+    ["how to harvest wheat", "HarvestTime"],
+    ["how to harvest rice", "HarvestTime"],
+
+    # === SOWING TIME ===
+    ["when to sow wheat", "SowingTime"],
+    ["when to sow rice", "SowingTime"],
+    ["when to sow cotton", "SowingTime"],
+    ["when to plant wheat", "SowingTime"],
+    ["when to plant rice", "SowingTime"],
+    ["when to plant cotton", "SowingTime"],
+    ["wheat sowing season", "SowingTime"],
+    ["rice sowing season", "SowingTime"],
+    ["cotton sowing season", "SowingTime"],
+    ["best time to sow wheat", "SowingTime"],
+    ["best time to sow rice", "SowingTime"],
+    ["best time to sow cotton", "SowingTime"],
+
+    # === WEATHER ===
+    ["weather today", "Weather"],
+    ["weather tomorrow", "Weather"],
+    ["weather this week", "Weather"],
+    ["will it rain", "Weather"],
+    ["rain forecast", "Weather"],
+    ["temperature today", "Weather"],
+    ["climate today", "Weather"],
+
+    # === GREETINGS ===
+    ["hello", "Greeting"],
+    ["hi", "Greeting"],
+    ["hey", "Greeting"],
+    ["Assalam-o-Alaikum", "Greeting"],
+    ["good morning", "Greeting"],
+    ["good evening", "Greeting"],
+    ["wassup", "Wassup"],
+    ["whats up", "Wassup"],
+    ["how are you", "Wellness"],
+    ["how are you doing", "Wellness"],
+    ["are you okay", "Wellness"],
+    ["how is it going", "Wellness"],
+
+    # === HELP ===
+    ["i need help", "AskingHelp"],
+    ["need help", "AskingHelp"],
+    ["help me", "AskingHelp"],
+    ["can you help me", "AskingHelp"],
+    ["i need assistance", "AskingHelp"],
+    ["please help", "AskingHelp"],
+    ["help", "AskingHelp"],
+
+    # === OUT OF SCOPE ===
+    ["who is the president", "OutOfScope"],
+    ["who is the prime minister", "OutOfScope"],
+    ["what is your name", "OutOfScope"],
+    ["who created you", "OutOfScope"],
+    ["are you a bot", "OutOfScope"],
+    ["how old are you", "OutOfScope"],
+    ["do you have a girlfriend", "OutOfScope"],
+    ["are you married", "OutOfScope"],
+    ["what is the weather in paris", "Weather"],
+    ["cricket match", "OutOfScope"],
+    ["football", "OutOfScope"],
+    ["movie", "OutOfScope"],
+    ["song", "OutOfScope"],
+    ["recipe", "OutOfScope"],
+    ["cooking", "OutOfScope"],
+]
+
+# Create DataFrame and save
+df_intents = pd.DataFrame(intent_data, columns=["Query", "Intent"])
+df_intents.to_csv("datasets/intents.csv", index=False, header=False)
+print(f"✅ Created intents.csv with {len(df_intents)} samples")
+print(f"   Unique intents: {df_intents['Intent'].nunique()}")
+print(f"   Intent distribution:")
+print(df_intents['Intent'].value_counts().to_string())
+
+# ============================================
+# PART 2: ENTITY DATASET (EXPANDED)
+# ============================================
+
+entity_data = [
+    # === CROPS (EXPANDED) ===
+    ["rice", "CROP"],
+    ["paddy", "CROP"],
+    ["wheat", "CROP"],
+    ["cotton", "CROP"],
+    ["sugarcane", "CROP"],
+    ["maize", "CROP"],
+    ["corn", "CROP"],
+    ["potato", "CROP"],
+    ["tomato", "CROP"],
+    ["onion", "CROP"],
+    ["chili", "CROP"],
+    ["chilly", "CROP"],
+    ["brinjal", "CROP"],
+    ["eggplant", "CROP"],
+    ["okra", "CROP"],
+    ["ladyfinger", "CROP"],
+    ["cabbage", "CROP"],
+    ["cauliflower", "CROP"],
+    ["carrot", "CROP"],
+    ["radish", "CROP"],
+    ["spinach", "CROP"],
+    ["cucumber", "CROP"],
+    ["peas", "CROP"],
+    ["gram", "CROP"],
+    ["chickpea", "CROP"],
+    ["mustard", "CROP"],
+    ["sunflower", "CROP"],
+    ["groundnut", "CROP"],
+    ["ragi", "CROP"],
+    ["jowar", "CROP"],
+    ["bajra", "CROP"],
+    ["barley", "CROP"],
+    ["mango", "CROP"],
+    ["banana", "CROP"],
+    ["apple", "CROP"],
+    ["orange", "CROP"],
+    ["cashew", "CROP"],
+    ["coconut", "CROP"],
+    ["arecanut", "CROP"],
+    ["tobacco", "CROP"],
+    ["soyabean", "CROP"],
+    ["cardamom", "CROP"],
+
+    # === SOIL TYPES ===
+    ["soil", "SOIL"],
+    ["red soil", "SOIL"],
+    ["black soil", "SOIL"],
+    ["clay soil", "SOIL"],
+    ["sandy soil", "SOIL"],
+    ["loamy soil", "SOIL"],
+    ["alluvial soil", "SOIL"],
+    ["laterite soil", "SOIL"],
+    ["red", "SOIL"],
+    ["black", "SOIL"],
+    ["clay", "SOIL"],
+    ["sandy", "SOIL"],
+    ["loamy", "SOIL"],
+    ["alluvial", "SOIL"],
+    ["saline", "SOIL"],
+    ["kallar", "SOIL"],
+    ["waterlogged", "SOIL"],
+
+    # === FERTILIZERS ===
+    ["fertilizer", "FTLZ"],
+    ["fertiliser", "FTLZ"],
+    ["manure", "FTLZ"],
+    ["compost", "FTLZ"],
+    ["urea", "FTLZ"],
+    ["dap", "FTLZ"],
+    ["npk", "FTLZ"],
+    ["potash", "FTLZ"],
+    ["phosphate", "FTLZ"],
+    ["potassium", "FTLZ"],
+    ["nitrogen", "FTLZ"],
+    ["zinc", "FTLZ"],
+    ["gypsum", "FTLZ"],
+    ["fym", "FTLZ"],
+    ["farm yard manure", "FTLZ"],
+    ["green manure", "FTLZ"],
+
+    # === PESTICIDES / PESTS ===
+    ["pesticide", "PEST"],
+    ["insecticide", "PEST"],
+    ["fungicide", "PEST"],
+    ["herbicide", "PEST"],
+    ["pest", "PEST"],
+    ["insect", "PEST"],
+    ["whitefly", "PEST"],
+    ["bollworm", "PEST"],
+    ["aphid", "PEST"],
+    ["stem borer", "PEST"],
+    ["root borer", "PEST"],
+    ["termite", "PEST"],
+    ["armyworm", "PEST"],
+    ["caterpillar", "PEST"],
+    ["thrips", "PEST"],
+    ["mite", "PEST"],
+    ["weed", "PEST"],
+    ["weeds", "PEST"],
+
+    # === DISEASES ===
+    ["disease", "DISEASE"],
+    ["rust", "DISEASE"],
+    ["blast", "DISEASE"],
+    ["blight", "DISEASE"],
+    ["wilt", "DISEASE"],
+    ["mildew", "DISEASE"],
+    ["curl", "DISEASE"],
+    ["virus", "DISEASE"],
+    ["fungal", "DISEASE"],
+    ["bacterial", "DISEASE"],
+    ["rot", "DISEASE"],
+    ["smut", "DISEASE"],
+    ["leaf curl", "DISEASE"],
+    ["yellow rust", "DISEASE"],
+    ["brown rust", "DISEASE"],
+    ["karnal bunt", "DISEASE"],
+
+    # === IRRIGATION ===
+    ["irrigation", "IRR"],
+    ["water", "WTR"],
+    ["irrigate", "IRR"],
+    ["drip", "IRR"],
+    ["sprinkler", "IRR"],
+    ["flood", "IRR"],
+    ["furrow", "IRR"],
+    ["tapka", "IRR"],
+    ["fawara", "IRR"],
+    ["sailaba", "IRR"],
+    ["rain", "RAIN"],
+    ["rainfall", "RAIN"],
+    ["precipitation", "RAIN"],
+
+    # === YIELD ===
+    ["yield", "YLD"],
+    ["production", "YLD"],
+    ["productivity", "YLD"],
+    ["output", "YLD"],
+    ["harvest", "YLD"],
+
+    # === PRICE / COST ===
+    ["price", "COST"],
+    ["cost", "COST"],
+    ["rate", "COST"],
+    ["market price", "COST"],
+    ["mandi", "COST"],
+    ["rate today", "COST"],
+
+    # === TIME / SEASON ===
+    ["season", "TIME"],
+    ["time", "TIME"],
+    ["month", "TIME"],
+    ["year", "TIME"],
+    ["today", "TIME"],
+    ["tomorrow", "TIME"],
+    ["week", "TIME"],
+    ["rabi", "TIME"],
+    ["kharif", "TIME"],
+    ["spring", "TIME"],
+    ["summer", "TIME"],
+    ["winter", "TIME"],
+    ["autumn", "TIME"],
+
+    # === LOCATION ===
+    ["punjab", "LOC"],
+    ["sindh", "LOC"],
+    ["kpk", "LOC"],
+    ["balochistan", "LOC"],
+    ["pakistan", "LOC"],
+    ["region", "LOC"],
+    ["district", "LOC"],
+    ["area", "LOC"],
+
+    # === ACTIONS ===
+    ["grow", "CUL"],
+    ["cultivate", "CUL"],
+    ["plant", "CUL"],
+    ["sow", "SOW"],
+    ["harvest", "REAP"],
+    ["reap", "REAP"],
+
+    # === VARIETIES ===
+    ["variety", "TYPE"],
+    ["varieties", "TYPE"],
+    ["type", "TYPE"],
+    ["types", "TYPE"],
+    ["kind", "TYPE"],
+    ["hybrid", "TYPE"],
+    ["basmati", "TYPE"],
+    ["irri", "TYPE"],
+    ["bt", "TYPE"],
+
+    # === QUANTITY ===
+    ["how much", "QTY"],
+    ["how many", "QTY"],
+    ["kg", "MSR"],
+    ["kilogram", "MSR"],
+    ["acre", "MSR"],
+    ["hectare", "MSR"],
+    ["ton", "MSR"],
+    ["tonne", "MSR"],
+    ["quintal", "MSR"],
+    ["maund", "MSR"],
+    ["bag", "MSR"],
+    ["per acre", "MSR"],
+    ["per hectare", "MSR"],
+
+    # === GREETINGS ===
+    ["hello", "GREET"],
+    ["hi", "GREET"],
+    ["hey", "GREET"],
+    ["Asssalam-o-Alaikum", "GREET"],
+    ["wassup", "GREET"],
+
+    # === QUESTION WORDS ===
+    ["how", "QW"],
+    ["what", "QW"],
+    ["when", "QW"],
+    ["where", "QW"],
+    ["which", "QW"],
+    ["why", "QW"],
+    ["who", "QW"],
+    ["can", "QW"],
+    ["will", "QW"],
+    ["is", "QW"],
+    ["are", "QW"],
+    ["tell", "QW"],
+    ["describe", "QW"],
+    ["explain", "QW"],
+
+    # === STOP WORDS ===
+    ["the", "SW"],
+    ["a", "SW"],
+    ["an", "SW"],
+    ["is", "SW"],
+    ["are", "SW"],
+    ["am", "SW"],
+    ["was", "SW"],
+    ["were", "SW"],
+    ["be", "SW"],
+    ["been", "SW"],
+    ["being", "SW"],
+    ["to", "SW"],
+    ["for", "SW"],
+    ["of", "SW"],
+    ["in", "SW"],
+    ["on", "SW"],
+    ["at", "SW"],
+    ["by", "SW"],
+    ["with", "SW"],
+    ["from", "SW"],
+    ["about", "SW"],
+    ["i", "USR"],
+    ["me", "USR"],
+    ["my", "USR"],
+    ["mine", "USR"],
+    ["you", "USR"],
+    ["your", "USR"],
+    ["yours", "USR"],
+    ["we", "USR"],
+    ["us", "USR"],
+    ["our", "USR"],
+]
+
+# Create DataFrame and save
+df_entities = pd.DataFrame(entity_data, columns=["Word", "Tag"])
+df_entities = df_entities.drop_duplicates(subset=["Word"])
+df_entities.to_csv("datasets/data-tags.csv", index=False)
+print(f"\n✅ Created data-tags.csv with {len(df_entities)} unique entity samples")
+print(f"   Unique entity tags: {df_entities['Tag'].nunique()}")
+print(f"   Entity tag distribution:")
+print(df_entities['Tag'].value_counts().to_string())
+
+print("\n" + "=" * 60)
+print("✅ FIXED TRAINING DATA CREATED SUCCESSFULLY!")
+print("=" * 60)
+print("\nNext step: Run train_models_fixed.py")

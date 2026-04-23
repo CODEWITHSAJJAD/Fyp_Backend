@@ -1,0 +1,115 @@
+create database fyp_ORM1
+/*------*/
+use fyp_ORM1
+/*------*/
+create table Province(
+province_id int Not Null,
+province_name varchar(100),
+primary key(province_id)
+)
+/*------*/
+create table City(
+City_id int Not Null,
+City_name varchar(100),
+province_id int
+primary key(City_id),
+foreign key(province_id) REFERENCES Province(province_id)
+)
+/*------*/
+create table Farmer(
+Farmer_id int not null,
+Farmer_name varchar(100),
+phone varchar(11),
+email varchar(255),
+City_id int,
+Farmer_image varchar(500),
+Landmark varchar(255),
+Password varchar(100),
+Years_of_experience varchar(2),
+primary key(Farmer_id),
+foreign key(City_id) REFERENCES City(City_id)
+)
+/*------*/
+create table Land(
+Land_id int not null,
+Land_name varchar(100),
+Years_of_cultivation varchar(2),
+Soil_type varchar(100),
+Source_of_Water varchar(100),
+Land_in_Acres varchar(10),
+City_id int,
+Farmer_id int,
+Landmark varchar(255),
+land_Status int,
+primary key(Land_id),
+foreign key(City_id) REFERENCES City(City_id),
+foreign key(Farmer_id) REFERENCES Farmer(Farmer_id)
+)
+/*------*/
+
+create table Neighbour(
+Neighbour_id int not null,
+Land_id int,
+Neighbour_Land_id int,
+Status int,
+primary key(Neighbour_id),
+foreign key(Land_id) REFERENCES Land(Land_id),
+foreign key(Neighbour_Land_id) REFERENCES Land(Land_id)
+)
+/*------*/
+create table Crop(
+Crop_id int not null,
+Crop_name varchar(100),
+Season_name varchar(50),
+Crop_image varchar(500),
+primary key(Crop_id),
+)
+/*------*/
+create table Cultivation_Session(
+Cultivation_Session_id int not null,
+Crop_id int,
+Land_id int,
+Seed_name varchar(100),
+Session_status varchar(100),
+is_Profit int,
+Amount_per_Acre varchar(20),
+primary key(Cultivation_Session_id),
+foreign key(Crop_id) REFERENCES Crop(Crop_id),
+foreign key(Land_id) REFERENCES Land(Land_id)
+)
+/*------*/
+create table Activity(
+Activity_id int not null,
+Activity_name varchar(100),
+primary key(Activity_id),
+)
+/*------*/
+create table Performed_Activity(
+P_Activity_id int not null,
+Activity_id int,
+Crop_id int,
+Activity_date date,
+quantity_per_acre varchar(20),
+primary key(P_Activity_id),
+foreign key(Activity_id) REFERENCES Activity(Activity_id),
+foreign key(Crop_id) REFERENCES Crop(Crop_id)
+)
+/*------*/
+create table chat_session(
+chat_session_id int not null,
+Farmer_id int,
+primary key(chat_session_id),
+foreign key(Farmer_id) REFERENCES Farmer(Farmer_id)
+)
+/*------*/
+create table Chat(
+Chat_id int not null,
+question varchar(500),
+answer varchar(4000),
+Chat_Type varchar(40),
+chat_session_id int,
+Time_stamp varchar(40),
+primary key(Chat_id),
+foreign key(chat_session_id) REFERENCES chat_session(chat_session_id),
+)
+/*------*/

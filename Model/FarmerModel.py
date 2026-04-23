@@ -15,5 +15,5 @@ class FarmerModel(db.Model):
 
     city_rls = db.relationship("CityModel", back_populates="farmer_rls")
     land_rls = db.relationship("LandModel", back_populates="farmer_rls")
-    chat_rls = db.relationship("ChatModel", back_populates="farmer_rls")
+    chatSession_rls = db.relationship("ChatSessionModel", back_populates="farmer_rls")
 

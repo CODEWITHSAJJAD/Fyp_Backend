@@ -1,7 +1,9 @@
 from Model.ChatModel import ChatModel
 from Model.CityModel import CityModel
+from Model.CultivationSessionModel import CultivationSessionModel
 from Model.FarmerModel import FarmerModel
 from Model.LandModel import LandModel
+from Model.ProvinceModel import ProvinceModel
 from db import db
 from flask import jsonify,request
 
@@ -30,6 +32,23 @@ class LandController:
             return jsonify('Land deleted!'),200
         except Exception as e:
             return jsonify( str(e)),500
+    @staticmethod
+    def getLandWithCurrentSession(id):
+        fid=id
+        try:
+            Lands=(db.session.query(LandModel.land_name,LandModel.land_id,CultivationSessionModel.cultivation_session_id).join(CultivationSessionModel,LandModel.land_id==CultivationSessionModel.land_id).filter(CultivationSessionModel.session_status!="Harvest",LandModel.farmer_id==fid)).all()
+            LandList=[]
+            if Lands:
+                for land in Lands:
+                    LandList.append({"Land Name":land.land_name,
+                                     "id":land.land_id,
+                                     "cultivation_session_id":land.cultivation_session_id
+                                     })
+                return jsonify(LandList),200
+            return jsonify("No Current Session exist"),404
+        except Exception as e:
+            return jsonify(str(e)),500
+
 
     @staticmethod
     def editLand():
@@ -49,6 +68,7 @@ class LandController:
                 existingland.land_in_acres=data['land_in_acres']
                 existingland.city_id=city_id
                 existingland.landmark=data['landmark']
+                existingland.land_Status=existingland.land_Status
                 db.session.commit()
                 return jsonify('Land edited!'),200
             else:
@@ -57,8 +77,8 @@ class LandController:
             return jsonify( str(e)),500
 
     @staticmethod
-    def GetallLands():
-        f_id=request.form['f_id']
+    def GetallLands(id):
+        f_id=id
         landsLsit=[]
         try:
             Lands=LandModel.query.filter(LandModel.farmer_id==f_id).all()
@@ -78,5 +98,29 @@ class LandController:
                 return jsonify(landsLsit),200
             else:
                 return jsonify('Land not found against farmer!'),404
+        except Exception as e:
+            return jsonify( str(e)),500
+
+    @staticmethod
+    def getLandByID(id):
+        lid=id
+        try:
+            land=(db.session.query(
+                LandModel.land_name,LandModel.land_in_acres,LandModel.farmer_id,LandModel.years_of_cultivation,LandModel.soil_type,LandModel.source_of_water,LandModel.land_in_acres,LandModel.city_id,LandModel.landmark,LandModel.land_Status,
+                CityModel.city_name,ProvinceModel.province_name
+            ).join(CityModel,LandModel.city_id==CityModel.city_id).join(ProvinceModel,CityModel.province_id==ProvinceModel.province_id).filter(LandModel.land_id==lid)).first()
+            if land:
+                return jsonify({
+                            'Province':land.province_name,
+                            'land_name':land.land_name,
+                            'years_of_cultivation':land.years_of_cultivation,
+                            'soil_type':land.soil_type,
+                            'source_of_water':land.source_of_water,
+                            'land_in_acres':land.land_in_acres,
+                            'city_Name':land.city_name,
+                            'landMark':land.landmark,
+                            "land_Status":land.land_Status
+                        }),200
+            return jsonify("Land Not found"),404
         except Exception as e:
             return jsonify( str(e)),500
