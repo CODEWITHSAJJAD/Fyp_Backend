@@ -1,16 +1,17 @@
 from os.path import join
-
 from sqlalchemy import Null
-
 from Model.ActivityModel import ActivityModel
 from Model.LandModel import LandModel
 from Model.PerformActivityModel import PerformedActivityModel
+from Services.DateUtils import get_current_date_string
 from  db import db
 from sqlmodel import or_,and_
 from flask import jsonify,request
 from Model.CultivationSessionModel import CultivationSessionModel
 from Model.CropModel import CropModel
 from url import imageurl
+from datetime import datetime
+from Services.ActivitySuggestionService import ActivitySuggestionService
 
 
 class SessionController:
@@ -36,8 +37,15 @@ class SessionController:
                 )
                 db.session.add(newSession)
                 db.session.commit()
-                return jsonify("Seesion Added"),200
-            return jsonify("Seesion Not Allowed because one is icomplete"),404
+
+                if newSession.cultivation_session_id:
+                    ActivitySuggestionService.seed_suggested_activities(
+                        newSession.cultivation_session_id,
+                        get_current_date_string()
+                    )
+                    
+                return jsonify("Session Added"),200
+            return jsonify("Session Not Allowed because one is incomplete"),404
         except Exception as e:
             return jsonify(str(e)),500
 

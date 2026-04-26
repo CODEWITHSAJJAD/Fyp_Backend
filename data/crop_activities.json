@@ -1,0 +1,487 @@
+{
+  "crop_activities": {
+    "barley": {
+      "description": "Barley cereal crop",
+      "total_duration_days": 115,
+      "activities": [
+        {"activity_id": 1, "activity_name": "Land Preparation", "days_from_sowing": -14, "time_frame_days": 7, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 2, "activity_name": "Sowing", "days_from_sowing": 0, "time_frame_days": 5, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 3, "activity_name": "Watering", "days_from_sowing": 25, "time_frame_days": 3, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": true, "cycle_count": 3, "cycle_interval_days": 21},
+        {"activity_id": 4, "activity_name": "Fertilizer", "days_from_sowing": 40, "time_frame_days": 5, "weather_suitable": ["cloudy"], "weather_avoid": ["rainy", "windy"], "is_cycle": true, "cycle_count": 2, "cycle_interval_days": 30},
+        {"activity_id": 7, "activity_name": "Harvesting", "days_from_sowing": 115, "time_frame_days": 10, "weather_suitable": ["sunny"], "weather_avoid": ["rainy"], "is_cycle": false}
+      ]
+    },
+    "beans": {
+      "description": "Leguminous beans",
+      "total_duration_days": 70,
+      "activities": [
+        {"activity_id": 1, "activity_name": "Land Preparation", "days_from_sowing": -10, "time_frame_days": 7, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 2, "activity_name": "Sowing", "days_from_sowing": 0, "time_frame_days": 5, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 3, "activity_name": "Watering", "days_from_sowing": 15, "time_frame_days": 2, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": [], "is_cycle": true, "cycle_count": 4, "cycle_interval_days": 10},
+        {"activity_id": 4, "activity_name": "Fertilizer", "days_from_sowing": 25, "time_frame_days": 5, "weather_suitable": ["cloudy"], "weather_avoid": ["rainy"], "is_cycle": true, "cycle_count": 1, "cycle_interval_days": 30},
+        {"activity_id": 7, "activity_name": "Harvesting", "days_from_sowing": 70, "time_frame_days": 7, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false}
+      ]
+    },
+    "beets_chakandar": {
+      "description": "Beetroot crop",
+      "total_duration_days": 80,
+      "activities": [
+        {"activity_id": 1, "activity_name": "Land Preparation", "days_from_sowing": -14, "time_frame_days": 7, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 2, "activity_name": "Sowing", "days_from_sowing": 0, "time_frame_days": 5, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 3, "activity_name": "Watering", "days_from_sowing": 10, "time_frame_days": 2, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": [], "is_cycle": true, "cycle_count": 5, "cycle_interval_days": 10},
+        {"activity_id": 7, "activity_name": "Harvesting", "days_from_sowing": 80, "time_frame_days": 7, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false}
+      ]
+    },
+    "brinjal": {
+      "description": "Eggplant/Brinjal crop",
+      "total_duration_days": 85,
+      "activities": [
+        {"activity_id": 1, "activity_name": "Land Preparation", "days_from_sowing": -12, "time_frame_days": 7, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 2, "activity_name": "Sowing", "days_from_sowing": 0, "time_frame_days": 5, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 3, "activity_name": "Watering", "days_from_sowing": 14, "time_frame_days": 2, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": [], "is_cycle": true, "cycle_count": 6, "cycle_interval_days": 10},
+        {"activity_id": 4, "activity_name": "Fertilizer", "days_from_sowing": 21, "time_frame_days": 5, "weather_suitable": ["cloudy"], "weather_avoid": ["rainy"], "is_cycle": true, "cycle_count": 2, "cycle_interval_days": 21},
+        {"activity_id": 7, "activity_name": "Harvesting", "days_from_sowing": 85, "time_frame_days": 10, "weather_suitable": ["sunny"], "weather_avoid": ["rainy"], "is_cycle": false}
+      ]
+    },
+    "cabbage": {
+      "description": "Cabbage leafy crop",
+      "total_duration_days": 100,
+      "activities": [
+        {"activity_id": 1, "activity_name": "Land Preparation", "days_from_sowing": -12, "time_frame_days": 7, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 2, "activity_name": "Sowing", "days_from_sowing": 0, "time_frame_days": 5, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 3, "activity_name": "Watering", "days_from_sowing": 10, "time_frame_days": 2, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": [], "is_cycle": true, "cycle_count": 6, "cycle_interval_days": 10},
+        {"activity_id": 7, "activity_name": "Harvesting", "days_from_sowing": 100, "time_frame_days": 10, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false}
+      ]
+    },
+    "carrot": {
+      "description": "Root vegetable carrot",
+      "total_duration_days": 90,
+      "activities": [
+        {"activity_id": 1, "activity_name": "Land Preparation", "days_from_sowing": -15, "time_frame_days": 7, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 2, "activity_name": "Sowing", "days_from_sowing": 0, "time_frame_days": 5, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 3, "activity_name": "Watering", "days_from_sowing": 12, "time_frame_days": 2, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": [], "is_cycle": true, "cycle_count": 5, "cycle_interval_days": 10},
+        {"activity_id": 7, "activity_name": "Harvesting", "days_from_sowing": 90, "time_frame_days": 7, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false}
+      ]
+    },
+    "cauliflower": {
+      "description": "Cauliflower crop",
+      "total_duration_days": 105,
+      "activities": [
+        {"activity_id": 1, "activity_name": "Land Preparation", "days_from_sowing": -12, "time_frame_days": 7, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 2, "activity_name": "Sowing", "days_from_sowing": 0, "time_frame_days": 5, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 3, "activity_name": "Watering", "days_from_sowing": 14, "time_frame_days": 2, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": [], "is_cycle": true, "cycle_count": 6, "cycle_interval_days": 10},
+        {"activity_id": 7, "activity_name": "Harvesting", "days_from_sowing": 105, "time_frame_days": 10, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false}
+      ]
+    },
+    "coriander": {
+      "description": "Fresh coriander/Dhania",
+      "total_duration_days": 40,
+      "activities": [
+        {"activity_id": 1, "activity_name": "Land Preparation", "days_from_sowing": -7, "time_frame_days": 5, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 2, "activity_name": "Sowing", "days_from_sowing": 0, "time_frame_days": 3, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 3, "activity_name": "Watering", "days_from_sowing": 7, "time_frame_days": 2, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": [], "is_cycle": true, "cycle_count": 3, "cycle_interval_days": 7},
+        {"activity_id": 7, "activity_name": "Harvesting", "days_from_sowing": 40, "time_frame_days": 5, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": [], "is_cycle": false}
+      ]
+    },
+    "fennogreek_methi": {
+      "description": "Methi/Fenugreek greens",
+      "total_duration_days": 35,
+      "activities": [
+        {"activity_id": 1, "activity_name": "Land Preparation", "days_from_sowing": -10, "time_frame_days": 5, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 2, "activity_name": "Sowing", "days_from_sowing": 0, "time_frame_days": 3, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 3, "activity_name": "Watering", "days_from_sowing": 10, "time_frame_days": 2, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": [], "is_cycle": true, "cycle_count": 2, "cycle_interval_days": 7},
+        {"activity_id": 7, "activity_name": "Harvesting", "days_from_sowing": 35, "time_frame_days": 5, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": [], "is_cycle": false}
+      ]
+    },
+    "garlic": {
+      "description": "Garlic bulb crop",
+      "total_duration_days": 150,
+      "activities": [
+        {"activity_id": 1, "activity_name": "Land Preparation", "days_from_sowing": -14, "time_frame_days": 7, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 2, "activity_name": "Sowing", "days_from_sowing": 0, "time_frame_days": 5, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 3, "activity_name": "Watering", "days_from_sowing": 20, "time_frame_days": 2, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": [], "is_cycle": true, "cycle_count": 6, "cycle_interval_days": 14},
+        {"activity_id": 4, "activity_name": "Fertilizer", "days_from_sowing": 45, "time_frame_days": 5, "weather_suitable": ["cloudy"], "weather_avoid": ["rainy"], "is_cycle": true, "cycle_count": 2, "cycle_interval_days": 30},
+        {"activity_id": 7, "activity_name": "Harvesting", "days_from_sowing": 150, "time_frame_days": 10, "weather_suitable": ["sunny"], "weather_avoid": ["rainy"], "is_cycle": false}
+      ]
+    },
+    "gram": {
+      "description": "Chickpea/Gram crop",
+      "total_duration_days": 110,
+      "activities": [
+        {"activity_id": 1, "activity_name": "Land Preparation", "days_from_sowing": -14, "time_frame_days": 7, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 2, "activity_name": "Sowing", "days_from_sowing": 0, "time_frame_days": 5, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 3, "activity_name": "Watering", "days_from_sowing": 30, "time_frame_days": 3, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": [], "is_cycle": true, "cycle_count": 2, "cycle_interval_days": 30},
+        {"activity_id": 7, "activity_name": "Harvesting", "days_from_sowing": 110, "time_frame_days": 10, "weather_suitable": ["sunny"], "weather_avoid": ["rainy"], "is_cycle": false}
+      ]
+    },
+    "lettuce": {
+      "description": "Fresh salad lettuce",
+      "total_duration_days": 50,
+      "activities": [
+        {"activity_id": 1, "activity_name": "Land Preparation", "days_from_sowing": -10, "time_frame_days": 5, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 2, "activity_name": "Sowing", "days_from_sowing": 0, "time_frame_days": 3, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 3, "activity_name": "Watering", "days_from_sowing": 7, "time_frame_days": 2, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": [], "is_cycle": true, "cycle_count": 4, "cycle_interval_days": 7},
+        {"activity_id": 7, "activity_name": "Harvesting", "days_from_sowing": 50, "time_frame_days": 5, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": [], "is_cycle": false}
+      ]
+    },
+    "linseed": {
+      "description": "Linseed/Flaxseed crop",
+      "total_duration_days": 130,
+      "activities": [
+        {"activity_id": 1, "activity_name": "Land Preparation", "days_from_sowing": -14, "time_frame_days": 7, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 2, "activity_name": "Sowing", "days_from_sowing": 0, "time_frame_days": 5, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 3, "activity_name": "Watering", "days_from_sowing": 35, "time_frame_days": 2, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": [], "is_cycle": true, "cycle_count": 3, "cycle_interval_days": 21},
+        {"activity_id": 7, "activity_name": "Harvesting", "days_from_sowing": 130, "time_frame_days": 10, "weather_suitable": ["sunny"], "weather_avoid": ["rainy"], "is_cycle": false}
+      ]
+    },
+    "mattar_green": {
+      "description": "Green peas crop",
+      "total_duration_days": 80,
+      "activities": [
+        {"activity_id": 1, "activity_name": "Land Preparation", "days_from_sowing": -10, "time_frame_days": 7, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 2, "activity_name": "Sowing", "days_from_sowing": 0, "time_frame_days": 5, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 3, "activity_name": "Watering", "days_from_sowing": 15, "time_frame_days": 2, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": [], "is_cycle": true, "cycle_count": 3, "cycle_interval_days": 14},
+        {"activity_id": 7, "activity_name": "Harvesting", "days_from_sowing": 80, "time_frame_days": 7, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false}
+      ]
+    },
+    "mustard": {
+      "description": "Mustard oilseed crop",
+      "total_duration_days": 110,
+      "activities": [
+        {"activity_id": 1, "activity_name": "Land Preparation", "days_from_sowing": -14, "time_frame_days": 7, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 2, "activity_name": "Sowing", "days_from_sowing": 0, "time_frame_days": 5, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 3, "activity_name": "Watering", "days_from_sowing": 28, "time_frame_days": 3, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": [], "is_cycle": true, "cycle_count": 3, "cycle_interval_days": 21},
+        {"activity_id": 7, "activity_name": "Harvesting", "days_from_sowing": 110, "time_frame_days": 10, "weather_suitable": ["sunny"], "weather_avoid": ["rainy"], "is_cycle": false}
+      ]
+    },
+    "onion": {
+      "description": "Onion bulb crop",
+      "total_duration_days": 140,
+      "activities": [
+        {"activity_id": 1, "activity_name": "Land Preparation", "days_from_sowing": -20, "time_frame_days": 10, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 10, "activity_name": "Soil Testing", "days_from_sowing": -15, "time_frame_days": 3, "weather_suitable": ["sunny", "cloudy", "rainy"], "weather_avoid": [], "is_cycle": false},
+        {"activity_id": 2, "activity_name": "Sowing", "days_from_sowing": 0, "time_frame_days": 5, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 3, "activity_name": "Watering", "days_from_sowing": 15, "time_frame_days": 2, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": true, "cycle_count": 6, "cycle_interval_days": 14},
+        {"activity_id": 4, "activity_name": "Fertilizer", "days_from_sowing": 40, "time_frame_days": 5, "weather_suitable": ["cloudy"], "weather_avoid": ["rainy"], "is_cycle": true, "cycle_count": 2, "cycle_interval_days": 30},
+        {"activity_id": 7, "activity_name": "Harvesting", "days_from_sowing": 140, "time_frame_days": 10, "weather_suitable": ["sunny"], "weather_avoid": ["rainy"], "is_cycle": false}
+      ]
+    },
+    "potato": {
+      "description": "Potato tuber crop",
+      "total_duration_days": 100,
+      "activities": [
+        {"activity_id": 1, "activity_name": "Land Preparation", "days_from_sowing": -20, "time_frame_days": 10, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 2, "activity_name": "Sowing", "days_from_sowing": 0, "time_frame_days": 5, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 3, "activity_name": "Watering", "days_from_sowing": 15, "time_frame_days": 2, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": [], "is_cycle": true, "cycle_count": 5, "cycle_interval_days": 14},
+        {"activity_id": 5, "activity_name": "Weeding", "days_from_sowing": 25, "time_frame_days": 7, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": true, "cycle_count": 2, "cycle_interval_days": 20},
+        {"activity_id": 7, "activity_name": "Harvesting", "days_from_sowing": 100, "time_frame_days": 7, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false}
+      ]
+    },
+    "radish": {
+      "description": "Radish root vegetable",
+      "total_duration_days": 50,
+      "activities": [
+        {"activity_id": 1, "activity_name": "Land Preparation", "days_from_sowing": -7, "time_frame_days": 5, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 2, "activity_name": "Sowing", "days_from_sowing": 0, "time_frame_days": 3, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 3, "activity_name": "Watering", "days_from_sowing": 7, "time_frame_days": 2, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": [], "is_cycle": true, "cycle_count": 3, "cycle_interval_days": 7},
+        {"activity_id": 7, "activity_name": "Harvesting", "days_from_sowing": 50, "time_frame_days": 5, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": [], "is_cycle": false}
+      ]
+    },
+    "spinach": {
+      "description": "Leafy spinach greens",
+      "total_duration_days": 45,
+      "activities": [
+        {"activity_id": 1, "activity_name": "Land Preparation", "days_from_sowing": -7, "time_frame_days": 5, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 2, "activity_name": "Sowing", "days_from_sowing": 0, "time_frame_days": 3, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 3, "activity_name": "Watering", "days_from_sowing": 10, "time_frame_days": 2, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": [], "is_cycle": true, "cycle_count": 3, "cycle_interval_days": 7},
+        {"activity_id": 7, "activity_name": "Harvesting", "days_from_sowing": 45, "time_frame_days": 5, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": [], "is_cycle": false}
+      ]
+    },
+    "sweet_potato": {
+      "description": "Sweet potato root crop",
+      "total_duration_days": 120,
+      "activities": [
+        {"activity_id": 1, "activity_name": "Land Preparation", "days_from_sowing": -15, "time_frame_days": 7, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 2, "activity_name": "Sowing", "days_from_sowing": 0, "time_frame_days": 5, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 3, "activity_name": "Watering", "days_from_sowing": 20, "time_frame_days": 2, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": [], "is_cycle": true, "cycle_count": 6, "cycle_interval_days": 14},
+        {"activity_id": 7, "activity_name": "Harvesting", "days_from_sowing": 120, "time_frame_days": 10, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false}
+      ]
+    },
+    "tobacco": {
+      "description": "Tobacco cash crop",
+      "total_duration_days": 110,
+      "activities": [
+        {"activity_id": 1, "activity_name": "Land Preparation", "days_from_sowing": -20, "time_frame_days": 10, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 2, "activity_name": "Sowing", "days_from_sowing": 0, "time_frame_days": 5, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 3, "activity_name": "Watering", "days_from_sowing": 14, "time_frame_days": 2, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": [], "is_cycle": true, "cycle_count": 6, "cycle_interval_days": 10},
+        {"activity_id": 7, "activity_name": "Harvesting", "days_from_sowing": 110, "time_frame_days": 10, "weather_suitable": ["sunny"], "weather_avoid": ["rainy"], "is_cycle": false}
+      ]
+    },
+    "tomato": {
+      "description": "Tomato vegetable crop",
+      "total_duration_days": 110,
+      "activities": [
+        {"activity_id": 1, "activity_name": "Land Preparation", "days_from_sowing": -15, "time_frame_days": 7, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 2, "activity_name": "Sowing", "days_from_sowing": 0, "time_frame_days": 5, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 3, "activity_name": "Watering", "days_from_sowing": 10, "time_frame_days": 2, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": [], "is_cycle": true, "cycle_count": 8, "cycle_interval_days": 7},
+        {"activity_id": 6, "activity_name": "Spray", "days_from_sowing": 20, "time_frame_days": 2, "weather_suitable": ["cloudy"], "weather_avoid": ["rainy", "windy"], "is_cycle": true, "cycle_count": 5, "cycle_interval_days": 14},
+        {"activity_id": 7, "activity_name": "Harvesting", "days_from_sowing": 110, "time_frame_days": 15, "weather_suitable": ["sunny"], "weather_avoid": ["rainy"], "is_cycle": false}
+      ]
+    },
+    "turnip": {
+      "description": "Turnip root vegetable",
+      "total_duration_days": 60,
+      "activities": [
+        {"activity_id": 1, "activity_name": "Land Preparation", "days_from_sowing": -10, "time_frame_days": 5, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 2, "activity_name": "Sowing", "days_from_sowing": 0, "time_frame_days": 3, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 3, "activity_name": "Watering", "days_from_sowing": 10, "time_frame_days": 2, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": [], "is_cycle": true, "cycle_count": 4, "cycle_interval_days": 7},
+        {"activity_id": 7, "activity_name": "Harvesting", "days_from_sowing": 60, "time_frame_days": 5, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": [], "is_cycle": false}
+      ]
+    },
+    "wheat": {
+      "description": "Winter wheat cereal",
+      "total_duration_days": 130,
+      "activities": [
+        {"activity_id": 1, "activity_name": "Land Preparation", "days_from_sowing": -14, "time_frame_days": 7, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy", "windy"], "is_cycle": false},
+        {"activity_id": 2, "activity_name": "Sowing", "days_from_sowing": 0, "time_frame_days": 5, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 3, "activity_name": "Watering", "days_from_sowing": 21, "time_frame_days": 3, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": true, "cycle_count": 4, "cycle_interval_days": 21},
+        {"activity_id": 4, "activity_name": "Fertilizer", "days_from_sowing": 45, "time_frame_days": 5, "weather_suitable": ["cloudy"], "weather_avoid": ["rainy", "windy"], "is_cycle": true, "cycle_count": 2, "cycle_interval_days": 30},
+        {"activity_id": 7, "activity_name": "Harvesting", "days_from_sowing": 130, "time_frame_days": 10, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy", "humid"], "is_cycle": false}
+      ]
+    },
+    "bajra": {
+      "description": "Pearl millet cereal",
+      "total_duration_days": 90,
+      "activities": [
+        {"activity_id": 1, "activity_name": "Land Preparation", "days_from_sowing": -12, "time_frame_days": 7, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 2, "activity_name": "Sowing", "days_from_sowing": 0, "time_frame_days": 5, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 3, "activity_name": "Watering", "days_from_sowing": 25, "time_frame_days": 2, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": [], "is_cycle": true, "cycle_count": 3, "cycle_interval_days": 21},
+        {"activity_id": 7, "activity_name": "Harvesting", "days_from_sowing": 90, "time_frame_days": 10, "weather_suitable": ["sunny"], "weather_avoid": ["rainy"], "is_cycle": false}
+      ]
+    },
+    "bitter_gourd": {
+      "description": "Bitter melon/Karela",
+      "total_duration_days": 65,
+      "activities": [
+        {"activity_id": 1, "activity_name": "Land Preparation", "days_from_sowing": -10, "time_frame_days": 7, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 2, "activity_name": "Sowing", "days_from_sowing": 0, "time_frame_days": 5, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 3, "activity_name": "Watering", "days_from_sowing": 7, "time_frame_days": 2, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": [], "is_cycle": true, "cycle_count": 5, "cycle_interval_days": 7},
+        {"activity_id": 7, "activity_name": "Harvesting", "days_from_sowing": 65, "time_frame_days": 10, "weather_suitable": ["sunny"], "weather_avoid": [], "is_cycle": false}
+      ]
+    },
+    "bottle_gourd": {
+      "description": "Lauki/Bottle gourd",
+      "total_duration_days": 75,
+      "activities": [
+        {"activity_id": 1, "activity_name": "Land Preparation", "days_from_sowing": -10, "time_frame_days": 7, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 2, "activity_name": "Sowing", "days_from_sowing": 0, "time_frame_days": 5, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 3, "activity_name": "Watering", "days_from_sowing": 7, "time_frame_days": 2, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": [], "is_cycle": true, "cycle_count": 5, "cycle_interval_days": 7},
+        {"activity_id": 7, "activity_name": "Harvesting", "days_from_sowing": 75, "time_frame_days": 10, "weather_suitable": ["sunny"], "weather_avoid": [], "is_cycle": false}
+      ]
+    },
+    "chilies": {
+      "description": "Green and Red chillies",
+      "total_duration_days": 150,
+      "activities": [
+        {"activity_id": 1, "activity_name": "Land Preparation", "days_from_sowing": -15, "time_frame_days": 7, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 2, "activity_name": "Sowing", "days_from_sowing": 0, "time_frame_days": 5, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 3, "activity_name": "Watering", "days_from_sowing": 10, "time_frame_days": 2, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": [], "is_cycle": true, "cycle_count": 10, "cycle_interval_days": 7},
+        {"activity_id": 4, "activity_name": "Fertilizer", "days_from_sowing": 30, "time_frame_days": 5, "weather_suitable": ["cloudy"], "weather_avoid": ["rainy"], "is_cycle": true, "cycle_count": 3, "cycle_interval_days": 30},
+        {"activity_id": 7, "activity_name": "Harvesting", "days_from_sowing": 150, "time_frame_days": 15, "weather_suitable": ["sunny"], "weather_avoid": [], "is_cycle": false}
+      ]
+    },
+    "cotton": {
+      "description": "Cotton textile crop",
+      "total_duration_days": 170,
+      "activities": [
+        {"activity_id": 1, "activity_name": "Land Preparation", "days_from_sowing": -20, "time_frame_days": 10, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 2, "activity_name": "Sowing", "days_from_sowing": 0, "time_frame_days": 7, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 3, "activity_name": "Watering", "days_from_sowing": 30, "time_frame_days": 3, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": true, "cycle_count": 6, "cycle_interval_days": 21},
+        {"activity_id": 6, "activity_name": "Spray", "days_from_sowing": 45, "time_frame_days": 3, "weather_suitable": ["cloudy"], "weather_avoid": ["rainy", "windy", "humid"], "is_cycle": true, "cycle_count": 4, "cycle_interval_days": 21},
+        {"activity_id": 7, "activity_name": "Harvesting", "days_from_sowing": 170, "time_frame_days": 15, "weather_suitable": ["sunny"], "weather_avoid": ["rainy"], "is_cycle": false}
+      ]
+    },
+    "cucumber": {
+      "description": "Kheera/Cucumber vegetable",
+      "total_duration_days": 60,
+      "activities": [
+        {"activity_id": 1, "activity_name": "Land Preparation", "days_from_sowing": -10, "time_frame_days": 7, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 2, "activity_name": "Sowing", "days_from_sowing": 0, "time_frame_days": 5, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 3, "activity_name": "Watering", "days_from_sowing": 5, "time_frame_days": 2, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": [], "is_cycle": true, "cycle_count": 5, "cycle_interval_days": 7},
+        {"activity_id": 7, "activity_name": "Harvesting", "days_from_sowing": 60, "time_frame_days": 10, "weather_suitable": ["sunny"], "weather_avoid": [], "is_cycle": false}
+      ]
+    },
+    "groundnut": {
+      "description": "Peanut/Groundnut crop",
+      "total_duration_days": 120,
+      "activities": [
+        {"activity_id": 1, "activity_name": "Land Preparation", "days_from_sowing": -15, "time_frame_days": 7, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 2, "activity_name": "Sowing", "days_from_sowing": 0, "time_frame_days": 5, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 3, "activity_name": "Watering", "days_from_sowing": 25, "time_frame_days": 2, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": [], "is_cycle": true, "cycle_count": 4, "cycle_interval_days": 14},
+        {"activity_id": 7, "activity_name": "Harvesting", "days_from_sowing": 120, "time_frame_days": 10, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false}
+      ]
+    },
+    "jowar": {
+      "description": "Sorghum cereal crop",
+      "total_duration_days": 110,
+      "activities": [
+        {"activity_id": 1, "activity_name": "Land Preparation", "days_from_sowing": -12, "time_frame_days": 7, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 2, "activity_name": "Sowing", "days_from_sowing": 0, "time_frame_days": 5, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 3, "activity_name": "Watering", "days_from_sowing": 30, "time_frame_days": 2, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": [], "is_cycle": true, "cycle_count": 4, "cycle_interval_days": 21},
+        {"activity_id": 7, "activity_name": "Harvesting", "days_from_sowing": 110, "time_frame_days": 10, "weather_suitable": ["sunny"], "weather_avoid": ["rainy"], "is_cycle": false}
+      ]
+    },
+    "lady_finger": {
+      "description": "Okra vegetable crop",
+      "total_duration_days": 60,
+      "activities": [
+        {"activity_id": 1, "activity_name": "Land Preparation", "days_from_sowing": -10, "time_frame_days": 7, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 2, "activity_name": "Sowing", "days_from_sowing": 0, "time_frame_days": 5, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 3, "activity_name": "Watering", "days_from_sowing": 7, "time_frame_days": 2, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": [], "is_cycle": true, "cycle_count": 5, "cycle_interval_days": 7},
+        {"activity_id": 7, "activity_name": "Harvesting", "days_from_sowing": 60, "time_frame_days": 10, "weather_suitable": ["sunny"], "weather_avoid": [], "is_cycle": false}
+      ]
+    },
+    "long_melon": {
+      "description": "Long melon/Kakri",
+      "total_duration_days": 70,
+      "activities": [
+        {"activity_id": 1, "activity_name": "Land Preparation", "days_from_sowing": -10, "time_frame_days": 7, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 2, "activity_name": "Sowing", "days_from_sowing": 0, "time_frame_days": 5, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 3, "activity_name": "Watering", "days_from_sowing": 7, "time_frame_days": 2, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": [], "is_cycle": true, "cycle_count": 5, "cycle_interval_days": 7},
+        {"activity_id": 7, "activity_name": "Harvesting", "days_from_sowing": 70, "time_frame_days": 10, "weather_suitable": ["sunny"], "weather_avoid": [], "is_cycle": false}
+      ]
+    },
+    "luffa": {
+      "description": "Sponge gourd/Ghia tori",
+      "total_duration_days": 70,
+      "activities": [
+        {"activity_id": 1, "activity_name": "Land Preparation", "days_from_sowing": -10, "time_frame_days": 7, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 2, "activity_name": "Sowing", "days_from_sowing": 0, "time_frame_days": 5, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 3, "activity_name": "Watering", "days_from_sowing": 7, "time_frame_days": 2, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": [], "is_cycle": true, "cycle_count": 5, "cycle_interval_days": 7},
+        {"activity_id": 7, "activity_name": "Harvesting", "days_from_sowing": 70, "time_frame_days": 10, "weather_suitable": ["sunny"], "weather_avoid": [], "is_cycle": false}
+      ]
+    },
+    "maize": {
+      "description": "Maize/Corn cereal crop",
+      "total_duration_days": 100,
+      "activities": [
+        {"activity_id": 1, "activity_name": "Land Preparation", "days_from_sowing": -14, "time_frame_days": 7, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 2, "activity_name": "Sowing", "days_from_sowing": 0, "time_frame_days": 5, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 3, "activity_name": "Watering", "days_from_sowing": 20, "time_frame_days": 2, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": [], "is_cycle": true, "cycle_count": 5, "cycle_interval_days": 14},
+        {"activity_id": 7, "activity_name": "Harvesting", "days_from_sowing": 100, "time_frame_days": 10, "weather_suitable": ["sunny"], "weather_avoid": ["rainy"], "is_cycle": false}
+      ]
+    },
+    "musk_melon": {
+      "description": "Kharbuja/Musk melon",
+      "total_duration_days": 90,
+      "activities": [
+        {"activity_id": 1, "activity_name": "Land Preparation", "days_from_sowing": -12, "time_frame_days": 7, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 2, "activity_name": "Sowing", "days_from_sowing": 0, "time_frame_days": 5, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 3, "activity_name": "Watering", "days_from_sowing": 10, "time_frame_days": 2, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": [], "is_cycle": true, "cycle_count": 5, "cycle_interval_days": 10},
+        {"activity_id": 7, "activity_name": "Harvesting", "days_from_sowing": 90, "time_frame_days": 10, "weather_suitable": ["sunny"], "weather_avoid": [], "is_cycle": false}
+      ]
+    },
+    "pumpkin": {
+      "description": "Halwa kaddu/Pumpkin",
+      "total_duration_days": 100,
+      "activities": [
+        {"activity_id": 1, "activity_name": "Land Preparation", "days_from_sowing": -12, "time_frame_days": 7, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 2, "activity_name": "Sowing", "days_from_sowing": 0, "time_frame_days": 5, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 3, "activity_name": "Watering", "days_from_sowing": 14, "time_frame_days": 2, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": [], "is_cycle": true, "cycle_count": 5, "cycle_interval_days": 10},
+        {"activity_id": 7, "activity_name": "Harvesting", "days_from_sowing": 100, "time_frame_days": 10, "weather_suitable": ["sunny"], "weather_avoid": [], "is_cycle": false}
+      ]
+    },
+    "rice": {
+      "description": "Paddy/Rice cereal crop",
+      "total_duration_days": 120,
+      "activities": [
+        {"activity_id": 1, "activity_name": "Land Preparation", "days_from_sowing": -20, "time_frame_days": 10, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 2, "activity_name": "Sowing", "days_from_sowing": 0, "time_frame_days": 5, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 3, "activity_name": "Watering", "days_from_sowing": 7, "time_frame_days": 2, "weather_suitable": ["cloudy"], "weather_avoid": [], "is_cycle": true, "cycle_count": 8, "cycle_interval_days": 7},
+        {"activity_id": 7, "activity_name": "Harvesting", "days_from_sowing": 120, "time_frame_days": 10, "weather_suitable": ["sunny"], "weather_avoid": ["rainy"], "is_cycle": false}
+      ]
+    },
+    "safflower": {
+      "description": "Kusum/Safflower oilseed",
+      "total_duration_days": 140,
+      "activities": [
+        {"activity_id": 1, "activity_name": "Land Preparation", "days_from_sowing": -14, "time_frame_days": 7, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 2, "activity_name": "Sowing", "days_from_sowing": 0, "time_frame_days": 5, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 3, "activity_name": "Watering", "days_from_sowing": 30, "time_frame_days": 2, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": [], "is_cycle": true, "cycle_count": 4, "cycle_interval_days": 21},
+        {"activity_id": 7, "activity_name": "Harvesting", "days_from_sowing": 140, "time_frame_days": 10, "weather_suitable": ["sunny"], "weather_avoid": ["rainy"], "is_cycle": false}
+      ]
+    },
+    "sesamum": {
+      "description": "Sesame oilseed crop",
+      "total_duration_days": 95,
+      "activities": [
+        {"activity_id": 1, "activity_name": "Land Preparation", "days_from_sowing": -10, "time_frame_days": 7, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 2, "activity_name": "Sowing", "days_from_sowing": 0, "time_frame_days": 5, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 3, "activity_name": "Watering", "days_from_sowing": 25, "time_frame_days": 2, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": [], "is_cycle": true, "cycle_count": 3, "cycle_interval_days": 14},
+        {"activity_id": 7, "activity_name": "Harvesting", "days_from_sowing": 95, "time_frame_days": 10, "weather_suitable": ["sunny"], "weather_avoid": ["rainy"], "is_cycle": false}
+      ]
+    },
+    "soybean": {
+      "description": "Soybean legume crop",
+      "total_duration_days": 115,
+      "activities": [
+        {"activity_id": 1, "activity_name": "Land Preparation", "days_from_sowing": -14, "time_frame_days": 7, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 2, "activity_name": "Sowing", "days_from_sowing": 0, "time_frame_days": 5, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 3, "activity_name": "Watering", "days_from_sowing": 20, "time_frame_days": 2, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": [], "is_cycle": true, "cycle_count": 4, "cycle_interval_days": 14},
+        {"activity_id": 7, "activity_name": "Harvesting", "days_from_sowing": 115, "time_frame_days": 10, "weather_suitable": ["sunny"], "weather_avoid": ["rainy"], "is_cycle": false}
+      ]
+    },
+    "sugarcane": {
+      "description": "Sugarcane perennial crop",
+      "total_duration_days": 330,
+      "activities": [
+        {"activity_id": 1, "activity_name": "Land Preparation", "days_from_sowing": -30, "time_frame_days": 15, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 2, "activity_name": "Sowing", "days_from_sowing": 0, "time_frame_days": 10, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 3, "activity_name": "Watering", "days_from_sowing": 15, "time_frame_days": 3, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": true, "cycle_count": 10, "cycle_interval_days": 21},
+        {"activity_id": 4, "activity_name": "Fertilizer", "days_from_sowing": 60, "time_frame_days": 7, "weather_suitable": ["cloudy"], "weather_avoid": ["rainy"], "is_cycle": true, "cycle_count": 3, "cycle_interval_days": 60},
+        {"activity_id": 7, "activity_name": "Harvesting", "days_from_sowing": 330, "time_frame_days": 20, "weather_suitable": ["sunny"], "weather_avoid": ["rainy"], "is_cycle": false}
+      ]
+    },
+    "sunflower": {
+      "description": "Sunflower oilseed crop",
+      "total_duration_days": 100,
+      "activities": [
+        {"activity_id": 1, "activity_name": "Land Preparation", "days_from_sowing": -14, "time_frame_days": 7, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 2, "activity_name": "Sowing", "days_from_sowing": 0, "time_frame_days": 5, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 3, "activity_name": "Watering", "days_from_sowing": 20, "time_frame_days": 2, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": [], "is_cycle": true, "cycle_count": 4, "cycle_interval_days": 14},
+        {"activity_id": 7, "activity_name": "Harvesting", "days_from_sowing": 100, "time_frame_days": 10, "weather_suitable": ["sunny"], "weather_avoid": ["rainy"], "is_cycle": false}
+      ]
+    },
+    "tinda": {
+      "description": "Tinda/Apple gourd",
+      "total_duration_days": 60,
+      "activities": [
+        {"activity_id": 1, "activity_name": "Land Preparation", "days_from_sowing": -10, "time_frame_days": 7, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 2, "activity_name": "Sowing", "days_from_sowing": 0, "time_frame_days": 5, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 3, "activity_name": "Watering", "days_from_sowing": 7, "time_frame_days": 2, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": [], "is_cycle": true, "cycle_count": 4, "cycle_interval_days": 7},
+        {"activity_id": 7, "activity_name": "Harvesting", "days_from_sowing": 60, "time_frame_days": 10, "weather_suitable": ["sunny"], "weather_avoid": [], "is_cycle": false}
+      ]
+    },
+    "turmeric_haldi": {
+      "description": "Turmeric spice crop",
+      "total_duration_days": 240,
+      "activities": [
+        {"activity_id": 1, "activity_name": "Land Preparation", "days_from_sowing": -25, "time_frame_days": 10, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 10, "activity_name": "Soil Testing", "days_from_sowing": -20, "time_frame_days": 3, "weather_suitable": ["sunny", "cloudy", "rainy"], "weather_avoid": [], "is_cycle": false},
+        {"activity_id": 2, "activity_name": "Sowing", "days_from_sowing": 0, "time_frame_days": 10, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 3, "activity_name": "Watering", "days_from_sowing": 15, "time_frame_days": 2, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": [], "is_cycle": true, "cycle_count": 10, "cycle_interval_days": 14},
+        {"activity_id": 7, "activity_name": "Harvesting", "days_from_sowing": 240, "time_frame_days": 15, "weather_suitable": ["sunny"], "weather_avoid": ["rainy"], "is_cycle": false}
+      ]
+    },
+    "Watermelon": {
+      "description": "Watermelon",
+      "total_duration_days": 95,
+      "activities": [
+        {"activity_id": 1, "activity_name": "Land Preparation", "days_from_sowing": -15, "time_frame_days": 7, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 2, "activity_name": "Sowing", "days_from_sowing": 0, "time_frame_days": 5, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": ["rainy"], "is_cycle": false},
+        {"activity_id": 3, "activity_name": "Watering", "days_from_sowing": 10, "time_frame_days": 2, "weather_suitable": ["sunny", "cloudy"], "weather_avoid": [], "is_cycle": true, "cycle_count": 5, "cycle_interval_days": 10},
+        {"activity_id": 7, "activity_name": "Harvesting", "days_from_sowing": 95, "time_frame_days": 10, "weather_suitable": ["sunny"], "weather_avoid": [], "is_cycle": false}
+      ]
+    }
+  }
+}

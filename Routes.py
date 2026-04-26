@@ -13,6 +13,7 @@ from db import db, init_db
 from Controller.FarmerController import FarmerController
 from Controller.ChatController import ChatController
 from Controller.RecommendationController import RecommendationController
+from Controller.ActivitiesSuggestionsController import ActivitiesSuggestionsController
 import pandas as pd
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 os.environ['KMP_DUPLICATE_LIB_OK'] = 'TRUE'
@@ -118,6 +119,8 @@ def FarmerSetting():
 def get(id):
     return FarmerController.getbyid(id)
 
+#########--Land--############
+
 @app.post('/addFarmerLand')
 def addLand():
     return LandController.AddLand()
@@ -134,10 +137,6 @@ def FarmerAllLands(id):
 def getLandByID(id):
    return LandController.getLandByID(id)
 
-@app.get('/getLandsWithCurrentSession/<id>')
-def landswithcurrentsession(id):
-    return LandController.getLandWithCurrentSession(id)
-
 @app.delete('/deleteLand')
 def deleteLand():
     return LandController.DeleteLand()
@@ -145,6 +144,11 @@ def deleteLand():
 @app.get('/getAllCrops')
 def AllCrops():
     return CropController.getAllCrops()
+
+#########--Cultivation Session--############
+@app.get('/getLandsWithCurrentSession/<id>')
+def landswithcurrentsession(id):
+    return LandController.getLandWithCurrentSession(id)
 
 @app.post('/addFarmerCropSession')
 def addFarmerCropSession():
@@ -170,11 +174,6 @@ def GetListOfAllActivitiesOfProfitableSession(id):
 def GetProfitableCropSessionOnFarmerLand(id):
     return SessionController.GetProfitableCropSessionOnFarmerLand(id)
 
-@app.post('/seacrhNeighbouringLand')
-def searchNeighbouringLands():
-    return NeighbourController.SeachNeighbour()
-
-
 ########Task##################
 @app.post('/seacrhFarmerLands')
 def seacrhFarmerLands():
@@ -183,6 +182,11 @@ def seacrhFarmerLands():
 @app.post('/count')
 def count():
     return TaskContoller.ActivityCount()
+
+##########--Neighbor Handling--#################
+@app.post('/seacrhNeighbouringLand')
+def searchNeighbouringLands():
+    return NeighbourController.SeachNeighbour()
 
 @app.post('/addNeighbour')
 def addNeighbour():
@@ -228,6 +232,8 @@ def getProfitableNeighbour(id):
 def getAllCropsOfNeighbour(id):
     return NeighbourController.GetAllCropsOfNeighbour(id)
 
+##########--Activities--#################
+
 @app.get('/getActivitiesList')
 def activitieslist():
     return ActivityController.getListofActivities()
@@ -248,6 +254,8 @@ def getAllActivitiesOfFarmer(id):
 def PerformedActivities(id):
     return ActivityController.getSessionPerformedActivities(id)
 
+##########--Chat--#################
+
 @app.post("/chat")
 def chat():
     return ChatController.chat()
@@ -264,9 +272,55 @@ def getChat(id):
 def createChatSession():
     return ChatController.createSession()
 
+
+##########--Crop Suggestions--#################
+
 @app.post('/recommend-crop')
 def recommend_crop():
     return RecommendationController.get_recommendations()
+
+###################--Activities Suggestions--#####################
+@app.post('/seedSuggestedActivities')
+def seed_suggested_activities():
+    return ActivitiesSuggestionsController.seed_session()
+
+@app.get('/getSuggestedActivities/<session_id>')
+def get_suggested_activities(session_id):
+    return ActivitiesSuggestionsController.get_suggested(session_id)
+
+@app.get('/getReminders/<land_id>')
+def get_reminders(land_id):
+    return ActivitiesSuggestionsController.get_reminders(land_id)
+
+@app.post('/performActivity')
+def perform_activity():
+    return ActivitiesSuggestionsController.perform()
+
+@app.post('/skipSuggestedActivity')
+def skip_suggested_activity():
+    return ActivitiesSuggestionsController.skip()
+
+@app.put('/adjustWithWeather/<session_id>')
+def adjust_with_weather(session_id):
+    return ActivitiesSuggestionsController.adjust_with_weather(session_id)
+
+@app.get('/getWeather/<city_name>')
+def get_weather(city_name):
+    return ActivitiesSuggestionsController.get_weather(city_name)
+
+##################--Notifications--#######################
+
+@app.get('/getNotifications/<farmer_id>')
+def get_notifications(farmer_id):
+    return ActivitiesSuggestionsController.get_notifications(farmer_id)
+
+@app.put('/markNotificationRead/<id>')
+def mark_notification_read(id):
+    return ActivitiesSuggestionsController.mark_notification_read(id)
+
+@app.put('/markAllNotificationsRead/<farmer_id>')
+def mark_all_notifications_read(farmer_id):
+    return ActivitiesSuggestionsController.mark_all_notifications_read(farmer_id)
 
 
 

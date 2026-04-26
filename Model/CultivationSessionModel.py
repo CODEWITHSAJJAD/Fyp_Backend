@@ -12,3 +12,5 @@ class CultivationSessionModel(db.Model):
     crop_rls = db.relationship("CropModel", back_populates="cultivation_rls")
     per_activity_rls = db.relationship("PerformedActivityModel",
                                        back_populates="CultivationSessionModel_rls")
+    suggested_activities = db.relationship("SuggestedActivityModel",
+                                          back_populates="cultivation_session")
