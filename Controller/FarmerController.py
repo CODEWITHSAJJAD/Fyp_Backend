@@ -1,7 +1,8 @@
 import os
 from datetime import datetime
 from flask import request,jsonify,send_file
-
+from tomlkit.items import Null
+from Services.NotificationHelper import NotificationHelper
 from Model.ProvinceModel import ProvinceModel
 from db import db
 from sqlalchemy import or_
@@ -30,6 +31,9 @@ class FarmerController:
             newFarmer=FarmerModel(farmer_name=Farmer_name,phone=Farmer_number,email=Farmer_email,city_id=city_id,farmer_image=None,landmark=landmark,password=password,years_of_experience=years0f)
             db.session.add(newFarmer)
             db.session.commit()
+            
+            NotificationHelper.welcome_notification(newFarmer.farmer_id, Farmer_name)
+            
             return jsonify(newFarmer.farmer_id),200
         except Exception as e:
             return jsonify(str(e)), 500
@@ -46,6 +50,8 @@ class FarmerController:
                 FarmerModel.phone == user_info
             ), FarmerModel.password==pwd).first()
             if user:
+                NotificationHelper.login_notification(user.farmer_id)
+                
                 return jsonify(
                     {"name": user.farmer_name,
                      "id":user.farmer_id}
@@ -102,6 +108,7 @@ class FarmerController:
             existing_farmer.password = password
             existing_farmer.years_of_experience = 2
             db.session.commit()
+            NotificationHelper.Setting_notification(farmer_id=existing_farmer.farmer_id)
             return jsonify("Farmer Updated successfully"), 200
         except Exception as e:
             return jsonify({"error": str(e)}), 500
@@ -117,7 +124,7 @@ class FarmerController:
                 print(image_path)
                 return jsonify({
                     "Name": data.farmer_name,
-                    "image":imageurl+image_path,
+                    "image": imageurl+image_path if image_path else None,
                     "Phone": data.phone,
                     "Email": data.email,
                     "City": data.city_name,

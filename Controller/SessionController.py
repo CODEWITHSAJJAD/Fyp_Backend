@@ -1,7 +1,10 @@
 from os.path import join
 from sqlalchemy import Null
+
+from Model import FarmerModel
 from Model.ActivityModel import ActivityModel
 from Model.LandModel import LandModel
+from Model.FarmerModel import FarmerModel
 from Model.PerformActivityModel import PerformedActivityModel
 from Services.DateUtils import get_current_date_string
 from  db import db
@@ -12,6 +15,7 @@ from Model.CropModel import CropModel
 from url import imageurl
 from datetime import datetime
 from Services.ActivitySuggestionService import ActivitySuggestionService
+from Services.NotificationHelper import NotificationHelper
 
 
 class SessionController:
@@ -22,6 +26,8 @@ class SessionController:
             seed=data["seed"]
             land_id=data["land_id"]
             crop_id=data["crop_id"]
+            Land=LandModel.query.filter(LandModel.land_id==land_id).first()
+            crop=CropModel.query.filter(CropModel.crop_id==crop_id).first()
             existingSession=CultivationSessionModel.query.filter(CultivationSessionModel.land_id==land_id,or_(
             CultivationSessionModel.session_status != "Harvest",
             CultivationSessionModel.session_status == None
@@ -37,13 +43,21 @@ class SessionController:
                 )
                 db.session.add(newSession)
                 db.session.commit()
-
+                
                 if newSession.cultivation_session_id:
                     ActivitySuggestionService.seed_suggested_activities(
                         newSession.cultivation_session_id,
                         get_current_date_string()
                     )
-                    
+                
+                Farmer=db.session.query(LandModel.land_id,FarmerModel.farmer_id).join(FarmerModel,FarmerModel.farmer_id==LandModel.farmer_id).filter(LandModel.land_id==land_id).first()
+                
+                NotificationHelper.session_started_notification(
+                    Farmer.farmer_id, 
+                    crop.crop_name, 
+                    Land.land_name
+                )
+                
                 return jsonify("Session Added"),200
             return jsonify("Session Not Allowed because one is incomplete"),404
         except Exception as e:

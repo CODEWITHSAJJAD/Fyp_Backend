@@ -6,6 +6,7 @@ from Model.LandModel import LandModel
 from Model.ProvinceModel import ProvinceModel
 from db import db
 from flask import jsonify,request
+from Services.NotificationHelper import NotificationHelper
 
 class LandController:
     @staticmethod
@@ -19,6 +20,13 @@ class LandController:
             NewLand=LandModel(**data)
             db.session.add(NewLand)
             db.session.commit()
+            
+            NotificationHelper.land_added_notification(
+                NewLand.farmer_id, 
+                NewLand.land_name, 
+                NewLand.landmark or city_name
+            )
+            
             return jsonify('Land added!'),200
         except Exception as e:
             return jsonify( str(e)),500
@@ -27,8 +35,16 @@ class LandController:
     def DeleteLand():
         lid=request.form['id']
         try:
+            land = LandModel.query.filter(LandModel.land_id==lid).first()
+            farmer_id = land.farmer_id if land else None
+            land_name = land.land_name if land else "Unknown"
+            
             LandModel.query.filter(LandModel.land_id==lid).delete()
             db.session.commit()
+            
+            if farmer_id:
+                NotificationHelper.land_deleted_notification(farmer_id, land_name)
+            
             return jsonify('Land deleted!'),200
         except Exception as e:
             return jsonify( str(e)),500
@@ -67,14 +83,14 @@ class LandController:
                 existingland.source_of_water=data['source_of_water']
                 existingland.land_in_acres=data['land_in_acres']
                 existingland.city_id=city_id
-                existingland.landmark=data['landmark']
-                existingland.land_Status=existingland.land_Status
                 db.session.commit()
-                return jsonify('Land edited!'),200
-            else:
-                return jsonify('Land not found!'),404
+                
+                NotificationHelper.land_updated_notification(existingland.farmer_id, data['land_name'])
+                
+                return jsonify("Land edited!"),200
+            return jsonify("Land not found"),404
         except Exception as e:
-            return jsonify( str(e)),500
+            return jsonify(str(e)),500
 
     @staticmethod
     def GetallLands(id):

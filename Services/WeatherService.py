@@ -1,9 +1,5 @@
 import requests
-import os
-from datetime import datetime
-
-OPENWEATHER_API_KEY = os.environ.get("OPENWEATHER_API_KEY", "ae259d05c71c86a72aa9c851b14e1039")
-OPENWEATHER_BASE_URL = "https://api.openweathermap.org/data/2.5/weather"
+from url import OPENWEATHER_BASE_URL,OPENWEATHER_API_KEY
 
 def get_weather(city_name):
     try:

@@ -275,9 +275,9 @@ def createChatSession():
 
 ##########--Crop Suggestions--#################
 
-@app.post('/recommend-crop')
-def recommend_crop():
-    return RecommendationController.get_recommendations()
+@app.get('/recommend-crop/<id>')
+def recommend_crop(id):
+    return RecommendationController.get_recommendations(id)
 
 ###################--Activities Suggestions--#####################
 @app.post('/seedSuggestedActivities')

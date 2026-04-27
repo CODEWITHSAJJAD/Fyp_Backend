@@ -192,7 +192,7 @@ class ActivitySuggestionService:
                 weather = get_weather(city_name)
             
             activities = SuggestedActivityModel.query.filter(
-                SuggestedActivityModel.cultivation_session_id==session_id
+                SuggestedActivityModel.cultivation_session_id==session.cultivation_session_id
             ).filter(
                 SuggestedActivityModel.status == "pending"
             ).order_by(SuggestedActivityModel.suggested_date).all()

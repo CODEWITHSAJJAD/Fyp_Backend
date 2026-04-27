@@ -1,8 +1,11 @@
 from flask import jsonify, request
 from copy import deepcopy
+from Services.WeatherService import get_weather
+from Model import CityModel
 from url import imageurl
 from Model.LandModel import LandModel
 from Model.CropModel import CropModel
+from Model.CityModel import CityModel
 from Model.CultivationSessionModel import CultivationSessionModel
 from Model.NeighbourModel import NeighbourModel
 from db import db
@@ -101,10 +104,9 @@ class RecommendationController:
         ])
 
     @staticmethod
-    def get_recommendations():
+    def get_recommendations(id):
         try:
-            data = request.get_json() or {}
-            land_id = data.get('land_id')
+            land_id = id
             current_month = datetime.now().month
             if current_month >= 4 and current_month <= 9:
                 current_season = 1
@@ -112,7 +114,9 @@ class RecommendationController:
             else:
                 current_season = 0
                 season_name_str = "Rabi"
-            current_weather = data.get('weather_forecast', "Normal")
+            cityname=db.session.query(LandModel.city_id,CityModel.city_name).join(CityModel,CityModel.city_id==LandModel.city_id).filter(LandModel.land_id==land_id).first()
+
+            current_weather = get_weather(cityname)
             if not land_id:
                 return jsonify({"error": "land_id is required in JSON body"}), 400
             land = LandModel.query.filter(LandModel.land_id==land_id).first()
@@ -209,9 +213,10 @@ class RecommendationController:
 
                 if confidence >= 85:
                     recommendations.append({
-                        "crop_id": db_crop.crop_id,
+                        "id": db_crop.crop_id,
                         "Name": c_name,
                         "Image": imageurl+db_crop.crop_image,
+                        "Season":"Rabi" if db_crop.season_name==0 else "Kharif",
                         "confidence_score": confidence,
                         "rationale": " | ".join(rationale),
                         "suggested_actions": RecommendationController._get_suggested_actions(c_name)
