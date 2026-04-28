@@ -379,35 +379,48 @@ class NeighbourController:
             for fl in farmerLands:
                 print("farmer lands:",fl.land_id)
                 requests = NeighbourModel.query.filter(
-                    NeighbourModel.land_id == fl.land_id,
+                    NeighbourModel.neighbour_land_id == fl.land_id,
                     NeighbourModel.status == 0
                 ).all()
                 for r in requests:
-                    print("neighbour:",r.neighbour_land_id)
-                    requesting_land_owner = (db.session.query(
-                        FarmerModel.farmer_id,
-                        FarmerModel.farmer_name,
-                        FarmerModel.farmer_image,
-                        FarmerModel.phone,
-                        LandModel.land_name,
-                        LandModel.landmark
-                    )
-                    .join(LandModel, LandModel.farmer_id == FarmerModel.farmer_id)
-                    .filter(LandModel.land_id == r.neighbour_land_id)
-                    .first()
-                    )
-
-                    if requesting_land_owner:
+                    print("neighbor:",r.land_id)
+                    request_ownnerland=LandModel.query.filter(LandModel.land_id == r.land_id).first()
+                    request_owner=FarmerModel.query.filter(FarmerModel.farmer_id == request_ownnerland.farmer_id).first()
+                    if request_ownnerland and request_owner:
                         ReqList.append({
-                            "farmer_id": requesting_land_owner.farmer_id,
-                            "farmer_name": requesting_land_owner.farmer_name,
-                            "phone": requesting_land_owner.phone,
-                            "farmer_image": imageurl+requesting_land_owner.farmer_image,
-                            "land_id":r.neighbour_land_id,
-                            "land_name": requesting_land_owner.land_name,
-                            "land_mark":requesting_land_owner.landmark,
+                            "farmer_id": request_owner.farmer_id,
+                            "farmer_name": request_owner.farmer_name,
+                            "phone": request_owner.phone,
+                            "farmer_image": imageurl+request_owner.farmer_image if request_owner.farmer_image else None,
+                            "land_id":request_ownnerland.land_id,
+                            "land_name": request_ownnerland.land_name,
+                            "land_mark":request_ownnerland.landmark,
                             "Neighbour_id": r.neighbour_id,
                         })
+                    # requesting_land_owner = (db.session.query(
+                    #     FarmerModel.farmer_id,
+                    #     FarmerModel.farmer_name,
+                    #     FarmerModel.farmer_image,
+                    #     FarmerModel.phone,
+                    #     LandModel.land_name,
+                    #     LandModel.landmark
+                    # )
+                    # .join(LandModel, LandModel.farmer_id == FarmerModel.farmer_id)
+                    # .filter(LandModel.land_id == r.land_id)
+                    # .first()
+                    # )
+                    #
+                    # if requesting_land_owner:
+                    #     ReqList.append({
+                    #         "farmer_id": requesting_land_owner.farmer_id,
+                    #         "farmer_name": requesting_land_owner.farmer_name,
+                    #         "phone": requesting_land_owner.phone,
+                    #         "farmer_image": imageurl+requesting_land_owner.farmer_image,
+                    #         "land_id":r.neighbour_land_id,
+                    #         "land_name": requesting_land_owner.land_name,
+                    #         "land_mark":requesting_land_owner.landmark,
+                    #         "Neighbour_id": r.neighbour_id,
+                    #     })
 
             if ReqList:
                 return jsonify(ReqList), 200

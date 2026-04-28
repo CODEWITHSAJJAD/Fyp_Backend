@@ -26,9 +26,9 @@ class ActivitiesSuggestionsController:
         return jsonify(res), code
 
     @staticmethod
-    def get_reminders(session_id):
+    def get_reminders(land_id):
         """Get upcoming activity reminders"""
-        res, code = ActivitySuggestionService.get_reminders(session_id)
+        res, code = ActivitySuggestionService.get_reminders(land_id)
         return jsonify(res), code
 
     @staticmethod

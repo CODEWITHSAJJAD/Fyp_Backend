@@ -26,7 +26,7 @@ class NotificationService:
         try:
             notifications = NotificationModel.query.filter(
                 NotificationModel.farmer_id==farmer_id
-            ).order_by(NotificationModel.notification_id.desc()).all()
+            ).all()
             result = []
             for n in notifications:
                 result.append({

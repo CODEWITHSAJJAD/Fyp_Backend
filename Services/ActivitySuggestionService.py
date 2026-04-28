@@ -104,37 +104,48 @@ class ActivitySuggestionService:
                     SuggestedActivityModel.status != "skipped"
                 ).order_by(SuggestedActivityModel.days_from_sowing).all()
             
+            performed_activity_ids = [
+                p.Activity_id for p in PerformedActivityModel.query.filter(
+                    PerformedActivityModel.cultivation_session_id==session_id
+                ).all()
+            ]
+            
             result = []
             adjustments_made = []
             
             for a in activities:
                 activity_name = get_activity_name_by_id(a.activity_id)
                 suggested_date = a.suggested_date
-                status = a.status
                 reason = a.weather_delay_reason
                 day_count = days_until(suggested_date)
+                status = a.status
                 
-                if weather and not weather.get("error") and status == "pending":
-                    is_suitable, delay_reason = is_weather_suitable_for_activity(activity_name, weather)
-                    if not is_suitable:
-                        delay_days = get_weather_delay_days(activity_name, weather)
-                        if delay_days > 0:
-                            new_date = add_days_to_string(a.suggested_date, delay_days)
-                            a.suggested_date = new_date
-                            a.status = "postponed"
-                            a.weather_delay_reason = delay_reason
-                            db.session.commit()
-                            
-                            adjustments_made.append({
-                                "activity_id": a.activity_id,
-                                "activity_name": activity_name,
-                                "reason": delay_reason,
-                                "new_date": new_date
-                            })
-                            suggested_date = new_date
-                            status = "postponed"
-                            reason = delay_reason
-                            day_count = days_until(new_date)
+                if a.activity_id in performed_activity_ids:
+                    a.status = "completed"
+                    db.session.commit()
+                    status = "completed"
+                else:
+                    if weather and not weather.get("error") and status == "pending":
+                        is_suitable, delay_reason = is_weather_suitable_for_activity(activity_name, weather)
+                        if not is_suitable:
+                            delay_days = get_weather_delay_days(activity_name, weather)
+                            if delay_days > 0:
+                                new_date = add_days_to_string(a.suggested_date, delay_days)
+                                a.suggested_date = new_date
+                                a.status = "postponed"
+                                a.weather_delay_reason = delay_reason
+                                db.session.commit()
+                                
+                                adjustments_made.append({
+                                    "activity_id": a.activity_id,
+                                    "activity_name": activity_name,
+                                    "reason": delay_reason,
+                                    "new_date": new_date
+                                })
+                                suggested_date = new_date
+                                status = "postponed"
+                                reason = delay_reason
+                                day_count = days_until(new_date)
                 
                 result.append({
                     "suggested_activity_id": a.suggested_activity_id,
@@ -235,14 +246,14 @@ class ActivitySuggestionService:
             reminders.sort(key=lambda x: x["day_count"])
             
             return {
-                "session_id": session.session_id,
+                "session_id": session.cultivation_session_id,
                 "city": city_name,
                 "today": today,
                 "weather": {
                     "condition": weather.get("condition") if weather else None,
                     "temperature": weather.get("temperature") if weather else None
                 } if weather and not weather.get("error") else None,
-                "reminders": reminders[:10]
+                "reminders": reminders[:3]
             }, 200
         
         except Exception as e:
