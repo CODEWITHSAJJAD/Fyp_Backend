@@ -1,9 +1,4 @@
-"""
-Translation Service for Kisan Guide Chatbot
-Supports: Urdu, Punjabi, Sindhi, Pashto <-> English
-"""
 import base64
-
 from langdetect import detect, LangDetectException
 from deep_translator import GoogleTranslator
 import warnings
