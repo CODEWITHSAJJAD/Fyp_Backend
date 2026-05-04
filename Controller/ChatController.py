@@ -1,20 +1,60 @@
+import base64
+
 from flask import request,jsonify
 from datetime import datetime
 from Model.ChatModel import ChatModel
 from Model.ChatSessionModel import ChatSessionModel
 from db import db
-import threading
-_thread_local = threading.local()
-import argparse
-class ChatController:
-    _chatbot_instance = None
+from Services.TranslationService import get_translation_service
 
-    @classmethod
-    def get_chatbot(cls):
-        if cls._chatbot_instance is None:
-            from chatbot import AgricultureRAGChatbot
-            cls._chatbot_instance = AgricultureRAGChatbot(use_llm=True)
-        return cls._chatbot_instance
+class ChatController:
+
+    @staticmethod
+    def get_chatbot():
+        """Get singleton chatbot instance from chatbot.py"""
+        from chatbot import get_chatbot
+        return get_chatbot(use_llm=False)
+
+    @staticmethod
+    def chat():
+        data = request.get_json()
+        try:
+            session = ChatSessionModel.query.filter(ChatSessionModel.chat_session_id == data['chat_session_id']).first()
+            Farmer_id = session.Farmer_id
+            session_id = session.chat_session_id
+            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            data['time_stamp'] = current_time
+            chatbot = ChatController.get_chatbot()
+
+            obj = get_translation_service()
+            query, lang = obj.process_query(data['question'])
+            response = chatbot.generate_response(query, farmer_id=Farmer_id, session_id=session_id)
+            required_response = obj.process_response(response['answer'], lang)
+            encoded_answer = base64.b64encode(required_response.encode('utf-8')).decode('utf-8')
+            encoded_question=base64.b64encode(data['question'].encode('utf-8')).decode('utf-8')
+            answer = encoded_answer
+            intent = response['intent']
+            data['answer'] = answer
+            data['chat_type'] = intent
+            if data['question']:
+                data['question']=encoded_question
+                newchat = ChatModel(**data)
+                db.session.add(newchat)
+                db.session.commit()
+
+                # Decode for response
+                decoded_question = base64.b64decode(encoded_question.encode('utf-8')).decode('utf-8')
+                decoded_answer = base64.b64decode(encoded_answer.encode('utf-8')).decode('utf-8')
+
+                return jsonify({'id': newchat.chat_id,
+                                'session_id': newchat.chat_session_id,
+                                'question': decoded_question,
+                                'answer': decoded_answer,
+                                'chat_type': intent,
+                                'time': newchat.time_stamp,
+                                'farmer': Farmer_id}), 200
+        except Exception as e:
+            return jsonify(str(e)), 500
 
     @staticmethod
     def getChatBySession(id):
@@ -76,33 +116,3 @@ class ChatController:
             return jsonify({"session_id":newsession.chat_session_id}),200
         except Exception as e:
             return jsonify(str(e)),500
-
-    @staticmethod
-    def chat():
-        data=request.get_json()
-        try:
-            session=ChatSessionModel.query.filter(ChatSessionModel.chat_session_id==data['chat_session_id']).first()
-            Farmer_id = session.Farmer_id
-            current_time=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            data['time_stamp']=current_time
-            chatbot = ChatController.get_chatbot()
-            response = chatbot.generate_response(data['question'])
-            answer=response['answer']
-            intent=response['intent']
-            data['answer']=answer
-            data['chat_type']=intent
-            if data['question']:
-                newchat=ChatModel(**data)
-                db.session.add(newchat)
-                db.session.commit()
-                return jsonify({'id': newchat.chat_id,
-                                'session_id': newchat.chat_session_id,
-                                'question': newchat.question,
-                                'answer': newchat.answer,
-                                'chat_type': intent,
-                                'time': newchat.time_stamp,
-                                'farmer': Farmer_id}),200
-        except Exception as e:
-            return jsonify(str(e)),500
-
-
