@@ -2,6 +2,8 @@
 Translation Service for Kisan Guide Chatbot
 Supports: Urdu, Punjabi, Sindhi, Pashto <-> English
 """
+import base64
+
 from langdetect import detect, LangDetectException
 from deep_translator import GoogleTranslator
 import warnings
@@ -113,6 +115,22 @@ class TranslationService:
             return response
         
         return self.translate_from_english(response, target_lang)
+
+    @staticmethod
+    def decode_unicode(text):
+        """Decode base64 or return original if plain text"""
+        try:
+            return base64.b64decode(text.encode('utf-8')).decode('utf-8')
+        except:
+            return text  # Return as-is if not base64
+
+    @staticmethod
+    def encode_unicode(text):
+        """Decode base64 or return original if plain text"""
+        try:
+            return base64.b64encode(text.encode('utf-8')).decode('utf-8')
+        except:
+            return text  # Return as-is if not base64
 
 
 # Singleton instance

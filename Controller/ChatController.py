@@ -4,6 +4,7 @@ from flask import request,jsonify
 from datetime import datetime
 from Model.ChatModel import ChatModel
 from Model.ChatSessionModel import ChatSessionModel
+from Services import TranslationService
 from db import db
 from Services.TranslationService import get_translation_service
 
@@ -30,8 +31,8 @@ class ChatController:
             query, lang = obj.process_query(data['question'])
             response = chatbot.generate_response(query, farmer_id=Farmer_id, session_id=session_id)
             required_response = obj.process_response(response['answer'], lang)
-            encoded_answer = base64.b64encode(required_response.encode('utf-8')).decode('utf-8')
-            encoded_question=base64.b64encode(data['question'].encode('utf-8')).decode('utf-8')
+            encoded_answer = obj.encode_unicode(required_response)
+            encoded_question=obj.encode_unicode(data['question'])
             answer = encoded_answer
             intent = response['intent']
             data['answer'] = answer
@@ -41,15 +42,10 @@ class ChatController:
                 newchat = ChatModel(**data)
                 db.session.add(newchat)
                 db.session.commit()
-
-                # Decode for response
-                decoded_question = base64.b64decode(encoded_question.encode('utf-8')).decode('utf-8')
-                decoded_answer = base64.b64decode(encoded_answer.encode('utf-8')).decode('utf-8')
-
                 return jsonify({'id': newchat.chat_id,
                                 'session_id': newchat.chat_session_id,
-                                'question': decoded_question,
-                                'answer': decoded_answer,
+                                'question': obj.decode_unicode(encoded_question),
+                                'answer': obj.decode_unicode(encoded_answer),
                                 'chat_type': intent,
                                 'time': newchat.time_stamp,
                                 'farmer': Farmer_id}), 200
@@ -58,6 +54,7 @@ class ChatController:
 
     @staticmethod
     def getChatBySession(id):
+        obj = get_translation_service()
         chat_session_id=id
         try:
             chats=(db.session.query(ChatModel.chat_type,ChatModel.question,ChatModel.answer,ChatModel.time_stamp,ChatSessionModel.Farmer_id,ChatSessionModel.chat_session_id,ChatModel.chat_id).join(ChatModel,ChatSessionModel.chat_session_id==ChatModel.chat_session_id).filter(ChatSessionModel.chat_session_id==chat_session_id)).all()
@@ -67,8 +64,8 @@ class ChatController:
                     chatlist.append({
                         'id':c.chat_id,
                         'session_id':c.chat_session_id,
-                        'question':c.question,
-                        'answer':c.answer,
+                        'question': obj.decode_unicode(c.question),
+                        'answer': obj.decode_unicode(c.answer),
                         'chat_type':c.chat_type,
                         'time':c.time_stamp,
                         'farmer':c.Farmer_id
@@ -80,6 +77,7 @@ class ChatController:
 
     @staticmethod
     def getChats(id):
+        obj = get_translation_service()
         Farmer_id = id
         try:
             chats = (db.session.query(ChatModel.chat_type, ChatModel.question, ChatModel.answer, ChatModel.time_stamp,
@@ -94,8 +92,8 @@ class ChatController:
                         ChatList[c.chat_session_id] = {
                             'id': c.chat_id,
                             'session_id': c.chat_session_id,
-                            'question': c.question,
-                            'answer': c.answer,
+                            'question': obj.decode_unicode(c.question),
+                            'answer': obj.decode_unicode(c.answer),
                             'chat_type': c.chat_type,
                             'time': c.time_stamp,
                             'farmer': c.Farmer_id
