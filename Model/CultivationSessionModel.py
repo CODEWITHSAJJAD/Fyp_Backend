@@ -8,6 +8,7 @@ class CultivationSessionModel(db.Model):
     session_status = db.Column(db.String(100))
     is_profit = db.Column(db.Integer)
     amount_per_acre = db.Column(db.String(20))
+    is_public=db.Column(db.Integer)
     land_rls = db.relationship("LandModel", back_populates="cultivation_rls")
     crop_rls = db.relationship("CropModel", back_populates="cultivation_rls")
     per_activity_rls = db.relationship("PerformedActivityModel",

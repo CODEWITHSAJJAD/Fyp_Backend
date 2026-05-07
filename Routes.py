@@ -174,6 +174,10 @@ def GetListOfAllActivitiesOfProfitableSession(id):
 def GetProfitableCropSessionOnFarmerLand(id):
     return SessionController.GetProfitableCropSessionOnFarmerLand(id)
 
+@app.post('/HandlePublicSession/<id>')
+def HandlePublicSession(id):
+    return SessionController.handle_public_session(id)
+
 ########Task##################
 @app.post('/seacrhFarmerLands')
 def seacrhFarmerLands():
@@ -321,8 +325,6 @@ def mark_notification_read(id):
 @app.put('/markAllNotificationsRead/<farmer_id>')
 def mark_all_notifications_read(farmer_id):
     return ActivitiesSuggestionsController.mark_all_notifications_read(farmer_id)
-
-
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0',port=5000,debug=True)

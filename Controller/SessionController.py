@@ -39,7 +39,8 @@ class SessionController:
                     seed_name=seed,
                     session_status="Not Active",
                     is_profit=None,
-                    amount_per_acre=None
+                    amount_per_acre=None,
+                    is_public=1
                 )
                 db.session.add(newSession)
                 db.session.commit()
@@ -62,11 +63,27 @@ class SessionController:
             return jsonify("Session Not Allowed because one is incomplete"),404
         except Exception as e:
             return jsonify(str(e)),500
+    @staticmethod
+    def handle_public_session(s_id):
+        try:
+            existingsession=CultivationSessionModel.query.filter(CultivationSessionModel.cultivation_session_id==s_id).first()
+            if existingsession:
+                existingsession.crop_id=existingsession.crop_id
+                existingsession.land_id=existingsession.land_id
+                existingsession.seed_name=existingsession.seed_name
+                existingsession.session_status=existingsession.session_status
+                existingsession.is_profit = existingsession.is_profit
+                existingsession.amount_per_acre = existingsession.amount_per_acre
+                existingsession.is_public = 1 if existingsession.is_public==0 else 0
+                db.session.commit()
+                return jsonify("Session status has been changed"),200
+        except Exception as e:
+            return jsonify(str(e)),500
 
     @staticmethod
     def getAllSesssionsOfLand(lid):
         try:
-           rows=(db.session.query(CultivationSessionModel.cultivation_session_id,CultivationSessionModel.session_status,CultivationSessionModel.seed_name,CultivationSessionModel,CultivationSessionModel.is_profit,CultivationSessionModel.amount_per_acre,
+           rows=(db.session.query(CultivationSessionModel.cultivation_session_id,CultivationSessionModel.session_status,CultivationSessionModel.seed_name,CultivationSessionModel,CultivationSessionModel.is_profit,CultivationSessionModel.amount_per_acre,CultivationSessionModel.is_public,
                                   CropModel.crop_name,CropModel.crop_image,
                                        PerformedActivityModel.quantity_per_acre,PerformedActivityModel.activity_date,PerformedActivityModel.Activity_type,PerformedActivityModel.Activity_id).
                       join(CropModel,CropModel.crop_id==CultivationSessionModel.crop_id).
@@ -85,14 +102,15 @@ class SessionController:
                             "seed_name": r.seed_name,
                             "Sowing_date": None,
                             "Harvesting_date": None,
-                            "Production": r.quantity_per_acre,
                             "Profit": "Yes" if r.is_profit == 1 else "No",
-                            "Revenue": r.amount_per_acre
+                            "Revenue": r.amount_per_acre,
+                            "Public":r.is_public,
                         }
                     if r.Activity_id == 2:
                         sessions[sid]["Sowing_date"] = r.activity_date
                     elif r.Activity_id == 7:
                         sessions[sid]["Harvesting_date"] = r.activity_date
+                        sessions[sid]["Production"] = r.quantity_per_acre
                 return jsonify(list(sessions.values())),200
            return jsonify("No Session Found against this land id"),404
         except Exception as e:
@@ -101,7 +119,7 @@ class SessionController:
     @staticmethod
     def GetCurrentSessionOfFarmer(id):
         try:
-            currentSession=((db.session.query(CultivationSessionModel.seed_name,CultivationSessionModel.cultivation_session_id,
+            currentSession=((db.session.query(CultivationSessionModel.seed_name,CultivationSessionModel.cultivation_session_id,CultivationSessionModel.is_public,
                                               CropModel.crop_name,CropModel.crop_image,).
                             join(CropModel,CultivationSessionModel.crop_id==CropModel.crop_id).
                              filter(CultivationSessionModel.session_status!="Harvest",CultivationSessionModel.land_id==id)).
@@ -115,7 +133,8 @@ class SessionController:
                                 "session_id":currentSession.cultivation_session_id,
                                 "crop_name":currentSession.crop_name,
                                 "crop_image":imageurl+currentSession.crop_image,
-                                "date":date_value
+                                "date":date_value,
+                                "Public": currentSession.is_public,
                 }),200
             return jsonify("No Current Session found for this land"),404
         except Exception as e:
@@ -139,7 +158,8 @@ class SessionController:
                         "Harvesting_date":currenSession.harwesting_date,
                         "Production":currenSession.production_in_tons,
                         "Profit":"Yes" if currenSession.is_profit==1 else "No",
-                        "Revenue":currenSession.amount_per_acre
+                        "Revenue":currenSession.amount_per_acre,
+                        "Public": currenSession.is_public,
                         })
                 else:
                     session_list.append({
@@ -148,6 +168,7 @@ class SessionController:
                         "session_status": "Sown",
                         "seed_name": currenSession.seed_name,
                         "Sowing_date": currenSession.sowing_date,
+                        "Public": currenSession.is_public,
                     })
                 return jsonify(session_list),200
             return jsonify("No Session Found against this land id"),404
@@ -188,6 +209,7 @@ class SessionController:
                         "Profit":"Yes",
                         "Revenue":ProfitabaleCrop.amount_per_acre,
                         "Seed_name":ProfitabaleCrop.seed_name,
+                        "Public": ProfitabaleCrop.is_public,
                         "Activities":Activity
                     }),200
             return jsonify("No Activities Found against this land id"),404
@@ -211,6 +233,7 @@ class SessionController:
                     "Production":ProfitabaleCrop.production_in_tons,
                     "Sowing date":ProfitabaleCrop.sowing_date,
                     "Harvesting date":ProfitabaleCrop.harwesting_date,
+                    "Public": ProfitabaleCrop.is_public,
                 }),200
             return jsonify("No Profitable Crops Found against this land id"),404
         except Exception as e:

@@ -8,6 +8,7 @@ from Model.ActivityModel import ActivityModel
 from Model.LandModel import LandModel
 from db import db
 
+
 class ActivitiesSuggestionsController:
     @staticmethod
     def seed_session():
@@ -36,8 +37,8 @@ class ActivitiesSuggestionsController:
         payload = request.get_json(force=True) or {}
         sa_id = payload.get("suggested_activity_id")
         if not sa_id:
-            return jsonify({"error":"suggested_activity_id required"}), 400
-        
+            return jsonify({"error": "suggested_activity_id required"}), 400
+
         performed_date = payload.get("performed_date")
         res, code = ActivitySuggestionService.record_performed(sa_id, performed_date)
         return jsonify(res), code
@@ -47,7 +48,7 @@ class ActivitiesSuggestionsController:
         payload = request.get_json(force=True) or {}
         sa_id = payload.get("suggested_activity_id")
         if not sa_id:
-            return jsonify({"error":"suggested_activity_id required"}), 400
+            return jsonify({"error": "suggested_activity_id required"}), 400
         reason = payload.get("reason", "Manually skipped")
         res, code = ActivitySuggestionService.skip_activity(sa_id, reason)
         return jsonify(res), code

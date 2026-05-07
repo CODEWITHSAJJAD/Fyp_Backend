@@ -29,7 +29,7 @@ class NeighbourController:
                         join(LandModel,FarmerModel.farmer_id==LandModel.farmer_id).
                         join(CultivationSessionModel,LandModel.land_id==CultivationSessionModel.land_id).
                         join(CropModel,CultivationSessionModel.crop_id==CropModel.crop_id).
-                        filter(LandModel.city_id==city_id,FarmerModel.phone==phone).order_by(CultivationSessionModel.cultivation_session_id.desc())).all()
+                        filter(LandModel.city_id==city_id,FarmerModel.phone==phone,CultivationSessionModel.is_public==1).order_by(CultivationSessionModel.cultivation_session_id.desc())).all()
             NeighbouringLands= {}
             if Nieghbours:
                 for n in Nieghbours:
@@ -118,7 +118,7 @@ class NeighbourController:
             existingSession = CultivationSessionModel.query.filter(CultivationSessionModel.land_id == neighbour_session["land_id"], or_(
                 CultivationSessionModel.session_status != "Harvest",
                 CultivationSessionModel.session_status == None
-            )).all()
+            ),CultivationSessionModel.is_public==1).all()
             if not existingSession:
                 newSession = CultivationSessionModel(
                     **neighbour_session
@@ -154,7 +154,7 @@ class NeighbourController:
                 join(FarmerModel, LandModel.farmer_id == FarmerModel.farmer_id).
                 join(CultivationSessionModel, LandModel.land_id == CultivationSessionModel.land_id).
                 join(CropModel, CultivationSessionModel.crop_id == CropModel.crop_id).
-                filter(CultivationSessionModel.session_status != 'Harvest').
+                filter(CultivationSessionModel.session_status != 'Harvest',CultivationSessionModel.is_public==1).
                 filter(NeighbourModel.status == 1).
                 all())
 
@@ -247,7 +247,7 @@ class NeighbourController:
                          join(NeighbourModel,or_(NeighbourModel.neighbour_land_id==LandModel.land_id,NeighbourModel.land_id==LandModel.land_id)).
                          join(CultivationSessionModel,CultivationSessionModel.land_id==LandModel.land_id).
                          join(CropModel,CropModel.crop_id==CultivationSessionModel.crop_id).
-                         filter(FarmerModel.farmer_id==Neighbour_Farmer_id)).all()
+                         filter(FarmerModel.farmer_id==Neighbour_Farmer_id,CultivationSessionModel.is_public==1)).all()
 
             Neighbours = []
             if not Neighbour:
@@ -278,7 +278,7 @@ class NeighbourController:
                        join(LandModel,LandModel.farmer_id==FarmerModel.farmer_id).
                        join(CultivationSessionModel,CultivationSessionModel.land_id==LandModel.land_id).
                        join(CropModel,CropModel.crop_id==CultivationSessionModel.crop_id).
-                       filter(CultivationSessionModel.session_status=='Harvest',CultivationSessionModel.is_profit==1).
+                       filter(CultivationSessionModel.session_status=='Harvest',CultivationSessionModel.is_profit==1,CultivationSessionModel.is_public==1).
                        order_by(CultivationSessionModel.production_in_tons.desc()).
                        all())
 
@@ -314,7 +314,7 @@ class NeighbourController:
                        join(FarmerModel,FarmerModel.farmer_id==LandModel.farmer_id).
                        join(CultivationSessionModel,CultivationSessionModel.land_id==LandModel.land_id).
                        join(CropModel,CropModel.crop_id==CultivationSessionModel.crop_id).
-                       filter(CultivationSessionModel.session_status=='Harvest').
+                       filter(CultivationSessionModel.session_status=='Harvest',CultivationSessionModel.is_public==1).
                        order_by(CultivationSessionModel.sowing_date.desc()).
                        all())
             Neighbours=[]
@@ -346,7 +346,7 @@ class NeighbourController:
                        join(LandModel,LandModel.farmer_id==FarmerModel.farmer_id).
                        join(CultivationSessionModel,CultivationSessionModel.land_id==LandModel.land_id).
                        join(CropModel,CropModel.crop_id==CultivationSessionModel.crop_id).
-                       filter(CultivationSessionModel.session_status=='Harvest',CultivationSessionModel.is_profit==1).
+                       filter(CultivationSessionModel.session_status=='Harvest',CultivationSessionModel.is_profit==1,CultivationSessionModel.is_public==1).
                        order_by(CultivationSessionModel.production_in_tons.desc()).
                        first())
 

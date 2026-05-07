@@ -24,7 +24,7 @@ ps = PorterStemmer()
 # MODEL 1: INTENT CLASSIFICATION (NEURAL NETWORK)
 # ============================================
 
-print("\n📌 Training Intent Classification Model...")
+print("\n[TRAINING] Intent Classification Model...")
 
 # Load intent data
 df_intent = pd.read_csv('datasets/intents.csv', names=["Query", "Intent"])
@@ -47,7 +47,7 @@ print(f"   BoW shape: {X.shape}")
 
 # Save vectorizer
 pickle.dump(cv_intent, open('saved_state/IntentCountVectorizer.sav', 'wb'))
-print("   ✅ Saved IntentCountVectorizer.sav")
+print("   [OK] Saved IntentCountVectorizer.sav")
 
 # Encode labels
 le_intent = LabelEncoder()

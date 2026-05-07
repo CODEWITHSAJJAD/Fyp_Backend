@@ -1,10 +1,7 @@
-import base64
-
 from flask import request,jsonify
 from datetime import datetime
 from Model.ChatModel import ChatModel
 from Model.ChatSessionModel import ChatSessionModel
-from Services import TranslationService
 from db import db
 from Services.TranslationService import get_translation_service
 
@@ -13,7 +10,7 @@ class ChatController:
     @staticmethod
     def get_chatbot():
         """Get singleton chatbot instance from chatbot.py"""
-        from chatbot import get_chatbot
+        from Services.chatbot import get_chatbot
         return get_chatbot(use_llm=False)
 
     @staticmethod

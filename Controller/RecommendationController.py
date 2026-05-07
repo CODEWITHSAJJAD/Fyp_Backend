@@ -123,7 +123,7 @@ class RecommendationController:
             if not land:
                 return jsonify({"error": "Land resource not found"}), 404
 
-            last_session = CultivationSessionModel.query.filter(CultivationSessionModel.land_id==land.land_id)\
+            last_session = CultivationSessionModel.query.filter(CultivationSessionModel.land_id==land.land_id,CultivationSessionModel.is_public==1)\
                 .order_by(CultivationSessionModel.cultivation_session_id.desc()).first()
             
             last_crop_name = None
@@ -132,7 +132,7 @@ class RecommendationController:
             neighbors = NeighbourModel.query.filter(NeighbourModel.land_id==land.land_id, NeighbourModel.status==1).all()
             highly_successful_neighbor_crop = None
             for n in neighbors:
-                n_session = CultivationSessionModel.query.filter(CultivationSessionModel.land_id==n.neighbour_land_id, CultivationSessionModel.is_profit==1)\
+                n_session = CultivationSessionModel.query.filter(CultivationSessionModel.land_id==n.neighbour_land_id, CultivationSessionModel.is_profit==1,CultivationSessionModel.is_public==1)\
                     .order_by(CultivationSessionModel.cultivation_session_id.desc()).first()
                 if n_session and n_session.crop_rls and n_session.crop_rls.season_name == current_season:
                     highly_successful_neighbor_crop = n_session.crop_rls.crop_name

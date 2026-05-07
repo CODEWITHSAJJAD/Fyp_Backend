@@ -1,46 +1,64 @@
 Word,Tag
-rice,CROP
-paddy,CROP
-wheat,CROP
+bajra,CROP
+bitter gourd,CROP
+bitter,CROP
+gourd,CROP
+bottle gourd,CROP
+bottle,CROP
+chilies,CROP
 cotton,CROP
-sugarcane,CROP
+cucumber,CROP
+groundnut,CROP
+jowar,CROP
+lady finger,CROP
+lady,CROP
+finger,CROP
+okra,CROP
+long melon,CROP
+long,CROP
+melon,CROP
+luffa,CROP
 maize,CROP
 corn,CROP
-potato,CROP
-tomato,CROP
-onion,CROP
-chili,CROP
-chilly,CROP
+musk melon,CROP
+musk,CROP
+pumpkin,CROP
+rice,CROP
+paddy,CROP
+safflower,CROP
+sesamum,CROP
+soybean,CROP
+sugarcane,CROP
+sunflower,CROP
+tinda,CROP
+turmeric,CROP
+watermelon,CROP
+barley,CROP
+beans,CROP
+beets,CROP
 brinjal,CROP
 eggplant,CROP
-okra,CROP
-ladyfinger,CROP
 cabbage,CROP
-cauliflower,CROP
 carrot,CROP
+cauliflower,CROP
+coriander,CROP
+fennogreek,CROP
+garlic,CROP
+gram,CROP
+lettuce,CROP
+linseed,CROP
+mattar,CROP
+mustard,CROP
+onion,CROP
+potato,CROP
 radish,CROP
 spinach,CROP
-cucumber,CROP
-peas,CROP
-gram,CROP
-chickpea,CROP
-mustard,CROP
-sunflower,CROP
-groundnut,CROP
-ragi,CROP
-jowar,CROP
-bajra,CROP
-barley,CROP
-mango,CROP
-banana,CROP
-apple,CROP
-orange,CROP
-cashew,CROP
-coconut,CROP
-arecanut,CROP
+sweet potato,CROP
+sweet,CROP
 tobacco,CROP
-soyabean,CROP
-cardamom,CROP
+tomato,CROP
+turnip,CROP
+wheat,CROP
 soil,SOIL
 red soil,SOIL
 black soil,SOIL
@@ -107,7 +125,6 @@ smut,DISEASE
 leaf curl,DISEASE
 yellow rust,DISEASE
 brown rust,DISEASE
-karnal bunt,DISEASE
 irrigation,IRR
 water,WTR
 irrigate,IRR
@@ -115,9 +132,6 @@ drip,IRR
 sprinkler,IRR
 flood,IRR
 furrow,IRR
-tapka,IRR
-fawara,IRR
-sailaba,IRR
 rain,RAIN
 rainfall,RAIN
 precipitation,RAIN
@@ -125,7 +139,8 @@ yield,YLD
 production,YLD
 productivity,YLD
 output,YLD
-harvest,YLD
+harvest,REAP
+reap,REAP
 price,COST
 cost,COST
 rate,COST
@@ -135,7 +150,6 @@ rate today,COST
 season,TIME
 time,TIME
 month,TIME
-year,TIME
 today,TIME
 tomorrow,TIME
 week,TIME
@@ -145,13 +159,11 @@ spring,TIME
 summer,TIME
 winter,TIME
 autumn,TIME
+zaid,TIME
 punjab,LOC
 sindh,LOC
 kpk,LOC
 balochistan,LOC
-belgaum,LOC
-mysore,LOC
-india,LOC
 pakistan,LOC
 region,LOC
 district,LOC
@@ -160,35 +172,18 @@ grow,CUL
 cultivate,CUL
 plant,CUL
 sow,SOW
-reap,REAP
 variety,TYPE
 varieties,TYPE
 type,TYPE
-types,TYPE
-kind,TYPE
 hybrid,TYPE
-basmati,TYPE
-irri,TYPE
-bt,TYPE
-how much,QTY
-how many,QTY
 kg,MSR
 kilogram,MSR
 acre,MSR
 hectare,MSR
 ton,MSR
-tonne,MSR
 quintal,MSR
 maund,MSR
-bag,MSR
 per acre,MSR
-per hectare,MSR
-hello,GREET
-hi,GREET
-hey,GREET
-namaste,GREET
-namaskar,GREET
-wassup,GREET
 how,QW
 what,QW
 when,QW
@@ -198,20 +193,12 @@ why,QW
 who,QW
 can,QW
 will,QW
-is,QW
-are,QW
 tell,QW
-describe,QW
-explain,QW
 the,SW
 a,SW
 an,SW
-am,SW
-was,SW
-were,SW
-be,SW
-been,SW
-being,SW
+is,SW
+are,SW
 to,SW
 for,SW
 of,SW
@@ -225,10 +212,6 @@ about,SW
 i,USR
 me,USR
 my,USR
-mine,USR
 you,USR
 your,USR
-yours,USR
-we,USR
-us,USR
 our,USR
