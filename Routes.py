@@ -6,6 +6,7 @@ from Controller.CropController import CropController
 from Controller.LandController import LandController
 from Controller.NeighbourController import NeighbourController
 from Controller.SessionController import SessionController
+from Controller.fetch import export_city_data_to_file
 from Controller.taskController import TaskContoller
 from Model.CityModel import CityModel
 from Model.ProvinceModel import ProvinceModel

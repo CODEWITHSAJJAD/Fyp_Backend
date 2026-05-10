@@ -1,0 +1,251 @@
+City ID    | City Name                 | Prov ID    | Province Name
+----------------------------------------------------------------------
+1          | Kamalia                   | 1          | Punjab
+2          | Attock                    | 1          | Punjab
+3          | Bahawalnagar              | 1          | Punjab
+4          | Bahawalpur                | 1          | Punjab
+5          | Bhakkar                   | 1          | Punjab
+6          | Chakwal                   | 1          | Punjab
+7          | Chiniot                   | 1          | Punjab
+8          | Dera Ghazi Khan           | 1          | Punjab
+9          | Faisalabad                | 1          | Punjab
+10         | Gujranwala                | 1          | Punjab
+11         | Gujrat                    | 1          | Punjab
+12         | Hafizabad                 | 1          | Punjab
+13         | Jhang                     | 1          | Punjab
+14         | Jhelum                    | 1          | Punjab
+15         | Kasur                     | 1          | Punjab
+16         | Khanewal                  | 1          | Punjab
+17         | Khushab                   | 1          | Punjab
+18         | Lahore                    | 1          | Punjab
+19         | Layyah                    | 1          | Punjab
+20         | Lodhran                   | 1          | Punjab
+21         | Mandi Bahauddin           | 1          | Punjab
+22         | Mianwali                  | 1          | Punjab
+23         | Multan                    | 1          | Punjab
+24         | Muzaffargarh              | 1          | Punjab
+25         | Nankana Sahib             | 1          | Punjab
+26         | Narowal                   | 1          | Punjab
+27         | Okara                     | 1          | Punjab
+28         | Pakpattan                 | 1          | Punjab
+29         | Rahim Yar Khan            | 1          | Punjab
+30         | Rajanpur                  | 1          | Punjab
+31         | Rawalpindi                | 1          | Punjab
+32         | Sahiwal                   | 1          | Punjab
+33         | Sargodha                  | 1          | Punjab
+34         | Sheikhupura               | 1          | Punjab
+35         | Sialkot                   | 1          | Punjab
+36         | Toba Tek Singh            | 1          | Punjab
+37         | Vehari                    | 1          | Punjab
+38         | Murree                    | 1          | Punjab
+39         | Talagang                  | 1          | Punjab
+40         | Taunsa                    | 1          | Punjab
+41         | Kot Addu                  | 1          | Punjab
+42         | Badin                     | 2          | Sindh
+43         | Dadu                      | 2          | Sindh
+44         | Ghotki                    | 2          | Sindh
+45         | Hyderabad                 | 2          | Sindh
+46         | Jacobabad                 | 2          | Sindh
+47         | Jamshoro                  | 2          | Sindh
+48         | Karachi Central           | 2          | Sindh
+49         | Karachi East              | 2          | Sindh
+50         | Karachi South             | 2          | Sindh
+51         | Karachi West              | 2          | Sindh
+52         | Karachi Malir             | 2          | Sindh
+53         | Kashmore                  | 2          | Sindh
+54         | Khairpur                  | 2          | Sindh
+55         | Larkana                   | 2          | Sindh
+56         | Matiari                   | 2          | Sindh
+57         | Mirpurkhas                | 2          | Sindh
+58         | Naushahro Feroze          | 2          | Sindh
+59         | Qambar Shahdadkot         | 2          | Sindh
+60         | Sanghar                   | 2          | Sindh
+61         | Shaheed Benazirabad       | 2          | Sindh
+62         | Shikarpur                 | 2          | Sindh
+63         | Sukkur                    | 2          | Sindh
+64         | Tando Allahyar            | 2          | Sindh
+65         | Tando Muhammad Khan       | 2          | Sindh
+66         | Tharparkar                | 2          | Sindh
+67         | Thatta                    | 2          | Sindh
+68         | Umerkot                   | 2          | Sindh
+69         | Sujawal                   | 2          | Sindh
+70         | Malir Cantonment          | 2          | Sindh
+71         | Abbottabad                | 3          | Khyber Pakhtunkhwa
+
+72         | Bajaur                    | 3          | Khyber Pakhtunkhwa
+
+73         | Bannu                     | 3          | Khyber Pakhtunkhwa
+
+74         | Battagram                 | 3          | Khyber Pakhtunkhwa
+
+75         | Buner                     | 3          | Khyber Pakhtunkhwa
+
+76         | Charsadda                 | 3          | Khyber Pakhtunkhwa
+
+77         | Chitral Lower             | 3          | Khyber Pakhtunkhwa
+
+78         | Chitral Upper             | 3          | Khyber Pakhtunkhwa
+
+79         | Dera Ismail Khan          | 3          | Khyber Pakhtunkhwa
+
+80         | Hangu                     | 3          | Khyber Pakhtunkhwa
+
+81         | Haripur                   | 3          | Khyber Pakhtunkhwa
+
+82         | Karak                     | 3          | Khyber Pakhtunkhwa
+
+83         | Khyber                    | 3          | Khyber Pakhtunkhwa
+
+84         | Kohat                     | 3          | Khyber Pakhtunkhwa
+
+85         | Kolai Palas               | 3          | Khyber Pakhtunkhwa
+
+86         | Kurram                    | 3          | Khyber Pakhtunkhwa
+
+87         | Lakki Marwat              | 3          | Khyber Pakhtunkhwa
+
+88         | Lower Dir                 | 3          | Khyber Pakhtunkhwa
+
+89         | Lower Kohistan            | 3          | Khyber Pakhtunkhwa
+
+90         | Malakand                  | 3          | Khyber Pakhtunkhwa
+
+91         | Mansehra                  | 3          | Khyber Pakhtunkhwa
+
+92         | Mardan                    | 3          | Khyber Pakhtunkhwa
+
+93         | Mohmand                   | 3          | Khyber Pakhtunkhwa
+
+94         | North Waziristan          | 3          | Khyber Pakhtunkhwa
+
+95         | Nowshera                  | 3          | Khyber Pakhtunkhwa
+
+96         | Orakzai                   | 3          | Khyber Pakhtunkhwa
+
+97         | Peshawar                  | 3          | Khyber Pakhtunkhwa
+
+98         | Shangla                   | 3          | Khyber Pakhtunkhwa
+
+99         | South Waziristan          | 3          | Khyber Pakhtunkhwa
+
+100        | Swabi                     | 3          | Khyber Pakhtunkhwa
+
+101        | Swat                      | 3          | Khyber Pakhtunkhwa
+
+102        | Tank                      | 3          | Khyber Pakhtunkhwa
+
+103        | Torghar                   | 3          | Khyber Pakhtunkhwa
+
+104        | Upper Dir                 | 3          | Khyber Pakhtunkhwa
+
+105        | Upper Kohistan            | 3          | Khyber Pakhtunkhwa
+
+106        | Awaran                    | 4          | Balochistan
+
+107        | Barkhan                   | 4          | Balochistan
+
+108        | Chagai                    | 4          | Balochistan
+
+109        | Dera Bugti                | 4          | Balochistan
+
+110        | Gwadar                    | 4          | Balochistan
+
+111        | Harnai                    | 4          | Balochistan
+
+112        | Hub                       | 4          | Balochistan
+
+113        | Jafarabad                 | 4          | Balochistan
+
+114        | Jhal Magsi                | 4          | Balochistan
+
+115        | Kachhi                    | 4          | Balochistan
+
+116        | Kalat                     | 4          | Balochistan
+
+117        | Kech                      | 4          | Balochistan
+
+118        | Kharan                    | 4          | Balochistan
+
+119        | Khuzdar                   | 4          | Balochistan
+
+120        | Killa Abdullah            | 4          | Balochistan
+
+121        | Killa Saifullah           | 4          | Balochistan
+
+122        | Kohlu                     | 4          | Balochistan
+
+123        | Lasbela                   | 4          | Balochistan
+
+124        | Loralai                   | 4          | Balochistan
+
+125        | Mastung                   | 4          | Balochistan
+
+126        | Musakhel                  | 4          | Balochistan
+
+127        | Naseerabad                | 4          | Balochistan
+
+128        | Nushki                    | 4          | Balochistan
+
+129        | Panjgur                   | 4          | Balochistan
+
+130        | Pishin                    | 4          | Balochistan
+
+131        | Quetta                    | 4          | Balochistan
+
+132        | Sherani                   | 4          | Balochistan
+
+133        | Sibi                      | 4          | Balochistan
+
+134        | Sohbatpur                 | 4          | Balochistan
+
+135        | Washuk                    | 4          | Balochistan
+
+136        | Zhob                      | 4          | Balochistan
+
+137        | Ziarat                    | 4          | Balochistan
+
+138        | Usta Muhammad             | 4          | Balochistan
+
+139        | Lehri                     | 4          | Balochistan
+
+140        | Astore                    | 5          | Gilgit-Baltistan
+
+141        | Diamer                    | 5          | Gilgit-Baltistan
+
+142        | Ghizer                    | 5          | Gilgit-Baltistan
+
+143        | Gilgit                    | 5          | Gilgit-Baltistan
+
+144        | Ghanche                   | 5          | Gilgit-Baltistan
+
+145        | Hunza                     | 5          | Gilgit-Baltistan
+
+146        | Kharmang                  | 5          | Gilgit-Baltistan
+
+147        | Nagar                     | 5          | Gilgit-Baltistan
+
+148        | Shigar                    | 5          | Gilgit-Baltistan
+
+149        | Skardu                    | 5          | Gilgit-Baltistan
+
+150        | Bagh                      | 6          | Azad Jammu and Kashmir
+
+151        | Bhimber                   | 6          | Azad Jammu and Kashmir
+
+152        | Hattian Bala              | 6          | Azad Jammu and Kashmir
+
+153        | Haveli                    | 6          | Azad Jammu and Kashmir
+
+154        | Kotli                     | 6          | Azad Jammu and Kashmir
+
+155        | Mirpur                    | 6          | Azad Jammu and Kashmir
+
+156        | Muzaffarabad              | 6          | Azad Jammu and Kashmir
+
+157        | Neelum                    | 6          | Azad Jammu and Kashmir
+
+158        | Poonch                    | 6          | Azad Jammu and Kashmir
+
+159        | Sudhnuti                  | 6          | Azad Jammu and Kashmir
+
+160        | Islamabad                 | 7          | Islamabad

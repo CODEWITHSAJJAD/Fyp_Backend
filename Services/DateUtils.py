@@ -92,10 +92,10 @@ def days_since(date_str):
 
 def get_month_number(date_str):
     """
-    Get month number from a date string (YYYY-MM-DD format)
+    Get month number from a date string
 
     Args:
-        date_str: Date string in YYYY-MM-DD format or datetime object
+        date_str: Date string in YYYY-MM-DD format or "Wed-D-M-YYYY" format or datetime object
 
     Returns:
         int: Month number (1-12) or None if invalid
@@ -105,11 +105,26 @@ def get_month_number(date_str):
         12
         >>> get_month_number("2024-01-01")
         1
+        >>> get_month_number("Wed-6-2-2026")
+        2
     """
     if date_str is None:
         return None
 
-    date_obj = string_to_date(date_str)
-    if date_obj is None:
-        return None
-    return date_obj.month
+    if isinstance(date_str, datetime):
+        return date_str.month
+
+    if isinstance(date_str, str):
+        parts = date_str.strip().split('-')
+        
+        if len(parts) == 4:
+            try:
+                return int(parts[2])
+            except (ValueError, IndexError):
+                pass
+        
+        date_obj = string_to_date(date_str)
+        if date_obj is not None:
+            return date_obj.month
+    
+    return None
