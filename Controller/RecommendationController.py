@@ -1,11 +1,12 @@
 from flask import jsonify, request
 from copy import deepcopy
 from Services.WeatherService import get_weather
-from Model import CityModel
+from Services.DateUtils import get_month_number
 from url import imageurl
 from Model.LandModel import LandModel
 from Model.CropModel import CropModel
 from Model.CityModel import CityModel
+from Model.FarmerModel import FarmerModel
 from Model.CultivationSessionModel import CultivationSessionModel
 from Model.NeighbourModel import NeighbourModel
 from db import db
@@ -107,7 +108,10 @@ class RecommendationController:
     def get_recommendations(id):
         try:
             land_id = id
-            current_month = datetime.now().month
+            Farmer=db.session.query(FarmerModel.Prefered_Date,LandModel.land_id).join(FarmerModel,FarmerModel.farmer_id==LandModel.farmer_id).filter(LandModel.land_id==land_id).first()
+            prefered_date = Farmer.Prefered_Date
+            # current_month = datetime.now().month
+            current_month = get_month_number(prefered_date)
             if current_month >= 4 and current_month <= 9:
                 current_season = 1
                 season_name_str = "Kharif"

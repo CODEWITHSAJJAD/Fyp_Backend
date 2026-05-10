@@ -1,12 +1,13 @@
 from os.path import join
 from sqlalchemy import Null
+from sqlmodel.ext.asyncio import session
 
 from Model import FarmerModel
 from Model.ActivityModel import ActivityModel
 from Model.LandModel import LandModel
 from Model.FarmerModel import FarmerModel
 from Model.PerformActivityModel import PerformedActivityModel
-from Services.DateUtils import get_current_date_string
+from Services.DateUtils import get_current_date_string, get_month_number
 from  db import db
 from sqlmodel import or_,and_
 from flask import jsonify,request
@@ -26,13 +27,19 @@ class SessionController:
             seed=data["seed"]
             land_id=data["land_id"]
             crop_id=data["crop_id"]
-            Land=LandModel.query.filter(LandModel.land_id==land_id).first()
+            Farmer = db.session.query(LandModel.land_id, LandModel.land_name, FarmerModel.farmer_id,FarmerModel.Prefered_Date).join(FarmerModel,FarmerModel.farmer_id == LandModel.farmer_id).filter(LandModel.land_id == land_id).first()
             crop=CropModel.query.filter(CropModel.crop_id==crop_id).first()
+            prefered_date = Farmer.Prefered_Date
+            current_month = get_month_number(prefered_date)
+            session_allowed=False
+            season=crop.season_name
+            if (season==0 and current_month==9) or (season==1 and current_month==4):
+                session_allowed=True
             existingSession=CultivationSessionModel.query.filter(CultivationSessionModel.land_id==land_id,or_(
             CultivationSessionModel.session_status != "Harvest",
             CultivationSessionModel.session_status == None
         )).all()
-            if not existingSession:
+            if session_allowed and not existingSession:
                 newSession=CultivationSessionModel(
                     crop_id=crop_id,
                     land_id=land_id,
@@ -50,13 +57,10 @@ class SessionController:
                         newSession.cultivation_session_id,
                         get_current_date_string()
                     )
-                
-                Farmer=db.session.query(LandModel.land_id,FarmerModel.farmer_id).join(FarmerModel,FarmerModel.farmer_id==LandModel.farmer_id).filter(LandModel.land_id==land_id).first()
-                
                 NotificationHelper.session_started_notification(
                     Farmer.farmer_id, 
                     crop.crop_name, 
-                    Land.land_name
+                    Farmer.land_name
                 )
                 
                 return jsonify("Session Added"),200

@@ -119,6 +119,10 @@ def FarmerSetting():
 def get(id):
     return FarmerController.getbyid(id)
 
+@app.post('/HandleAccountDate')
+def HandleAccountDate():
+    return FarmerController.RecordPreferdDate()
+
 #########--Land--############
 
 @app.post('/addFarmerLand')

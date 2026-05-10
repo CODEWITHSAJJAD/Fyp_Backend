@@ -78,7 +78,7 @@ class FarmerController:
             landmark = json_data['landmark']
             password = json_data['password']
             city_name = json_data['city']
-
+            experiemce=json_data['experiemce']
             uploads_dir = "uploads/farmers"
             save_path=None
             if image and update :
@@ -106,7 +106,9 @@ class FarmerController:
             existing_farmer.farmer_image = save_path if update else existing_farmer.farmer_image
             existing_farmer.landmark = landmark
             existing_farmer.password = password
-            existing_farmer.years_of_experience = 2
+            existing_farmer.Prefered_Date=existing_farmer.Prefered_Date
+            existing_farmer.years_of_experience = experiemce
+
             db.session.commit()
             NotificationHelper.Setting_notification(farmer_id=existing_farmer.farmer_id)
             return jsonify("Farmer Updated successfully"), 200
@@ -118,7 +120,7 @@ class FarmerController:
         fid = id
         try:
             # data = FarmerModel.query.filter(FarmerModel.farmer_id == fid).first()
-            data=(db.session.query(FarmerModel.farmer_image,FarmerModel.farmer_name,FarmerModel.phone,FarmerModel.landmark,FarmerModel.email,FarmerModel.years_of_experience,CityModel.city_name,ProvinceModel.province_name).join(CityModel,FarmerModel.city_id==CityModel.city_id).join(ProvinceModel,CityModel.province_id==ProvinceModel.province_id).filter(FarmerModel.farmer_id == fid)).first()
+            data=(db.session.query(FarmerModel.farmer_image,FarmerModel.farmer_name,FarmerModel.phone,FarmerModel.landmark,FarmerModel.email,FarmerModel.years_of_experience,FarmerModel.Prefered_Date,CityModel.city_name,ProvinceModel.province_name).join(CityModel,FarmerModel.city_id==CityModel.city_id).join(ProvinceModel,CityModel.province_id==ProvinceModel.province_id).filter(FarmerModel.farmer_id == fid)).first()
             if data:
                 image_path = data.farmer_image.replace("\\", "/") if data.farmer_image else None
                 print(image_path)
@@ -130,7 +132,8 @@ class FarmerController:
                     "City": data.city_name,
                     "Province": data.province_name,
                     "Landmark": data.landmark,
-                    "years_of_experience": data.years_of_experience
+                    "years_of_experience": data.years_of_experience,
+                    "Prefered_Date":data.Prefered_Date
                 }), 200
             return jsonify("not found"), 404
         except Exception as e:
@@ -147,5 +150,27 @@ class FarmerController:
                     city.append(c.city_name)
                 return jsonify(city),200
             return jsonify("Not Found"),404
+        except Exception as e:
+            return jsonify(str(e)), 500
+
+    @staticmethod
+    def RecordPreferdDate():
+        data=request.get_json()
+        try:
+            existing_farmer = FarmerModel.query.filter(FarmerModel.farmer_id==data['farmer_id']).first()
+            if not existing_farmer:
+                return jsonify("Farmer not found"), 404
+            existing_farmer.farmer_name = existing_farmer.farmer_name
+            existing_farmer.phone = existing_farmer.phone
+            existing_farmer.email = existing_farmer.email
+            existing_farmer.city_id = existing_farmer.city_id
+            existing_farmer.farmer_image = existing_farmer.farmer_image
+            existing_farmer.landmark = existing_farmer.landmark
+            existing_farmer.password = existing_farmer.password
+            existing_farmer.years_of_experience = existing_farmer.years_of_experience
+            existing_farmer.Prefered_Date=data['Prefered_Date']
+            db.session.commit()
+            NotificationHelper.Setting_notification(farmer_id=existing_farmer.farmer_id)
+            return jsonify("Farmer Updated successfully"), 200
         except Exception as e:
             return jsonify(str(e)), 500

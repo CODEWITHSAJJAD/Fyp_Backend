@@ -145,7 +145,7 @@ class NeighbourController:
         try:
             Neighbour = (
                 db.session.query(FarmerModel.farmer_id, FarmerModel.farmer_name, FarmerModel.years_of_experience,FarmerModel.farmer_image,
-                                 FarmerModel.phone, LandModel.land_in_acres,LandModel.source_of_water, LandModel.years_of_cultivation,LandModel.land_name,LandModel.land_id,
+                                 FarmerModel.phone, LandModel.land_in_acres,LandModel.source_of_water, LandModel.years_of_cultivation,LandModel.land_name,LandModel.land_id,CultivationSessionModel.seed_name,PerformedActivityModel.activity_date,PerformedActivityModel.Activity_id,
                                  CropModel.crop_name,CropModel.crop_image)
                 .join(NeighbourModel, or_(
                     and_(NeighbourModel.land_id == lid, NeighbourModel.neighbour_land_id == LandModel.land_id),
@@ -173,12 +173,17 @@ class NeighbourController:
                         "land_name":i.land_name.capitalize(),
                         "Phone": i.phone,
                         "Crop": i.crop_name.capitalize(),
+                        "Seed":i.seed_name,
                         "land_in_acres":i.land_in_acres,
                         "Crop_image":imageurl+i.crop_image,
                         "years_of_experience": i.years_of_experience,
                         "source_of_water": i.source_of_water.capitalize(),
                         "years_of_cultivation": i.years_of_cultivation,
                     }
+                    if i.Activity_id == 2:
+                        Neighbours[i.land_id]["Sowing_date"] = i.activity_date
+                    elif i.Activity_id == 7:
+                        Neighbours[i.land_id]["Harvesting_date"] = i.activity_date
             Neighbours = list(Neighbours.values())
             # Neighbours = []
             #
