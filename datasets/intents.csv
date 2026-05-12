@@ -86,6 +86,43 @@ bajra sowing season,SowingTime
 best time to sow bajra,SowingTime
 sowing time for bajra,SowingTime
 planting season for bajra,SowingTime
+is bajra suitable for my land,CropSuitability
+can i grow bajra on my land,CropSuitability
+is bajra good for sandy soil,CropSuitability
+is bajra good for loamy soil,CropSuitability
+will bajra grow in my region,CropSuitability
+is bajra suitable for this season,CropSuitability
+does bajra suit my soil type,CropSuitability
+should i grow bajra on my land,CropSuitability
+my past cultivation sessions,PastSessions
+previous crops i grew,PastSessions
+last season crops,PastSessions
+crop history of my land,PastSessions
+what did i cultivate before,PastSessions
+my farming history,PastSessions
+neighbor previous crops,NeighborPastSessions
+what neighbor grew before,NeighborPastSessions
+neighbor crop history,NeighborPastSessions
+neighbor farming past,NeighborPastSessions
+activities for profit,ProfitActivities
+profitable farming activities,ProfitActivities
+activities for good yield,ProfitActivities
+best farming practices for profit,ProfitActivities
+most profitable crops,ProfitablePastCrops
+crops that earned profit,ProfitablePastCrops
+best earning crops from history,ProfitablePastCrops
+profitable crops from past,ProfitablePastCrops
+is bajra suitable for me,CropSuitability
+can i grow bajra,CropSuitability
+is bajra good for my land,CropSuitability
+should i grow bajra,CropSuitability
+will bajra grow on my land,CropSuitability
+is bajra right for me,CropSuitability
+does my land suit bajra,CropSuitability
+should i cultivate bajra,CropRecommendation
+can i grow bajra,CropRecommendation
+is bajra good,CropRecommendation
+should i grow bajra,CropRecommendation
 how to grow bitter gourd,Cultivation
 how to cultivate bitter gourd,Cultivation
 i want to grow bitter gourd,Cultivation
@@ -174,6 +211,43 @@ bitter gourd sowing season,SowingTime
 best time to sow bitter gourd,SowingTime
 sowing time for bitter gourd,SowingTime
 planting season for bitter gourd,SowingTime
+is bitter gourd suitable for my land,CropSuitability
+can i grow bitter gourd on my land,CropSuitability
+is bitter gourd good for sandy soil,CropSuitability
+is bitter gourd good for loamy soil,CropSuitability
+will bitter gourd grow in my region,CropSuitability
+is bitter gourd suitable for this season,CropSuitability
+does bitter gourd suit my soil type,CropSuitability
+should i grow bitter gourd on my land,CropSuitability
+my past cultivation sessions,PastSessions
+previous crops i grew,PastSessions
+last season crops,PastSessions
+crop history of my land,PastSessions
+what did i cultivate before,PastSessions
+my farming history,PastSessions
+neighbor previous crops,NeighborPastSessions
+what neighbor grew before,NeighborPastSessions
+neighbor crop history,NeighborPastSessions
+neighbor farming past,NeighborPastSessions
+activities for profit,ProfitActivities
+profitable farming activities,ProfitActivities
+activities for good yield,ProfitActivities
+best farming practices for profit,ProfitActivities
+most profitable crops,ProfitablePastCrops
+crops that earned profit,ProfitablePastCrops
+best earning crops from history,ProfitablePastCrops
+profitable crops from past,ProfitablePastCrops
+is bitter gourd suitable for me,CropSuitability
+can i grow bitter gourd,CropSuitability
+is bitter gourd good for my land,CropSuitability
+should i grow bitter gourd,CropSuitability
+will bitter gourd grow on my land,CropSuitability
+is bitter gourd right for me,CropSuitability
+does my land suit bitter gourd,CropSuitability
+should i cultivate bitter gourd,CropRecommendation
+can i grow bitter gourd,CropRecommendation
+is bitter gourd good,CropRecommendation
+should i grow bitter gourd,CropRecommendation
 how to grow bottle gourd,Cultivation
 how to cultivate bottle gourd,Cultivation
 i want to grow bottle gourd,Cultivation
@@ -262,6 +336,43 @@ bottle gourd sowing season,SowingTime
 best time to sow bottle gourd,SowingTime
 sowing time for bottle gourd,SowingTime
 planting season for bottle gourd,SowingTime
+is bottle gourd suitable for my land,CropSuitability
+can i grow bottle gourd on my land,CropSuitability
+is bottle gourd good for sandy soil,CropSuitability
+is bottle gourd good for loamy soil,CropSuitability
+will bottle gourd grow in my region,CropSuitability
+is bottle gourd suitable for this season,CropSuitability
+does bottle gourd suit my soil type,CropSuitability
+should i grow bottle gourd on my land,CropSuitability
+my past cultivation sessions,PastSessions
+previous crops i grew,PastSessions
+last season crops,PastSessions
+crop history of my land,PastSessions
+what did i cultivate before,PastSessions
+my farming history,PastSessions
+neighbor previous crops,NeighborPastSessions
+what neighbor grew before,NeighborPastSessions
+neighbor crop history,NeighborPastSessions
+neighbor farming past,NeighborPastSessions
+activities for profit,ProfitActivities
+profitable farming activities,ProfitActivities
+activities for good yield,ProfitActivities
+best farming practices for profit,ProfitActivities
+most profitable crops,ProfitablePastCrops
+crops that earned profit,ProfitablePastCrops
+best earning crops from history,ProfitablePastCrops
+profitable crops from past,ProfitablePastCrops
+is bottle gourd suitable for me,CropSuitability
+can i grow bottle gourd,CropSuitability
+is bottle gourd good for my land,CropSuitability
+should i grow bottle gourd,CropSuitability
+will bottle gourd grow on my land,CropSuitability
+is bottle gourd right for me,CropSuitability
+does my land suit bottle gourd,CropSuitability
+should i cultivate bottle gourd,CropRecommendation
+can i grow bottle gourd,CropRecommendation
+is bottle gourd good,CropRecommendation
+should i grow bottle gourd,CropRecommendation
 how to grow chilies,Cultivation
 how to cultivate chilies,Cultivation
 i want to grow chilies,Cultivation
@@ -350,6 +461,43 @@ chilies sowing season,SowingTime
 best time to sow chilies,SowingTime
 sowing time for chilies,SowingTime
 planting season for chilies,SowingTime
+is chilies suitable for my land,CropSuitability
+can i grow chilies on my land,CropSuitability
+is chilies good for sandy soil,CropSuitability
+is chilies good for loamy soil,CropSuitability
+will chilies grow in my region,CropSuitability
+is chilies suitable for this season,CropSuitability
+does chilies suit my soil type,CropSuitability
+should i grow chilies on my land,CropSuitability
+my past cultivation sessions,PastSessions
+previous crops i grew,PastSessions
+last season crops,PastSessions
+crop history of my land,PastSessions
+what did i cultivate before,PastSessions
+my farming history,PastSessions
+neighbor previous crops,NeighborPastSessions
+what neighbor grew before,NeighborPastSessions
+neighbor crop history,NeighborPastSessions
+neighbor farming past,NeighborPastSessions
+activities for profit,ProfitActivities
+profitable farming activities,ProfitActivities
+activities for good yield,ProfitActivities
+best farming practices for profit,ProfitActivities
+most profitable crops,ProfitablePastCrops
+crops that earned profit,ProfitablePastCrops
+best earning crops from history,ProfitablePastCrops
+profitable crops from past,ProfitablePastCrops
+is chilies suitable for me,CropSuitability
+can i grow chilies,CropSuitability
+is chilies good for my land,CropSuitability
+should i grow chilies,CropSuitability
+will chilies grow on my land,CropSuitability
+is chilies right for me,CropSuitability
+does my land suit chilies,CropSuitability
+should i cultivate chilies,CropRecommendation
+can i grow chilies,CropRecommendation
+is chilies good,CropRecommendation
+should i grow chilies,CropRecommendation
 how to grow cotton,Cultivation
 how to cultivate cotton,Cultivation
 i want to grow cotton,Cultivation
@@ -438,6 +586,43 @@ cotton sowing season,SowingTime
 best time to sow cotton,SowingTime
 sowing time for cotton,SowingTime
 planting season for cotton,SowingTime
+is cotton suitable for my land,CropSuitability
+can i grow cotton on my land,CropSuitability
+is cotton good for sandy soil,CropSuitability
+is cotton good for loamy soil,CropSuitability
+will cotton grow in my region,CropSuitability
+is cotton suitable for this season,CropSuitability
+does cotton suit my soil type,CropSuitability
+should i grow cotton on my land,CropSuitability
+my past cultivation sessions,PastSessions
+previous crops i grew,PastSessions
+last season crops,PastSessions
+crop history of my land,PastSessions
+what did i cultivate before,PastSessions
+my farming history,PastSessions
+neighbor previous crops,NeighborPastSessions
+what neighbor grew before,NeighborPastSessions
+neighbor crop history,NeighborPastSessions
+neighbor farming past,NeighborPastSessions
+activities for profit,ProfitActivities
+profitable farming activities,ProfitActivities
+activities for good yield,ProfitActivities
+best farming practices for profit,ProfitActivities
+most profitable crops,ProfitablePastCrops
+crops that earned profit,ProfitablePastCrops
+best earning crops from history,ProfitablePastCrops
+profitable crops from past,ProfitablePastCrops
+is cotton suitable for me,CropSuitability
+can i grow cotton,CropSuitability
+is cotton good for my land,CropSuitability
+should i grow cotton,CropSuitability
+will cotton grow on my land,CropSuitability
+is cotton right for me,CropSuitability
+does my land suit cotton,CropSuitability
+should i cultivate cotton,CropRecommendation
+can i grow cotton,CropRecommendation
+is cotton good,CropRecommendation
+should i grow cotton,CropRecommendation
 how to grow cucumber,Cultivation
 how to cultivate cucumber,Cultivation
 i want to grow cucumber,Cultivation
@@ -526,6 +711,43 @@ cucumber sowing season,SowingTime
 best time to sow cucumber,SowingTime
 sowing time for cucumber,SowingTime
 planting season for cucumber,SowingTime
+is cucumber suitable for my land,CropSuitability
+can i grow cucumber on my land,CropSuitability
+is cucumber good for sandy soil,CropSuitability
+is cucumber good for loamy soil,CropSuitability
+will cucumber grow in my region,CropSuitability
+is cucumber suitable for this season,CropSuitability
+does cucumber suit my soil type,CropSuitability
+should i grow cucumber on my land,CropSuitability
+my past cultivation sessions,PastSessions
+previous crops i grew,PastSessions
+last season crops,PastSessions
+crop history of my land,PastSessions
+what did i cultivate before,PastSessions
+my farming history,PastSessions
+neighbor previous crops,NeighborPastSessions
+what neighbor grew before,NeighborPastSessions
+neighbor crop history,NeighborPastSessions
+neighbor farming past,NeighborPastSessions
+activities for profit,ProfitActivities
+profitable farming activities,ProfitActivities
+activities for good yield,ProfitActivities
+best farming practices for profit,ProfitActivities
+most profitable crops,ProfitablePastCrops
+crops that earned profit,ProfitablePastCrops
+best earning crops from history,ProfitablePastCrops
+profitable crops from past,ProfitablePastCrops
+is cucumber suitable for me,CropSuitability
+can i grow cucumber,CropSuitability
+is cucumber good for my land,CropSuitability
+should i grow cucumber,CropSuitability
+will cucumber grow on my land,CropSuitability
+is cucumber right for me,CropSuitability
+does my land suit cucumber,CropSuitability
+should i cultivate cucumber,CropRecommendation
+can i grow cucumber,CropRecommendation
+is cucumber good,CropRecommendation
+should i grow cucumber,CropRecommendation
 how to grow groundnut,Cultivation
 how to cultivate groundnut,Cultivation
 i want to grow groundnut,Cultivation
@@ -614,6 +836,43 @@ groundnut sowing season,SowingTime
 best time to sow groundnut,SowingTime
 sowing time for groundnut,SowingTime
 planting season for groundnut,SowingTime
+is groundnut suitable for my land,CropSuitability
+can i grow groundnut on my land,CropSuitability
+is groundnut good for sandy soil,CropSuitability
+is groundnut good for loamy soil,CropSuitability
+will groundnut grow in my region,CropSuitability
+is groundnut suitable for this season,CropSuitability
+does groundnut suit my soil type,CropSuitability
+should i grow groundnut on my land,CropSuitability
+my past cultivation sessions,PastSessions
+previous crops i grew,PastSessions
+last season crops,PastSessions
+crop history of my land,PastSessions
+what did i cultivate before,PastSessions
+my farming history,PastSessions
+neighbor previous crops,NeighborPastSessions
+what neighbor grew before,NeighborPastSessions
+neighbor crop history,NeighborPastSessions
+neighbor farming past,NeighborPastSessions
+activities for profit,ProfitActivities
+profitable farming activities,ProfitActivities
+activities for good yield,ProfitActivities
+best farming practices for profit,ProfitActivities
+most profitable crops,ProfitablePastCrops
+crops that earned profit,ProfitablePastCrops
+best earning crops from history,ProfitablePastCrops
+profitable crops from past,ProfitablePastCrops
+is groundnut suitable for me,CropSuitability
+can i grow groundnut,CropSuitability
+is groundnut good for my land,CropSuitability
+should i grow groundnut,CropSuitability
+will groundnut grow on my land,CropSuitability
+is groundnut right for me,CropSuitability
+does my land suit groundnut,CropSuitability
+should i cultivate groundnut,CropRecommendation
+can i grow groundnut,CropRecommendation
+is groundnut good,CropRecommendation
+should i grow groundnut,CropRecommendation
 how to grow jowar,Cultivation
 how to cultivate jowar,Cultivation
 i want to grow jowar,Cultivation
@@ -702,6 +961,43 @@ jowar sowing season,SowingTime
 best time to sow jowar,SowingTime
 sowing time for jowar,SowingTime
 planting season for jowar,SowingTime
+is jowar suitable for my land,CropSuitability
+can i grow jowar on my land,CropSuitability
+is jowar good for sandy soil,CropSuitability
+is jowar good for loamy soil,CropSuitability
+will jowar grow in my region,CropSuitability
+is jowar suitable for this season,CropSuitability
+does jowar suit my soil type,CropSuitability
+should i grow jowar on my land,CropSuitability
+my past cultivation sessions,PastSessions
+previous crops i grew,PastSessions
+last season crops,PastSessions
+crop history of my land,PastSessions
+what did i cultivate before,PastSessions
+my farming history,PastSessions
+neighbor previous crops,NeighborPastSessions
+what neighbor grew before,NeighborPastSessions
+neighbor crop history,NeighborPastSessions
+neighbor farming past,NeighborPastSessions
+activities for profit,ProfitActivities
+profitable farming activities,ProfitActivities
+activities for good yield,ProfitActivities
+best farming practices for profit,ProfitActivities
+most profitable crops,ProfitablePastCrops
+crops that earned profit,ProfitablePastCrops
+best earning crops from history,ProfitablePastCrops
+profitable crops from past,ProfitablePastCrops
+is jowar suitable for me,CropSuitability
+can i grow jowar,CropSuitability
+is jowar good for my land,CropSuitability
+should i grow jowar,CropSuitability
+will jowar grow on my land,CropSuitability
+is jowar right for me,CropSuitability
+does my land suit jowar,CropSuitability
+should i cultivate jowar,CropRecommendation
+can i grow jowar,CropRecommendation
+is jowar good,CropRecommendation
+should i grow jowar,CropRecommendation
 how to grow lady finger,Cultivation
 how to cultivate lady finger,Cultivation
 i want to grow lady finger,Cultivation
@@ -790,6 +1086,43 @@ lady finger sowing season,SowingTime
 best time to sow lady finger,SowingTime
 sowing time for lady finger,SowingTime
 planting season for lady finger,SowingTime
+is lady finger suitable for my land,CropSuitability
+can i grow lady finger on my land,CropSuitability
+is lady finger good for sandy soil,CropSuitability
+is lady finger good for loamy soil,CropSuitability
+will lady finger grow in my region,CropSuitability
+is lady finger suitable for this season,CropSuitability
+does lady finger suit my soil type,CropSuitability
+should i grow lady finger on my land,CropSuitability
+my past cultivation sessions,PastSessions
+previous crops i grew,PastSessions
+last season crops,PastSessions
+crop history of my land,PastSessions
+what did i cultivate before,PastSessions
+my farming history,PastSessions
+neighbor previous crops,NeighborPastSessions
+what neighbor grew before,NeighborPastSessions
+neighbor crop history,NeighborPastSessions
+neighbor farming past,NeighborPastSessions
+activities for profit,ProfitActivities
+profitable farming activities,ProfitActivities
+activities for good yield,ProfitActivities
+best farming practices for profit,ProfitActivities
+most profitable crops,ProfitablePastCrops
+crops that earned profit,ProfitablePastCrops
+best earning crops from history,ProfitablePastCrops
+profitable crops from past,ProfitablePastCrops
+is lady finger suitable for me,CropSuitability
+can i grow lady finger,CropSuitability
+is lady finger good for my land,CropSuitability
+should i grow lady finger,CropSuitability
+will lady finger grow on my land,CropSuitability
+is lady finger right for me,CropSuitability
+does my land suit lady finger,CropSuitability
+should i cultivate lady finger,CropRecommendation
+can i grow lady finger,CropRecommendation
+is lady finger good,CropRecommendation
+should i grow lady finger,CropRecommendation
 how to grow long melon,Cultivation
 how to cultivate long melon,Cultivation
 i want to grow long melon,Cultivation
@@ -878,6 +1211,43 @@ long melon sowing season,SowingTime
 best time to sow long melon,SowingTime
 sowing time for long melon,SowingTime
 planting season for long melon,SowingTime
+is long melon suitable for my land,CropSuitability
+can i grow long melon on my land,CropSuitability
+is long melon good for sandy soil,CropSuitability
+is long melon good for loamy soil,CropSuitability
+will long melon grow in my region,CropSuitability
+is long melon suitable for this season,CropSuitability
+does long melon suit my soil type,CropSuitability
+should i grow long melon on my land,CropSuitability
+my past cultivation sessions,PastSessions
+previous crops i grew,PastSessions
+last season crops,PastSessions
+crop history of my land,PastSessions
+what did i cultivate before,PastSessions
+my farming history,PastSessions
+neighbor previous crops,NeighborPastSessions
+what neighbor grew before,NeighborPastSessions
+neighbor crop history,NeighborPastSessions
+neighbor farming past,NeighborPastSessions
+activities for profit,ProfitActivities
+profitable farming activities,ProfitActivities
+activities for good yield,ProfitActivities
+best farming practices for profit,ProfitActivities
+most profitable crops,ProfitablePastCrops
+crops that earned profit,ProfitablePastCrops
+best earning crops from history,ProfitablePastCrops
+profitable crops from past,ProfitablePastCrops
+is long melon suitable for me,CropSuitability
+can i grow long melon,CropSuitability
+is long melon good for my land,CropSuitability
+should i grow long melon,CropSuitability
+will long melon grow on my land,CropSuitability
+is long melon right for me,CropSuitability
+does my land suit long melon,CropSuitability
+should i cultivate long melon,CropRecommendation
+can i grow long melon,CropRecommendation
+is long melon good,CropRecommendation
+should i grow long melon,CropRecommendation
 how to grow luffa,Cultivation
 how to cultivate luffa,Cultivation
 i want to grow luffa,Cultivation
@@ -966,6 +1336,43 @@ luffa sowing season,SowingTime
 best time to sow luffa,SowingTime
 sowing time for luffa,SowingTime
 planting season for luffa,SowingTime
+is luffa suitable for my land,CropSuitability
+can i grow luffa on my land,CropSuitability
+is luffa good for sandy soil,CropSuitability
+is luffa good for loamy soil,CropSuitability
+will luffa grow in my region,CropSuitability
+is luffa suitable for this season,CropSuitability
+does luffa suit my soil type,CropSuitability
+should i grow luffa on my land,CropSuitability
+my past cultivation sessions,PastSessions
+previous crops i grew,PastSessions
+last season crops,PastSessions
+crop history of my land,PastSessions
+what did i cultivate before,PastSessions
+my farming history,PastSessions
+neighbor previous crops,NeighborPastSessions
+what neighbor grew before,NeighborPastSessions
+neighbor crop history,NeighborPastSessions
+neighbor farming past,NeighborPastSessions
+activities for profit,ProfitActivities
+profitable farming activities,ProfitActivities
+activities for good yield,ProfitActivities
+best farming practices for profit,ProfitActivities
+most profitable crops,ProfitablePastCrops
+crops that earned profit,ProfitablePastCrops
+best earning crops from history,ProfitablePastCrops
+profitable crops from past,ProfitablePastCrops
+is luffa suitable for me,CropSuitability
+can i grow luffa,CropSuitability
+is luffa good for my land,CropSuitability
+should i grow luffa,CropSuitability
+will luffa grow on my land,CropSuitability
+is luffa right for me,CropSuitability
+does my land suit luffa,CropSuitability
+should i cultivate luffa,CropRecommendation
+can i grow luffa,CropRecommendation
+is luffa good,CropRecommendation
+should i grow luffa,CropRecommendation
 how to grow maize,Cultivation
 how to cultivate maize,Cultivation
 i want to grow maize,Cultivation
@@ -1054,6 +1461,43 @@ maize sowing season,SowingTime
 best time to sow maize,SowingTime
 sowing time for maize,SowingTime
 planting season for maize,SowingTime
+is maize suitable for my land,CropSuitability
+can i grow maize on my land,CropSuitability
+is maize good for sandy soil,CropSuitability
+is maize good for loamy soil,CropSuitability
+will maize grow in my region,CropSuitability
+is maize suitable for this season,CropSuitability
+does maize suit my soil type,CropSuitability
+should i grow maize on my land,CropSuitability
+my past cultivation sessions,PastSessions
+previous crops i grew,PastSessions
+last season crops,PastSessions
+crop history of my land,PastSessions
+what did i cultivate before,PastSessions
+my farming history,PastSessions
+neighbor previous crops,NeighborPastSessions
+what neighbor grew before,NeighborPastSessions
+neighbor crop history,NeighborPastSessions
+neighbor farming past,NeighborPastSessions
+activities for profit,ProfitActivities
+profitable farming activities,ProfitActivities
+activities for good yield,ProfitActivities
+best farming practices for profit,ProfitActivities
+most profitable crops,ProfitablePastCrops
+crops that earned profit,ProfitablePastCrops
+best earning crops from history,ProfitablePastCrops
+profitable crops from past,ProfitablePastCrops
+is maize suitable for me,CropSuitability
+can i grow maize,CropSuitability
+is maize good for my land,CropSuitability
+should i grow maize,CropSuitability
+will maize grow on my land,CropSuitability
+is maize right for me,CropSuitability
+does my land suit maize,CropSuitability
+should i cultivate maize,CropRecommendation
+can i grow maize,CropRecommendation
+is maize good,CropRecommendation
+should i grow maize,CropRecommendation
 how to grow musk melon,Cultivation
 how to cultivate musk melon,Cultivation
 i want to grow musk melon,Cultivation
@@ -1142,6 +1586,43 @@ musk melon sowing season,SowingTime
 best time to sow musk melon,SowingTime
 sowing time for musk melon,SowingTime
 planting season for musk melon,SowingTime
+is musk melon suitable for my land,CropSuitability
+can i grow musk melon on my land,CropSuitability
+is musk melon good for sandy soil,CropSuitability
+is musk melon good for loamy soil,CropSuitability
+will musk melon grow in my region,CropSuitability
+is musk melon suitable for this season,CropSuitability
+does musk melon suit my soil type,CropSuitability
+should i grow musk melon on my land,CropSuitability
+my past cultivation sessions,PastSessions
+previous crops i grew,PastSessions
+last season crops,PastSessions
+crop history of my land,PastSessions
+what did i cultivate before,PastSessions
+my farming history,PastSessions
+neighbor previous crops,NeighborPastSessions
+what neighbor grew before,NeighborPastSessions
+neighbor crop history,NeighborPastSessions
+neighbor farming past,NeighborPastSessions
+activities for profit,ProfitActivities
+profitable farming activities,ProfitActivities
+activities for good yield,ProfitActivities
+best farming practices for profit,ProfitActivities
+most profitable crops,ProfitablePastCrops
+crops that earned profit,ProfitablePastCrops
+best earning crops from history,ProfitablePastCrops
+profitable crops from past,ProfitablePastCrops
+is musk melon suitable for me,CropSuitability
+can i grow musk melon,CropSuitability
+is musk melon good for my land,CropSuitability
+should i grow musk melon,CropSuitability
+will musk melon grow on my land,CropSuitability
+is musk melon right for me,CropSuitability
+does my land suit musk melon,CropSuitability
+should i cultivate musk melon,CropRecommendation
+can i grow musk melon,CropRecommendation
+is musk melon good,CropRecommendation
+should i grow musk melon,CropRecommendation
 how to grow pumpkin,Cultivation
 how to cultivate pumpkin,Cultivation
 i want to grow pumpkin,Cultivation
@@ -1230,6 +1711,43 @@ pumpkin sowing season,SowingTime
 best time to sow pumpkin,SowingTime
 sowing time for pumpkin,SowingTime
 planting season for pumpkin,SowingTime
+is pumpkin suitable for my land,CropSuitability
+can i grow pumpkin on my land,CropSuitability
+is pumpkin good for sandy soil,CropSuitability
+is pumpkin good for loamy soil,CropSuitability
+will pumpkin grow in my region,CropSuitability
+is pumpkin suitable for this season,CropSuitability
+does pumpkin suit my soil type,CropSuitability
+should i grow pumpkin on my land,CropSuitability
+my past cultivation sessions,PastSessions
+previous crops i grew,PastSessions
+last season crops,PastSessions
+crop history of my land,PastSessions
+what did i cultivate before,PastSessions
+my farming history,PastSessions
+neighbor previous crops,NeighborPastSessions
+what neighbor grew before,NeighborPastSessions
+neighbor crop history,NeighborPastSessions
+neighbor farming past,NeighborPastSessions
+activities for profit,ProfitActivities
+profitable farming activities,ProfitActivities
+activities for good yield,ProfitActivities
+best farming practices for profit,ProfitActivities
+most profitable crops,ProfitablePastCrops
+crops that earned profit,ProfitablePastCrops
+best earning crops from history,ProfitablePastCrops
+profitable crops from past,ProfitablePastCrops
+is pumpkin suitable for me,CropSuitability
+can i grow pumpkin,CropSuitability
+is pumpkin good for my land,CropSuitability
+should i grow pumpkin,CropSuitability
+will pumpkin grow on my land,CropSuitability
+is pumpkin right for me,CropSuitability
+does my land suit pumpkin,CropSuitability
+should i cultivate pumpkin,CropRecommendation
+can i grow pumpkin,CropRecommendation
+is pumpkin good,CropRecommendation
+should i grow pumpkin,CropRecommendation
 how to grow rice,Cultivation
 how to cultivate rice,Cultivation
 i want to grow rice,Cultivation
@@ -1318,6 +1836,43 @@ rice sowing season,SowingTime
 best time to sow rice,SowingTime
 sowing time for rice,SowingTime
 planting season for rice,SowingTime
+is rice suitable for my land,CropSuitability
+can i grow rice on my land,CropSuitability
+is rice good for sandy soil,CropSuitability
+is rice good for loamy soil,CropSuitability
+will rice grow in my region,CropSuitability
+is rice suitable for this season,CropSuitability
+does rice suit my soil type,CropSuitability
+should i grow rice on my land,CropSuitability
+my past cultivation sessions,PastSessions
+previous crops i grew,PastSessions
+last season crops,PastSessions
+crop history of my land,PastSessions
+what did i cultivate before,PastSessions
+my farming history,PastSessions
+neighbor previous crops,NeighborPastSessions
+what neighbor grew before,NeighborPastSessions
+neighbor crop history,NeighborPastSessions
+neighbor farming past,NeighborPastSessions
+activities for profit,ProfitActivities
+profitable farming activities,ProfitActivities
+activities for good yield,ProfitActivities
+best farming practices for profit,ProfitActivities
+most profitable crops,ProfitablePastCrops
+crops that earned profit,ProfitablePastCrops
+best earning crops from history,ProfitablePastCrops
+profitable crops from past,ProfitablePastCrops
+is rice suitable for me,CropSuitability
+can i grow rice,CropSuitability
+is rice good for my land,CropSuitability
+should i grow rice,CropSuitability
+will rice grow on my land,CropSuitability
+is rice right for me,CropSuitability
+does my land suit rice,CropSuitability
+should i cultivate rice,CropRecommendation
+can i grow rice,CropRecommendation
+is rice good,CropRecommendation
+should i grow rice,CropRecommendation
 how to grow safflower,Cultivation
 how to cultivate safflower,Cultivation
 i want to grow safflower,Cultivation
@@ -1406,6 +1961,43 @@ safflower sowing season,SowingTime
 best time to sow safflower,SowingTime
 sowing time for safflower,SowingTime
 planting season for safflower,SowingTime
+is safflower suitable for my land,CropSuitability
+can i grow safflower on my land,CropSuitability
+is safflower good for sandy soil,CropSuitability
+is safflower good for loamy soil,CropSuitability
+will safflower grow in my region,CropSuitability
+is safflower suitable for this season,CropSuitability
+does safflower suit my soil type,CropSuitability
+should i grow safflower on my land,CropSuitability
+my past cultivation sessions,PastSessions
+previous crops i grew,PastSessions
+last season crops,PastSessions
+crop history of my land,PastSessions
+what did i cultivate before,PastSessions
+my farming history,PastSessions
+neighbor previous crops,NeighborPastSessions
+what neighbor grew before,NeighborPastSessions
+neighbor crop history,NeighborPastSessions
+neighbor farming past,NeighborPastSessions
+activities for profit,ProfitActivities
+profitable farming activities,ProfitActivities
+activities for good yield,ProfitActivities
+best farming practices for profit,ProfitActivities
+most profitable crops,ProfitablePastCrops
+crops that earned profit,ProfitablePastCrops
+best earning crops from history,ProfitablePastCrops
+profitable crops from past,ProfitablePastCrops
+is safflower suitable for me,CropSuitability
+can i grow safflower,CropSuitability
+is safflower good for my land,CropSuitability
+should i grow safflower,CropSuitability
+will safflower grow on my land,CropSuitability
+is safflower right for me,CropSuitability
+does my land suit safflower,CropSuitability
+should i cultivate safflower,CropRecommendation
+can i grow safflower,CropRecommendation
+is safflower good,CropRecommendation
+should i grow safflower,CropRecommendation
 how to grow sesamum,Cultivation
 how to cultivate sesamum,Cultivation
 i want to grow sesamum,Cultivation
@@ -1494,6 +2086,43 @@ sesamum sowing season,SowingTime
 best time to sow sesamum,SowingTime
 sowing time for sesamum,SowingTime
 planting season for sesamum,SowingTime
+is sesamum suitable for my land,CropSuitability
+can i grow sesamum on my land,CropSuitability
+is sesamum good for sandy soil,CropSuitability
+is sesamum good for loamy soil,CropSuitability
+will sesamum grow in my region,CropSuitability
+is sesamum suitable for this season,CropSuitability
+does sesamum suit my soil type,CropSuitability
+should i grow sesamum on my land,CropSuitability
+my past cultivation sessions,PastSessions
+previous crops i grew,PastSessions
+last season crops,PastSessions
+crop history of my land,PastSessions
+what did i cultivate before,PastSessions
+my farming history,PastSessions
+neighbor previous crops,NeighborPastSessions
+what neighbor grew before,NeighborPastSessions
+neighbor crop history,NeighborPastSessions
+neighbor farming past,NeighborPastSessions
+activities for profit,ProfitActivities
+profitable farming activities,ProfitActivities
+activities for good yield,ProfitActivities
+best farming practices for profit,ProfitActivities
+most profitable crops,ProfitablePastCrops
+crops that earned profit,ProfitablePastCrops
+best earning crops from history,ProfitablePastCrops
+profitable crops from past,ProfitablePastCrops
+is sesamum suitable for me,CropSuitability
+can i grow sesamum,CropSuitability
+is sesamum good for my land,CropSuitability
+should i grow sesamum,CropSuitability
+will sesamum grow on my land,CropSuitability
+is sesamum right for me,CropSuitability
+does my land suit sesamum,CropSuitability
+should i cultivate sesamum,CropRecommendation
+can i grow sesamum,CropRecommendation
+is sesamum good,CropRecommendation
+should i grow sesamum,CropRecommendation
 how to grow soybean,Cultivation
 how to cultivate soybean,Cultivation
 i want to grow soybean,Cultivation
@@ -1582,6 +2211,43 @@ soybean sowing season,SowingTime
 best time to sow soybean,SowingTime
 sowing time for soybean,SowingTime
 planting season for soybean,SowingTime
+is soybean suitable for my land,CropSuitability
+can i grow soybean on my land,CropSuitability
+is soybean good for sandy soil,CropSuitability
+is soybean good for loamy soil,CropSuitability
+will soybean grow in my region,CropSuitability
+is soybean suitable for this season,CropSuitability
+does soybean suit my soil type,CropSuitability
+should i grow soybean on my land,CropSuitability
+my past cultivation sessions,PastSessions
+previous crops i grew,PastSessions
+last season crops,PastSessions
+crop history of my land,PastSessions
+what did i cultivate before,PastSessions
+my farming history,PastSessions
+neighbor previous crops,NeighborPastSessions
+what neighbor grew before,NeighborPastSessions
+neighbor crop history,NeighborPastSessions
+neighbor farming past,NeighborPastSessions
+activities for profit,ProfitActivities
+profitable farming activities,ProfitActivities
+activities for good yield,ProfitActivities
+best farming practices for profit,ProfitActivities
+most profitable crops,ProfitablePastCrops
+crops that earned profit,ProfitablePastCrops
+best earning crops from history,ProfitablePastCrops
+profitable crops from past,ProfitablePastCrops
+is soybean suitable for me,CropSuitability
+can i grow soybean,CropSuitability
+is soybean good for my land,CropSuitability
+should i grow soybean,CropSuitability
+will soybean grow on my land,CropSuitability
+is soybean right for me,CropSuitability
+does my land suit soybean,CropSuitability
+should i cultivate soybean,CropRecommendation
+can i grow soybean,CropRecommendation
+is soybean good,CropRecommendation
+should i grow soybean,CropRecommendation
 how to grow sugarcane,Cultivation
 how to cultivate sugarcane,Cultivation
 i want to grow sugarcane,Cultivation
@@ -1670,6 +2336,43 @@ sugarcane sowing season,SowingTime
 best time to sow sugarcane,SowingTime
 sowing time for sugarcane,SowingTime
 planting season for sugarcane,SowingTime
+is sugarcane suitable for my land,CropSuitability
+can i grow sugarcane on my land,CropSuitability
+is sugarcane good for sandy soil,CropSuitability
+is sugarcane good for loamy soil,CropSuitability
+will sugarcane grow in my region,CropSuitability
+is sugarcane suitable for this season,CropSuitability
+does sugarcane suit my soil type,CropSuitability
+should i grow sugarcane on my land,CropSuitability
+my past cultivation sessions,PastSessions
+previous crops i grew,PastSessions
+last season crops,PastSessions
+crop history of my land,PastSessions
+what did i cultivate before,PastSessions
+my farming history,PastSessions
+neighbor previous crops,NeighborPastSessions
+what neighbor grew before,NeighborPastSessions
+neighbor crop history,NeighborPastSessions
+neighbor farming past,NeighborPastSessions
+activities for profit,ProfitActivities
+profitable farming activities,ProfitActivities
+activities for good yield,ProfitActivities
+best farming practices for profit,ProfitActivities
+most profitable crops,ProfitablePastCrops
+crops that earned profit,ProfitablePastCrops
+best earning crops from history,ProfitablePastCrops
+profitable crops from past,ProfitablePastCrops
+is sugarcane suitable for me,CropSuitability
+can i grow sugarcane,CropSuitability
+is sugarcane good for my land,CropSuitability
+should i grow sugarcane,CropSuitability
+will sugarcane grow on my land,CropSuitability
+is sugarcane right for me,CropSuitability
+does my land suit sugarcane,CropSuitability
+should i cultivate sugarcane,CropRecommendation
+can i grow sugarcane,CropRecommendation
+is sugarcane good,CropRecommendation
+should i grow sugarcane,CropRecommendation
 how to grow sunflower,Cultivation
 how to cultivate sunflower,Cultivation
 i want to grow sunflower,Cultivation
@@ -1758,6 +2461,43 @@ sunflower sowing season,SowingTime
 best time to sow sunflower,SowingTime
 sowing time for sunflower,SowingTime
 planting season for sunflower,SowingTime
+is sunflower suitable for my land,CropSuitability
+can i grow sunflower on my land,CropSuitability
+is sunflower good for sandy soil,CropSuitability
+is sunflower good for loamy soil,CropSuitability
+will sunflower grow in my region,CropSuitability
+is sunflower suitable for this season,CropSuitability
+does sunflower suit my soil type,CropSuitability
+should i grow sunflower on my land,CropSuitability
+my past cultivation sessions,PastSessions
+previous crops i grew,PastSessions
+last season crops,PastSessions
+crop history of my land,PastSessions
+what did i cultivate before,PastSessions
+my farming history,PastSessions
+neighbor previous crops,NeighborPastSessions
+what neighbor grew before,NeighborPastSessions
+neighbor crop history,NeighborPastSessions
+neighbor farming past,NeighborPastSessions
+activities for profit,ProfitActivities
+profitable farming activities,ProfitActivities
+activities for good yield,ProfitActivities
+best farming practices for profit,ProfitActivities
+most profitable crops,ProfitablePastCrops
+crops that earned profit,ProfitablePastCrops
+best earning crops from history,ProfitablePastCrops
+profitable crops from past,ProfitablePastCrops
+is sunflower suitable for me,CropSuitability
+can i grow sunflower,CropSuitability
+is sunflower good for my land,CropSuitability
+should i grow sunflower,CropSuitability
+will sunflower grow on my land,CropSuitability
+is sunflower right for me,CropSuitability
+does my land suit sunflower,CropSuitability
+should i cultivate sunflower,CropRecommendation
+can i grow sunflower,CropRecommendation
+is sunflower good,CropRecommendation
+should i grow sunflower,CropRecommendation
 how to grow tinda,Cultivation
 how to cultivate tinda,Cultivation
 i want to grow tinda,Cultivation
@@ -1846,6 +2586,43 @@ tinda sowing season,SowingTime
 best time to sow tinda,SowingTime
 sowing time for tinda,SowingTime
 planting season for tinda,SowingTime
+is tinda suitable for my land,CropSuitability
+can i grow tinda on my land,CropSuitability
+is tinda good for sandy soil,CropSuitability
+is tinda good for loamy soil,CropSuitability
+will tinda grow in my region,CropSuitability
+is tinda suitable for this season,CropSuitability
+does tinda suit my soil type,CropSuitability
+should i grow tinda on my land,CropSuitability
+my past cultivation sessions,PastSessions
+previous crops i grew,PastSessions
+last season crops,PastSessions
+crop history of my land,PastSessions
+what did i cultivate before,PastSessions
+my farming history,PastSessions
+neighbor previous crops,NeighborPastSessions
+what neighbor grew before,NeighborPastSessions
+neighbor crop history,NeighborPastSessions
+neighbor farming past,NeighborPastSessions
+activities for profit,ProfitActivities
+profitable farming activities,ProfitActivities
+activities for good yield,ProfitActivities
+best farming practices for profit,ProfitActivities
+most profitable crops,ProfitablePastCrops
+crops that earned profit,ProfitablePastCrops
+best earning crops from history,ProfitablePastCrops
+profitable crops from past,ProfitablePastCrops
+is tinda suitable for me,CropSuitability
+can i grow tinda,CropSuitability
+is tinda good for my land,CropSuitability
+should i grow tinda,CropSuitability
+will tinda grow on my land,CropSuitability
+is tinda right for me,CropSuitability
+does my land suit tinda,CropSuitability
+should i cultivate tinda,CropRecommendation
+can i grow tinda,CropRecommendation
+is tinda good,CropRecommendation
+should i grow tinda,CropRecommendation
 how to grow turmeric,Cultivation
 how to cultivate turmeric,Cultivation
 i want to grow turmeric,Cultivation
@@ -1934,6 +2711,43 @@ turmeric sowing season,SowingTime
 best time to sow turmeric,SowingTime
 sowing time for turmeric,SowingTime
 planting season for turmeric,SowingTime
+is turmeric suitable for my land,CropSuitability
+can i grow turmeric on my land,CropSuitability
+is turmeric good for sandy soil,CropSuitability
+is turmeric good for loamy soil,CropSuitability
+will turmeric grow in my region,CropSuitability
+is turmeric suitable for this season,CropSuitability
+does turmeric suit my soil type,CropSuitability
+should i grow turmeric on my land,CropSuitability
+my past cultivation sessions,PastSessions
+previous crops i grew,PastSessions
+last season crops,PastSessions
+crop history of my land,PastSessions
+what did i cultivate before,PastSessions
+my farming history,PastSessions
+neighbor previous crops,NeighborPastSessions
+what neighbor grew before,NeighborPastSessions
+neighbor crop history,NeighborPastSessions
+neighbor farming past,NeighborPastSessions
+activities for profit,ProfitActivities
+profitable farming activities,ProfitActivities
+activities for good yield,ProfitActivities
+best farming practices for profit,ProfitActivities
+most profitable crops,ProfitablePastCrops
+crops that earned profit,ProfitablePastCrops
+best earning crops from history,ProfitablePastCrops
+profitable crops from past,ProfitablePastCrops
+is turmeric suitable for me,CropSuitability
+can i grow turmeric,CropSuitability
+is turmeric good for my land,CropSuitability
+should i grow turmeric,CropSuitability
+will turmeric grow on my land,CropSuitability
+is turmeric right for me,CropSuitability
+does my land suit turmeric,CropSuitability
+should i cultivate turmeric,CropRecommendation
+can i grow turmeric,CropRecommendation
+is turmeric good,CropRecommendation
+should i grow turmeric,CropRecommendation
 how to grow watermelon,Cultivation
 how to cultivate watermelon,Cultivation
 i want to grow watermelon,Cultivation
@@ -2022,6 +2836,43 @@ watermelon sowing season,SowingTime
 best time to sow watermelon,SowingTime
 sowing time for watermelon,SowingTime
 planting season for watermelon,SowingTime
+is watermelon suitable for my land,CropSuitability
+can i grow watermelon on my land,CropSuitability
+is watermelon good for sandy soil,CropSuitability
+is watermelon good for loamy soil,CropSuitability
+will watermelon grow in my region,CropSuitability
+is watermelon suitable for this season,CropSuitability
+does watermelon suit my soil type,CropSuitability
+should i grow watermelon on my land,CropSuitability
+my past cultivation sessions,PastSessions
+previous crops i grew,PastSessions
+last season crops,PastSessions
+crop history of my land,PastSessions
+what did i cultivate before,PastSessions
+my farming history,PastSessions
+neighbor previous crops,NeighborPastSessions
+what neighbor grew before,NeighborPastSessions
+neighbor crop history,NeighborPastSessions
+neighbor farming past,NeighborPastSessions
+activities for profit,ProfitActivities
+profitable farming activities,ProfitActivities
+activities for good yield,ProfitActivities
+best farming practices for profit,ProfitActivities
+most profitable crops,ProfitablePastCrops
+crops that earned profit,ProfitablePastCrops
+best earning crops from history,ProfitablePastCrops
+profitable crops from past,ProfitablePastCrops
+is watermelon suitable for me,CropSuitability
+can i grow watermelon,CropSuitability
+is watermelon good for my land,CropSuitability
+should i grow watermelon,CropSuitability
+will watermelon grow on my land,CropSuitability
+is watermelon right for me,CropSuitability
+does my land suit watermelon,CropSuitability
+should i cultivate watermelon,CropRecommendation
+can i grow watermelon,CropRecommendation
+is watermelon good,CropRecommendation
+should i grow watermelon,CropRecommendation
 how to grow barley,Cultivation
 how to cultivate barley,Cultivation
 i want to grow barley,Cultivation
@@ -2110,6 +2961,43 @@ barley sowing season,SowingTime
 best time to sow barley,SowingTime
 sowing time for barley,SowingTime
 planting season for barley,SowingTime
+is barley suitable for my land,CropSuitability
+can i grow barley on my land,CropSuitability
+is barley good for sandy soil,CropSuitability
+is barley good for loamy soil,CropSuitability
+will barley grow in my region,CropSuitability
+is barley suitable for this season,CropSuitability
+does barley suit my soil type,CropSuitability
+should i grow barley on my land,CropSuitability
+my past cultivation sessions,PastSessions
+previous crops i grew,PastSessions
+last season crops,PastSessions
+crop history of my land,PastSessions
+what did i cultivate before,PastSessions
+my farming history,PastSessions
+neighbor previous crops,NeighborPastSessions
+what neighbor grew before,NeighborPastSessions
+neighbor crop history,NeighborPastSessions
+neighbor farming past,NeighborPastSessions
+activities for profit,ProfitActivities
+profitable farming activities,ProfitActivities
+activities for good yield,ProfitActivities
+best farming practices for profit,ProfitActivities
+most profitable crops,ProfitablePastCrops
+crops that earned profit,ProfitablePastCrops
+best earning crops from history,ProfitablePastCrops
+profitable crops from past,ProfitablePastCrops
+is barley suitable for me,CropSuitability
+can i grow barley,CropSuitability
+is barley good for my land,CropSuitability
+should i grow barley,CropSuitability
+will barley grow on my land,CropSuitability
+is barley right for me,CropSuitability
+does my land suit barley,CropSuitability
+should i cultivate barley,CropRecommendation
+can i grow barley,CropRecommendation
+is barley good,CropRecommendation
+should i grow barley,CropRecommendation
 how to grow beans,Cultivation
 how to cultivate beans,Cultivation
 i want to grow beans,Cultivation
@@ -2198,6 +3086,43 @@ beans sowing season,SowingTime
 best time to sow beans,SowingTime
 sowing time for beans,SowingTime
 planting season for beans,SowingTime
+is beans suitable for my land,CropSuitability
+can i grow beans on my land,CropSuitability
+is beans good for sandy soil,CropSuitability
+is beans good for loamy soil,CropSuitability
+will beans grow in my region,CropSuitability
+is beans suitable for this season,CropSuitability
+does beans suit my soil type,CropSuitability
+should i grow beans on my land,CropSuitability
+my past cultivation sessions,PastSessions
+previous crops i grew,PastSessions
+last season crops,PastSessions
+crop history of my land,PastSessions
+what did i cultivate before,PastSessions
+my farming history,PastSessions
+neighbor previous crops,NeighborPastSessions
+what neighbor grew before,NeighborPastSessions
+neighbor crop history,NeighborPastSessions
+neighbor farming past,NeighborPastSessions
+activities for profit,ProfitActivities
+profitable farming activities,ProfitActivities
+activities for good yield,ProfitActivities
+best farming practices for profit,ProfitActivities
+most profitable crops,ProfitablePastCrops
+crops that earned profit,ProfitablePastCrops
+best earning crops from history,ProfitablePastCrops
+profitable crops from past,ProfitablePastCrops
+is beans suitable for me,CropSuitability
+can i grow beans,CropSuitability
+is beans good for my land,CropSuitability
+should i grow beans,CropSuitability
+will beans grow on my land,CropSuitability
+is beans right for me,CropSuitability
+does my land suit beans,CropSuitability
+should i cultivate beans,CropRecommendation
+can i grow beans,CropRecommendation
+is beans good,CropRecommendation
+should i grow beans,CropRecommendation
 how to grow beets,Cultivation
 how to cultivate beets,Cultivation
 i want to grow beets,Cultivation
@@ -2286,6 +3211,43 @@ beets sowing season,SowingTime
 best time to sow beets,SowingTime
 sowing time for beets,SowingTime
 planting season for beets,SowingTime
+is beets suitable for my land,CropSuitability
+can i grow beets on my land,CropSuitability
+is beets good for sandy soil,CropSuitability
+is beets good for loamy soil,CropSuitability
+will beets grow in my region,CropSuitability
+is beets suitable for this season,CropSuitability
+does beets suit my soil type,CropSuitability
+should i grow beets on my land,CropSuitability
+my past cultivation sessions,PastSessions
+previous crops i grew,PastSessions
+last season crops,PastSessions
+crop history of my land,PastSessions
+what did i cultivate before,PastSessions
+my farming history,PastSessions
+neighbor previous crops,NeighborPastSessions
+what neighbor grew before,NeighborPastSessions
+neighbor crop history,NeighborPastSessions
+neighbor farming past,NeighborPastSessions
+activities for profit,ProfitActivities
+profitable farming activities,ProfitActivities
+activities for good yield,ProfitActivities
+best farming practices for profit,ProfitActivities
+most profitable crops,ProfitablePastCrops
+crops that earned profit,ProfitablePastCrops
+best earning crops from history,ProfitablePastCrops
+profitable crops from past,ProfitablePastCrops
+is beets suitable for me,CropSuitability
+can i grow beets,CropSuitability
+is beets good for my land,CropSuitability
+should i grow beets,CropSuitability
+will beets grow on my land,CropSuitability
+is beets right for me,CropSuitability
+does my land suit beets,CropSuitability
+should i cultivate beets,CropRecommendation
+can i grow beets,CropRecommendation
+is beets good,CropRecommendation
+should i grow beets,CropRecommendation
 how to grow brinjal,Cultivation
 how to cultivate brinjal,Cultivation
 i want to grow brinjal,Cultivation
@@ -2374,6 +3336,43 @@ brinjal sowing season,SowingTime
 best time to sow brinjal,SowingTime
 sowing time for brinjal,SowingTime
 planting season for brinjal,SowingTime
+is brinjal suitable for my land,CropSuitability
+can i grow brinjal on my land,CropSuitability
+is brinjal good for sandy soil,CropSuitability
+is brinjal good for loamy soil,CropSuitability
+will brinjal grow in my region,CropSuitability
+is brinjal suitable for this season,CropSuitability
+does brinjal suit my soil type,CropSuitability
+should i grow brinjal on my land,CropSuitability
+my past cultivation sessions,PastSessions
+previous crops i grew,PastSessions
+last season crops,PastSessions
+crop history of my land,PastSessions
+what did i cultivate before,PastSessions
+my farming history,PastSessions
+neighbor previous crops,NeighborPastSessions
+what neighbor grew before,NeighborPastSessions
+neighbor crop history,NeighborPastSessions
+neighbor farming past,NeighborPastSessions
+activities for profit,ProfitActivities
+profitable farming activities,ProfitActivities
+activities for good yield,ProfitActivities
+best farming practices for profit,ProfitActivities
+most profitable crops,ProfitablePastCrops
+crops that earned profit,ProfitablePastCrops
+best earning crops from history,ProfitablePastCrops
+profitable crops from past,ProfitablePastCrops
+is brinjal suitable for me,CropSuitability
+can i grow brinjal,CropSuitability
+is brinjal good for my land,CropSuitability
+should i grow brinjal,CropSuitability
+will brinjal grow on my land,CropSuitability
+is brinjal right for me,CropSuitability
+does my land suit brinjal,CropSuitability
+should i cultivate brinjal,CropRecommendation
+can i grow brinjal,CropRecommendation
+is brinjal good,CropRecommendation
+should i grow brinjal,CropRecommendation
 how to grow cabbage,Cultivation
 how to cultivate cabbage,Cultivation
 i want to grow cabbage,Cultivation
@@ -2462,6 +3461,43 @@ cabbage sowing season,SowingTime
 best time to sow cabbage,SowingTime
 sowing time for cabbage,SowingTime
 planting season for cabbage,SowingTime
+is cabbage suitable for my land,CropSuitability
+can i grow cabbage on my land,CropSuitability
+is cabbage good for sandy soil,CropSuitability
+is cabbage good for loamy soil,CropSuitability
+will cabbage grow in my region,CropSuitability
+is cabbage suitable for this season,CropSuitability
+does cabbage suit my soil type,CropSuitability
+should i grow cabbage on my land,CropSuitability
+my past cultivation sessions,PastSessions
+previous crops i grew,PastSessions
+last season crops,PastSessions
+crop history of my land,PastSessions
+what did i cultivate before,PastSessions
+my farming history,PastSessions
+neighbor previous crops,NeighborPastSessions
+what neighbor grew before,NeighborPastSessions
+neighbor crop history,NeighborPastSessions
+neighbor farming past,NeighborPastSessions
+activities for profit,ProfitActivities
+profitable farming activities,ProfitActivities
+activities for good yield,ProfitActivities
+best farming practices for profit,ProfitActivities
+most profitable crops,ProfitablePastCrops
+crops that earned profit,ProfitablePastCrops
+best earning crops from history,ProfitablePastCrops
+profitable crops from past,ProfitablePastCrops
+is cabbage suitable for me,CropSuitability
+can i grow cabbage,CropSuitability
+is cabbage good for my land,CropSuitability
+should i grow cabbage,CropSuitability
+will cabbage grow on my land,CropSuitability
+is cabbage right for me,CropSuitability
+does my land suit cabbage,CropSuitability
+should i cultivate cabbage,CropRecommendation
+can i grow cabbage,CropRecommendation
+is cabbage good,CropRecommendation
+should i grow cabbage,CropRecommendation
 how to grow carrot,Cultivation
 how to cultivate carrot,Cultivation
 i want to grow carrot,Cultivation
@@ -2550,6 +3586,43 @@ carrot sowing season,SowingTime
 best time to sow carrot,SowingTime
 sowing time for carrot,SowingTime
 planting season for carrot,SowingTime
+is carrot suitable for my land,CropSuitability
+can i grow carrot on my land,CropSuitability
+is carrot good for sandy soil,CropSuitability
+is carrot good for loamy soil,CropSuitability
+will carrot grow in my region,CropSuitability
+is carrot suitable for this season,CropSuitability
+does carrot suit my soil type,CropSuitability
+should i grow carrot on my land,CropSuitability
+my past cultivation sessions,PastSessions
+previous crops i grew,PastSessions
+last season crops,PastSessions
+crop history of my land,PastSessions
+what did i cultivate before,PastSessions
+my farming history,PastSessions
+neighbor previous crops,NeighborPastSessions
+what neighbor grew before,NeighborPastSessions
+neighbor crop history,NeighborPastSessions
+neighbor farming past,NeighborPastSessions
+activities for profit,ProfitActivities
+profitable farming activities,ProfitActivities
+activities for good yield,ProfitActivities
+best farming practices for profit,ProfitActivities
+most profitable crops,ProfitablePastCrops
+crops that earned profit,ProfitablePastCrops
+best earning crops from history,ProfitablePastCrops
+profitable crops from past,ProfitablePastCrops
+is carrot suitable for me,CropSuitability
+can i grow carrot,CropSuitability
+is carrot good for my land,CropSuitability
+should i grow carrot,CropSuitability
+will carrot grow on my land,CropSuitability
+is carrot right for me,CropSuitability
+does my land suit carrot,CropSuitability
+should i cultivate carrot,CropRecommendation
+can i grow carrot,CropRecommendation
+is carrot good,CropRecommendation
+should i grow carrot,CropRecommendation
 how to grow cauliflower,Cultivation
 how to cultivate cauliflower,Cultivation
 i want to grow cauliflower,Cultivation
@@ -2638,6 +3711,43 @@ cauliflower sowing season,SowingTime
 best time to sow cauliflower,SowingTime
 sowing time for cauliflower,SowingTime
 planting season for cauliflower,SowingTime
+is cauliflower suitable for my land,CropSuitability
+can i grow cauliflower on my land,CropSuitability
+is cauliflower good for sandy soil,CropSuitability
+is cauliflower good for loamy soil,CropSuitability
+will cauliflower grow in my region,CropSuitability
+is cauliflower suitable for this season,CropSuitability
+does cauliflower suit my soil type,CropSuitability
+should i grow cauliflower on my land,CropSuitability
+my past cultivation sessions,PastSessions
+previous crops i grew,PastSessions
+last season crops,PastSessions
+crop history of my land,PastSessions
+what did i cultivate before,PastSessions
+my farming history,PastSessions
+neighbor previous crops,NeighborPastSessions
+what neighbor grew before,NeighborPastSessions
+neighbor crop history,NeighborPastSessions
+neighbor farming past,NeighborPastSessions
+activities for profit,ProfitActivities
+profitable farming activities,ProfitActivities
+activities for good yield,ProfitActivities
+best farming practices for profit,ProfitActivities
+most profitable crops,ProfitablePastCrops
+crops that earned profit,ProfitablePastCrops
+best earning crops from history,ProfitablePastCrops
+profitable crops from past,ProfitablePastCrops
+is cauliflower suitable for me,CropSuitability
+can i grow cauliflower,CropSuitability
+is cauliflower good for my land,CropSuitability
+should i grow cauliflower,CropSuitability
+will cauliflower grow on my land,CropSuitability
+is cauliflower right for me,CropSuitability
+does my land suit cauliflower,CropSuitability
+should i cultivate cauliflower,CropRecommendation
+can i grow cauliflower,CropRecommendation
+is cauliflower good,CropRecommendation
+should i grow cauliflower,CropRecommendation
 how to grow coriander,Cultivation
 how to cultivate coriander,Cultivation
 i want to grow coriander,Cultivation
@@ -2726,6 +3836,43 @@ coriander sowing season,SowingTime
 best time to sow coriander,SowingTime
 sowing time for coriander,SowingTime
 planting season for coriander,SowingTime
+is coriander suitable for my land,CropSuitability
+can i grow coriander on my land,CropSuitability
+is coriander good for sandy soil,CropSuitability
+is coriander good for loamy soil,CropSuitability
+will coriander grow in my region,CropSuitability
+is coriander suitable for this season,CropSuitability
+does coriander suit my soil type,CropSuitability
+should i grow coriander on my land,CropSuitability
+my past cultivation sessions,PastSessions
+previous crops i grew,PastSessions
+last season crops,PastSessions
+crop history of my land,PastSessions
+what did i cultivate before,PastSessions
+my farming history,PastSessions
+neighbor previous crops,NeighborPastSessions
+what neighbor grew before,NeighborPastSessions
+neighbor crop history,NeighborPastSessions
+neighbor farming past,NeighborPastSessions
+activities for profit,ProfitActivities
+profitable farming activities,ProfitActivities
+activities for good yield,ProfitActivities
+best farming practices for profit,ProfitActivities
+most profitable crops,ProfitablePastCrops
+crops that earned profit,ProfitablePastCrops
+best earning crops from history,ProfitablePastCrops
+profitable crops from past,ProfitablePastCrops
+is coriander suitable for me,CropSuitability
+can i grow coriander,CropSuitability
+is coriander good for my land,CropSuitability
+should i grow coriander,CropSuitability
+will coriander grow on my land,CropSuitability
+is coriander right for me,CropSuitability
+does my land suit coriander,CropSuitability
+should i cultivate coriander,CropRecommendation
+can i grow coriander,CropRecommendation
+is coriander good,CropRecommendation
+should i grow coriander,CropRecommendation
 how to grow fennogreek,Cultivation
 how to cultivate fennogreek,Cultivation
 i want to grow fennogreek,Cultivation
@@ -2814,6 +3961,43 @@ fennogreek sowing season,SowingTime
 best time to sow fennogreek,SowingTime
 sowing time for fennogreek,SowingTime
 planting season for fennogreek,SowingTime
+is fennogreek suitable for my land,CropSuitability
+can i grow fennogreek on my land,CropSuitability
+is fennogreek good for sandy soil,CropSuitability
+is fennogreek good for loamy soil,CropSuitability
+will fennogreek grow in my region,CropSuitability
+is fennogreek suitable for this season,CropSuitability
+does fennogreek suit my soil type,CropSuitability
+should i grow fennogreek on my land,CropSuitability
+my past cultivation sessions,PastSessions
+previous crops i grew,PastSessions
+last season crops,PastSessions
+crop history of my land,PastSessions
+what did i cultivate before,PastSessions
+my farming history,PastSessions
+neighbor previous crops,NeighborPastSessions
+what neighbor grew before,NeighborPastSessions
+neighbor crop history,NeighborPastSessions
+neighbor farming past,NeighborPastSessions
+activities for profit,ProfitActivities
+profitable farming activities,ProfitActivities
+activities for good yield,ProfitActivities
+best farming practices for profit,ProfitActivities
+most profitable crops,ProfitablePastCrops
+crops that earned profit,ProfitablePastCrops
+best earning crops from history,ProfitablePastCrops
+profitable crops from past,ProfitablePastCrops
+is fennogreek suitable for me,CropSuitability
+can i grow fennogreek,CropSuitability
+is fennogreek good for my land,CropSuitability
+should i grow fennogreek,CropSuitability
+will fennogreek grow on my land,CropSuitability
+is fennogreek right for me,CropSuitability
+does my land suit fennogreek,CropSuitability
+should i cultivate fennogreek,CropRecommendation
+can i grow fennogreek,CropRecommendation
+is fennogreek good,CropRecommendation
+should i grow fennogreek,CropRecommendation
 how to grow garlic,Cultivation
 how to cultivate garlic,Cultivation
 i want to grow garlic,Cultivation
@@ -2902,6 +4086,43 @@ garlic sowing season,SowingTime
 best time to sow garlic,SowingTime
 sowing time for garlic,SowingTime
 planting season for garlic,SowingTime
+is garlic suitable for my land,CropSuitability
+can i grow garlic on my land,CropSuitability
+is garlic good for sandy soil,CropSuitability
+is garlic good for loamy soil,CropSuitability
+will garlic grow in my region,CropSuitability
+is garlic suitable for this season,CropSuitability
+does garlic suit my soil type,CropSuitability
+should i grow garlic on my land,CropSuitability
+my past cultivation sessions,PastSessions
+previous crops i grew,PastSessions
+last season crops,PastSessions
+crop history of my land,PastSessions
+what did i cultivate before,PastSessions
+my farming history,PastSessions
+neighbor previous crops,NeighborPastSessions
+what neighbor grew before,NeighborPastSessions
+neighbor crop history,NeighborPastSessions
+neighbor farming past,NeighborPastSessions
+activities for profit,ProfitActivities
+profitable farming activities,ProfitActivities
+activities for good yield,ProfitActivities
+best farming practices for profit,ProfitActivities
+most profitable crops,ProfitablePastCrops
+crops that earned profit,ProfitablePastCrops
+best earning crops from history,ProfitablePastCrops
+profitable crops from past,ProfitablePastCrops
+is garlic suitable for me,CropSuitability
+can i grow garlic,CropSuitability
+is garlic good for my land,CropSuitability
+should i grow garlic,CropSuitability
+will garlic grow on my land,CropSuitability
+is garlic right for me,CropSuitability
+does my land suit garlic,CropSuitability
+should i cultivate garlic,CropRecommendation
+can i grow garlic,CropRecommendation
+is garlic good,CropRecommendation
+should i grow garlic,CropRecommendation
 how to grow gram,Cultivation
 how to cultivate gram,Cultivation
 i want to grow gram,Cultivation
@@ -2990,6 +4211,43 @@ gram sowing season,SowingTime
 best time to sow gram,SowingTime
 sowing time for gram,SowingTime
 planting season for gram,SowingTime
+is gram suitable for my land,CropSuitability
+can i grow gram on my land,CropSuitability
+is gram good for sandy soil,CropSuitability
+is gram good for loamy soil,CropSuitability
+will gram grow in my region,CropSuitability
+is gram suitable for this season,CropSuitability
+does gram suit my soil type,CropSuitability
+should i grow gram on my land,CropSuitability
+my past cultivation sessions,PastSessions
+previous crops i grew,PastSessions
+last season crops,PastSessions
+crop history of my land,PastSessions
+what did i cultivate before,PastSessions
+my farming history,PastSessions
+neighbor previous crops,NeighborPastSessions
+what neighbor grew before,NeighborPastSessions
+neighbor crop history,NeighborPastSessions
+neighbor farming past,NeighborPastSessions
+activities for profit,ProfitActivities
+profitable farming activities,ProfitActivities
+activities for good yield,ProfitActivities
+best farming practices for profit,ProfitActivities
+most profitable crops,ProfitablePastCrops
+crops that earned profit,ProfitablePastCrops
+best earning crops from history,ProfitablePastCrops
+profitable crops from past,ProfitablePastCrops
+is gram suitable for me,CropSuitability
+can i grow gram,CropSuitability
+is gram good for my land,CropSuitability
+should i grow gram,CropSuitability
+will gram grow on my land,CropSuitability
+is gram right for me,CropSuitability
+does my land suit gram,CropSuitability
+should i cultivate gram,CropRecommendation
+can i grow gram,CropRecommendation
+is gram good,CropRecommendation
+should i grow gram,CropRecommendation
 how to grow lettuce,Cultivation
 how to cultivate lettuce,Cultivation
 i want to grow lettuce,Cultivation
@@ -3078,6 +4336,43 @@ lettuce sowing season,SowingTime
 best time to sow lettuce,SowingTime
 sowing time for lettuce,SowingTime
 planting season for lettuce,SowingTime
+is lettuce suitable for my land,CropSuitability
+can i grow lettuce on my land,CropSuitability
+is lettuce good for sandy soil,CropSuitability
+is lettuce good for loamy soil,CropSuitability
+will lettuce grow in my region,CropSuitability
+is lettuce suitable for this season,CropSuitability
+does lettuce suit my soil type,CropSuitability
+should i grow lettuce on my land,CropSuitability
+my past cultivation sessions,PastSessions
+previous crops i grew,PastSessions
+last season crops,PastSessions
+crop history of my land,PastSessions
+what did i cultivate before,PastSessions
+my farming history,PastSessions
+neighbor previous crops,NeighborPastSessions
+what neighbor grew before,NeighborPastSessions
+neighbor crop history,NeighborPastSessions
+neighbor farming past,NeighborPastSessions
+activities for profit,ProfitActivities
+profitable farming activities,ProfitActivities
+activities for good yield,ProfitActivities
+best farming practices for profit,ProfitActivities
+most profitable crops,ProfitablePastCrops
+crops that earned profit,ProfitablePastCrops
+best earning crops from history,ProfitablePastCrops
+profitable crops from past,ProfitablePastCrops
+is lettuce suitable for me,CropSuitability
+can i grow lettuce,CropSuitability
+is lettuce good for my land,CropSuitability
+should i grow lettuce,CropSuitability
+will lettuce grow on my land,CropSuitability
+is lettuce right for me,CropSuitability
+does my land suit lettuce,CropSuitability
+should i cultivate lettuce,CropRecommendation
+can i grow lettuce,CropRecommendation
+is lettuce good,CropRecommendation
+should i grow lettuce,CropRecommendation
 how to grow linseed,Cultivation
 how to cultivate linseed,Cultivation
 i want to grow linseed,Cultivation
@@ -3166,6 +4461,43 @@ linseed sowing season,SowingTime
 best time to sow linseed,SowingTime
 sowing time for linseed,SowingTime
 planting season for linseed,SowingTime
+is linseed suitable for my land,CropSuitability
+can i grow linseed on my land,CropSuitability
+is linseed good for sandy soil,CropSuitability
+is linseed good for loamy soil,CropSuitability
+will linseed grow in my region,CropSuitability
+is linseed suitable for this season,CropSuitability
+does linseed suit my soil type,CropSuitability
+should i grow linseed on my land,CropSuitability
+my past cultivation sessions,PastSessions
+previous crops i grew,PastSessions
+last season crops,PastSessions
+crop history of my land,PastSessions
+what did i cultivate before,PastSessions
+my farming history,PastSessions
+neighbor previous crops,NeighborPastSessions
+what neighbor grew before,NeighborPastSessions
+neighbor crop history,NeighborPastSessions
+neighbor farming past,NeighborPastSessions
+activities for profit,ProfitActivities
+profitable farming activities,ProfitActivities
+activities for good yield,ProfitActivities
+best farming practices for profit,ProfitActivities
+most profitable crops,ProfitablePastCrops
+crops that earned profit,ProfitablePastCrops
+best earning crops from history,ProfitablePastCrops
+profitable crops from past,ProfitablePastCrops
+is linseed suitable for me,CropSuitability
+can i grow linseed,CropSuitability
+is linseed good for my land,CropSuitability
+should i grow linseed,CropSuitability
+will linseed grow on my land,CropSuitability
+is linseed right for me,CropSuitability
+does my land suit linseed,CropSuitability
+should i cultivate linseed,CropRecommendation
+can i grow linseed,CropRecommendation
+is linseed good,CropRecommendation
+should i grow linseed,CropRecommendation
 how to grow mattar,Cultivation
 how to cultivate mattar,Cultivation
 i want to grow mattar,Cultivation
@@ -3254,6 +4586,43 @@ mattar sowing season,SowingTime
 best time to sow mattar,SowingTime
 sowing time for mattar,SowingTime
 planting season for mattar,SowingTime
+is mattar suitable for my land,CropSuitability
+can i grow mattar on my land,CropSuitability
+is mattar good for sandy soil,CropSuitability
+is mattar good for loamy soil,CropSuitability
+will mattar grow in my region,CropSuitability
+is mattar suitable for this season,CropSuitability
+does mattar suit my soil type,CropSuitability
+should i grow mattar on my land,CropSuitability
+my past cultivation sessions,PastSessions
+previous crops i grew,PastSessions
+last season crops,PastSessions
+crop history of my land,PastSessions
+what did i cultivate before,PastSessions
+my farming history,PastSessions
+neighbor previous crops,NeighborPastSessions
+what neighbor grew before,NeighborPastSessions
+neighbor crop history,NeighborPastSessions
+neighbor farming past,NeighborPastSessions
+activities for profit,ProfitActivities
+profitable farming activities,ProfitActivities
+activities for good yield,ProfitActivities
+best farming practices for profit,ProfitActivities
+most profitable crops,ProfitablePastCrops
+crops that earned profit,ProfitablePastCrops
+best earning crops from history,ProfitablePastCrops
+profitable crops from past,ProfitablePastCrops
+is mattar suitable for me,CropSuitability
+can i grow mattar,CropSuitability
+is mattar good for my land,CropSuitability
+should i grow mattar,CropSuitability
+will mattar grow on my land,CropSuitability
+is mattar right for me,CropSuitability
+does my land suit mattar,CropSuitability
+should i cultivate mattar,CropRecommendation
+can i grow mattar,CropRecommendation
+is mattar good,CropRecommendation
+should i grow mattar,CropRecommendation
 how to grow mustard,Cultivation
 how to cultivate mustard,Cultivation
 i want to grow mustard,Cultivation
@@ -3342,6 +4711,43 @@ mustard sowing season,SowingTime
 best time to sow mustard,SowingTime
 sowing time for mustard,SowingTime
 planting season for mustard,SowingTime
+is mustard suitable for my land,CropSuitability
+can i grow mustard on my land,CropSuitability
+is mustard good for sandy soil,CropSuitability
+is mustard good for loamy soil,CropSuitability
+will mustard grow in my region,CropSuitability
+is mustard suitable for this season,CropSuitability
+does mustard suit my soil type,CropSuitability
+should i grow mustard on my land,CropSuitability
+my past cultivation sessions,PastSessions
+previous crops i grew,PastSessions
+last season crops,PastSessions
+crop history of my land,PastSessions
+what did i cultivate before,PastSessions
+my farming history,PastSessions
+neighbor previous crops,NeighborPastSessions
+what neighbor grew before,NeighborPastSessions
+neighbor crop history,NeighborPastSessions
+neighbor farming past,NeighborPastSessions
+activities for profit,ProfitActivities
+profitable farming activities,ProfitActivities
+activities for good yield,ProfitActivities
+best farming practices for profit,ProfitActivities
+most profitable crops,ProfitablePastCrops
+crops that earned profit,ProfitablePastCrops
+best earning crops from history,ProfitablePastCrops
+profitable crops from past,ProfitablePastCrops
+is mustard suitable for me,CropSuitability
+can i grow mustard,CropSuitability
+is mustard good for my land,CropSuitability
+should i grow mustard,CropSuitability
+will mustard grow on my land,CropSuitability
+is mustard right for me,CropSuitability
+does my land suit mustard,CropSuitability
+should i cultivate mustard,CropRecommendation
+can i grow mustard,CropRecommendation
+is mustard good,CropRecommendation
+should i grow mustard,CropRecommendation
 how to grow onion,Cultivation
 how to cultivate onion,Cultivation
 i want to grow onion,Cultivation
@@ -3430,6 +4836,43 @@ onion sowing season,SowingTime
 best time to sow onion,SowingTime
 sowing time for onion,SowingTime
 planting season for onion,SowingTime
+is onion suitable for my land,CropSuitability
+can i grow onion on my land,CropSuitability
+is onion good for sandy soil,CropSuitability
+is onion good for loamy soil,CropSuitability
+will onion grow in my region,CropSuitability
+is onion suitable for this season,CropSuitability
+does onion suit my soil type,CropSuitability
+should i grow onion on my land,CropSuitability
+my past cultivation sessions,PastSessions
+previous crops i grew,PastSessions
+last season crops,PastSessions
+crop history of my land,PastSessions
+what did i cultivate before,PastSessions
+my farming history,PastSessions
+neighbor previous crops,NeighborPastSessions
+what neighbor grew before,NeighborPastSessions
+neighbor crop history,NeighborPastSessions
+neighbor farming past,NeighborPastSessions
+activities for profit,ProfitActivities
+profitable farming activities,ProfitActivities
+activities for good yield,ProfitActivities
+best farming practices for profit,ProfitActivities
+most profitable crops,ProfitablePastCrops
+crops that earned profit,ProfitablePastCrops
+best earning crops from history,ProfitablePastCrops
+profitable crops from past,ProfitablePastCrops
+is onion suitable for me,CropSuitability
+can i grow onion,CropSuitability
+is onion good for my land,CropSuitability
+should i grow onion,CropSuitability
+will onion grow on my land,CropSuitability
+is onion right for me,CropSuitability
+does my land suit onion,CropSuitability
+should i cultivate onion,CropRecommendation
+can i grow onion,CropRecommendation
+is onion good,CropRecommendation
+should i grow onion,CropRecommendation
 how to grow potato,Cultivation
 how to cultivate potato,Cultivation
 i want to grow potato,Cultivation
@@ -3518,6 +4961,43 @@ potato sowing season,SowingTime
 best time to sow potato,SowingTime
 sowing time for potato,SowingTime
 planting season for potato,SowingTime
+is potato suitable for my land,CropSuitability
+can i grow potato on my land,CropSuitability
+is potato good for sandy soil,CropSuitability
+is potato good for loamy soil,CropSuitability
+will potato grow in my region,CropSuitability
+is potato suitable for this season,CropSuitability
+does potato suit my soil type,CropSuitability
+should i grow potato on my land,CropSuitability
+my past cultivation sessions,PastSessions
+previous crops i grew,PastSessions
+last season crops,PastSessions
+crop history of my land,PastSessions
+what did i cultivate before,PastSessions
+my farming history,PastSessions
+neighbor previous crops,NeighborPastSessions
+what neighbor grew before,NeighborPastSessions
+neighbor crop history,NeighborPastSessions
+neighbor farming past,NeighborPastSessions
+activities for profit,ProfitActivities
+profitable farming activities,ProfitActivities
+activities for good yield,ProfitActivities
+best farming practices for profit,ProfitActivities
+most profitable crops,ProfitablePastCrops
+crops that earned profit,ProfitablePastCrops
+best earning crops from history,ProfitablePastCrops
+profitable crops from past,ProfitablePastCrops
+is potato suitable for me,CropSuitability
+can i grow potato,CropSuitability
+is potato good for my land,CropSuitability
+should i grow potato,CropSuitability
+will potato grow on my land,CropSuitability
+is potato right for me,CropSuitability
+does my land suit potato,CropSuitability
+should i cultivate potato,CropRecommendation
+can i grow potato,CropRecommendation
+is potato good,CropRecommendation
+should i grow potato,CropRecommendation
 how to grow radish,Cultivation
 how to cultivate radish,Cultivation
 i want to grow radish,Cultivation
@@ -3606,6 +5086,43 @@ radish sowing season,SowingTime
 best time to sow radish,SowingTime
 sowing time for radish,SowingTime
 planting season for radish,SowingTime
+is radish suitable for my land,CropSuitability
+can i grow radish on my land,CropSuitability
+is radish good for sandy soil,CropSuitability
+is radish good for loamy soil,CropSuitability
+will radish grow in my region,CropSuitability
+is radish suitable for this season,CropSuitability
+does radish suit my soil type,CropSuitability
+should i grow radish on my land,CropSuitability
+my past cultivation sessions,PastSessions
+previous crops i grew,PastSessions
+last season crops,PastSessions
+crop history of my land,PastSessions
+what did i cultivate before,PastSessions
+my farming history,PastSessions
+neighbor previous crops,NeighborPastSessions
+what neighbor grew before,NeighborPastSessions
+neighbor crop history,NeighborPastSessions
+neighbor farming past,NeighborPastSessions
+activities for profit,ProfitActivities
+profitable farming activities,ProfitActivities
+activities for good yield,ProfitActivities
+best farming practices for profit,ProfitActivities
+most profitable crops,ProfitablePastCrops
+crops that earned profit,ProfitablePastCrops
+best earning crops from history,ProfitablePastCrops
+profitable crops from past,ProfitablePastCrops
+is radish suitable for me,CropSuitability
+can i grow radish,CropSuitability
+is radish good for my land,CropSuitability
+should i grow radish,CropSuitability
+will radish grow on my land,CropSuitability
+is radish right for me,CropSuitability
+does my land suit radish,CropSuitability
+should i cultivate radish,CropRecommendation
+can i grow radish,CropRecommendation
+is radish good,CropRecommendation
+should i grow radish,CropRecommendation
 how to grow spinach,Cultivation
 how to cultivate spinach,Cultivation
 i want to grow spinach,Cultivation
@@ -3694,6 +5211,43 @@ spinach sowing season,SowingTime
 best time to sow spinach,SowingTime
 sowing time for spinach,SowingTime
 planting season for spinach,SowingTime
+is spinach suitable for my land,CropSuitability
+can i grow spinach on my land,CropSuitability
+is spinach good for sandy soil,CropSuitability
+is spinach good for loamy soil,CropSuitability
+will spinach grow in my region,CropSuitability
+is spinach suitable for this season,CropSuitability
+does spinach suit my soil type,CropSuitability
+should i grow spinach on my land,CropSuitability
+my past cultivation sessions,PastSessions
+previous crops i grew,PastSessions
+last season crops,PastSessions
+crop history of my land,PastSessions
+what did i cultivate before,PastSessions
+my farming history,PastSessions
+neighbor previous crops,NeighborPastSessions
+what neighbor grew before,NeighborPastSessions
+neighbor crop history,NeighborPastSessions
+neighbor farming past,NeighborPastSessions
+activities for profit,ProfitActivities
+profitable farming activities,ProfitActivities
+activities for good yield,ProfitActivities
+best farming practices for profit,ProfitActivities
+most profitable crops,ProfitablePastCrops
+crops that earned profit,ProfitablePastCrops
+best earning crops from history,ProfitablePastCrops
+profitable crops from past,ProfitablePastCrops
+is spinach suitable for me,CropSuitability
+can i grow spinach,CropSuitability
+is spinach good for my land,CropSuitability
+should i grow spinach,CropSuitability
+will spinach grow on my land,CropSuitability
+is spinach right for me,CropSuitability
+does my land suit spinach,CropSuitability
+should i cultivate spinach,CropRecommendation
+can i grow spinach,CropRecommendation
+is spinach good,CropRecommendation
+should i grow spinach,CropRecommendation
 how to grow sweet potato,Cultivation
 how to cultivate sweet potato,Cultivation
 i want to grow sweet potato,Cultivation
@@ -3782,6 +5336,43 @@ sweet potato sowing season,SowingTime
 best time to sow sweet potato,SowingTime
 sowing time for sweet potato,SowingTime
 planting season for sweet potato,SowingTime
+is sweet potato suitable for my land,CropSuitability
+can i grow sweet potato on my land,CropSuitability
+is sweet potato good for sandy soil,CropSuitability
+is sweet potato good for loamy soil,CropSuitability
+will sweet potato grow in my region,CropSuitability
+is sweet potato suitable for this season,CropSuitability
+does sweet potato suit my soil type,CropSuitability
+should i grow sweet potato on my land,CropSuitability
+my past cultivation sessions,PastSessions
+previous crops i grew,PastSessions
+last season crops,PastSessions
+crop history of my land,PastSessions
+what did i cultivate before,PastSessions
+my farming history,PastSessions
+neighbor previous crops,NeighborPastSessions
+what neighbor grew before,NeighborPastSessions
+neighbor crop history,NeighborPastSessions
+neighbor farming past,NeighborPastSessions
+activities for profit,ProfitActivities
+profitable farming activities,ProfitActivities
+activities for good yield,ProfitActivities
+best farming practices for profit,ProfitActivities
+most profitable crops,ProfitablePastCrops
+crops that earned profit,ProfitablePastCrops
+best earning crops from history,ProfitablePastCrops
+profitable crops from past,ProfitablePastCrops
+is sweet potato suitable for me,CropSuitability
+can i grow sweet potato,CropSuitability
+is sweet potato good for my land,CropSuitability
+should i grow sweet potato,CropSuitability
+will sweet potato grow on my land,CropSuitability
+is sweet potato right for me,CropSuitability
+does my land suit sweet potato,CropSuitability
+should i cultivate sweet potato,CropRecommendation
+can i grow sweet potato,CropRecommendation
+is sweet potato good,CropRecommendation
+should i grow sweet potato,CropRecommendation
 how to grow tobacco,Cultivation
 how to cultivate tobacco,Cultivation
 i want to grow tobacco,Cultivation
@@ -3870,6 +5461,43 @@ tobacco sowing season,SowingTime
 best time to sow tobacco,SowingTime
 sowing time for tobacco,SowingTime
 planting season for tobacco,SowingTime
+is tobacco suitable for my land,CropSuitability
+can i grow tobacco on my land,CropSuitability
+is tobacco good for sandy soil,CropSuitability
+is tobacco good for loamy soil,CropSuitability
+will tobacco grow in my region,CropSuitability
+is tobacco suitable for this season,CropSuitability
+does tobacco suit my soil type,CropSuitability
+should i grow tobacco on my land,CropSuitability
+my past cultivation sessions,PastSessions
+previous crops i grew,PastSessions
+last season crops,PastSessions
+crop history of my land,PastSessions
+what did i cultivate before,PastSessions
+my farming history,PastSessions
+neighbor previous crops,NeighborPastSessions
+what neighbor grew before,NeighborPastSessions
+neighbor crop history,NeighborPastSessions
+neighbor farming past,NeighborPastSessions
+activities for profit,ProfitActivities
+profitable farming activities,ProfitActivities
+activities for good yield,ProfitActivities
+best farming practices for profit,ProfitActivities
+most profitable crops,ProfitablePastCrops
+crops that earned profit,ProfitablePastCrops
+best earning crops from history,ProfitablePastCrops
+profitable crops from past,ProfitablePastCrops
+is tobacco suitable for me,CropSuitability
+can i grow tobacco,CropSuitability
+is tobacco good for my land,CropSuitability
+should i grow tobacco,CropSuitability
+will tobacco grow on my land,CropSuitability
+is tobacco right for me,CropSuitability
+does my land suit tobacco,CropSuitability
+should i cultivate tobacco,CropRecommendation
+can i grow tobacco,CropRecommendation
+is tobacco good,CropRecommendation
+should i grow tobacco,CropRecommendation
 how to grow tomato,Cultivation
 how to cultivate tomato,Cultivation
 i want to grow tomato,Cultivation
@@ -3958,6 +5586,43 @@ tomato sowing season,SowingTime
 best time to sow tomato,SowingTime
 sowing time for tomato,SowingTime
 planting season for tomato,SowingTime
+is tomato suitable for my land,CropSuitability
+can i grow tomato on my land,CropSuitability
+is tomato good for sandy soil,CropSuitability
+is tomato good for loamy soil,CropSuitability
+will tomato grow in my region,CropSuitability
+is tomato suitable for this season,CropSuitability
+does tomato suit my soil type,CropSuitability
+should i grow tomato on my land,CropSuitability
+my past cultivation sessions,PastSessions
+previous crops i grew,PastSessions
+last season crops,PastSessions
+crop history of my land,PastSessions
+what did i cultivate before,PastSessions
+my farming history,PastSessions
+neighbor previous crops,NeighborPastSessions
+what neighbor grew before,NeighborPastSessions
+neighbor crop history,NeighborPastSessions
+neighbor farming past,NeighborPastSessions
+activities for profit,ProfitActivities
+profitable farming activities,ProfitActivities
+activities for good yield,ProfitActivities
+best farming practices for profit,ProfitActivities
+most profitable crops,ProfitablePastCrops
+crops that earned profit,ProfitablePastCrops
+best earning crops from history,ProfitablePastCrops
+profitable crops from past,ProfitablePastCrops
+is tomato suitable for me,CropSuitability
+can i grow tomato,CropSuitability
+is tomato good for my land,CropSuitability
+should i grow tomato,CropSuitability
+will tomato grow on my land,CropSuitability
+is tomato right for me,CropSuitability
+does my land suit tomato,CropSuitability
+should i cultivate tomato,CropRecommendation
+can i grow tomato,CropRecommendation
+is tomato good,CropRecommendation
+should i grow tomato,CropRecommendation
 how to grow turnip,Cultivation
 how to cultivate turnip,Cultivation
 i want to grow turnip,Cultivation
@@ -4046,6 +5711,43 @@ turnip sowing season,SowingTime
 best time to sow turnip,SowingTime
 sowing time for turnip,SowingTime
 planting season for turnip,SowingTime
+is turnip suitable for my land,CropSuitability
+can i grow turnip on my land,CropSuitability
+is turnip good for sandy soil,CropSuitability
+is turnip good for loamy soil,CropSuitability
+will turnip grow in my region,CropSuitability
+is turnip suitable for this season,CropSuitability
+does turnip suit my soil type,CropSuitability
+should i grow turnip on my land,CropSuitability
+my past cultivation sessions,PastSessions
+previous crops i grew,PastSessions
+last season crops,PastSessions
+crop history of my land,PastSessions
+what did i cultivate before,PastSessions
+my farming history,PastSessions
+neighbor previous crops,NeighborPastSessions
+what neighbor grew before,NeighborPastSessions
+neighbor crop history,NeighborPastSessions
+neighbor farming past,NeighborPastSessions
+activities for profit,ProfitActivities
+profitable farming activities,ProfitActivities
+activities for good yield,ProfitActivities
+best farming practices for profit,ProfitActivities
+most profitable crops,ProfitablePastCrops
+crops that earned profit,ProfitablePastCrops
+best earning crops from history,ProfitablePastCrops
+profitable crops from past,ProfitablePastCrops
+is turnip suitable for me,CropSuitability
+can i grow turnip,CropSuitability
+is turnip good for my land,CropSuitability
+should i grow turnip,CropSuitability
+will turnip grow on my land,CropSuitability
+is turnip right for me,CropSuitability
+does my land suit turnip,CropSuitability
+should i cultivate turnip,CropRecommendation
+can i grow turnip,CropRecommendation
+is turnip good,CropRecommendation
+should i grow turnip,CropRecommendation
 how to grow wheat,Cultivation
 how to cultivate wheat,Cultivation
 i want to grow wheat,Cultivation
@@ -4134,6 +5836,43 @@ wheat sowing season,SowingTime
 best time to sow wheat,SowingTime
 sowing time for wheat,SowingTime
 planting season for wheat,SowingTime
+is wheat suitable for my land,CropSuitability
+can i grow wheat on my land,CropSuitability
+is wheat good for sandy soil,CropSuitability
+is wheat good for loamy soil,CropSuitability
+will wheat grow in my region,CropSuitability
+is wheat suitable for this season,CropSuitability
+does wheat suit my soil type,CropSuitability
+should i grow wheat on my land,CropSuitability
+my past cultivation sessions,PastSessions
+previous crops i grew,PastSessions
+last season crops,PastSessions
+crop history of my land,PastSessions
+what did i cultivate before,PastSessions
+my farming history,PastSessions
+neighbor previous crops,NeighborPastSessions
+what neighbor grew before,NeighborPastSessions
+neighbor crop history,NeighborPastSessions
+neighbor farming past,NeighborPastSessions
+activities for profit,ProfitActivities
+profitable farming activities,ProfitActivities
+activities for good yield,ProfitActivities
+best farming practices for profit,ProfitActivities
+most profitable crops,ProfitablePastCrops
+crops that earned profit,ProfitablePastCrops
+best earning crops from history,ProfitablePastCrops
+profitable crops from past,ProfitablePastCrops
+is wheat suitable for me,CropSuitability
+can i grow wheat,CropSuitability
+is wheat good for my land,CropSuitability
+should i grow wheat,CropSuitability
+will wheat grow on my land,CropSuitability
+is wheat right for me,CropSuitability
+does my land suit wheat,CropSuitability
+should i cultivate wheat,CropRecommendation
+can i grow wheat,CropRecommendation
+is wheat good,CropRecommendation
+should i grow wheat,CropRecommendation
 weather today,Weather
 weather tomorrow,Weather
 weather this week,Weather
@@ -4176,6 +5915,177 @@ movie,OutOfScope
 song,OutOfScope
 recipe,OutOfScope
 cooking,OutOfScope
+just tell me,Quick
+quick,Quick
+brief,Quick
+simple,Quick
+just list,Quick
+names only,Quick
+just,Quick
+fast,Quick
+in short,Quick
+short,Quick
+explain,Explanatory
+explain in detail,Explanatory
+detailed,Explanatory
+why,Explanatory
+why should i,Explanatory
+tell me why,Explanatory
+reason,Explanatory
+reason for,Explanatory
+explaination,Explanatory
+how,Explanatory
+what is,Explanatory
+tell me about,Explanatory
+describe,Explanatory
+elaborate,Explanatory
+in detail,Explanatory
+give me details,Explanatory
+full details,Explanatory
+sow it,SowingTime
+when to sow it,SowingTime
+when should i sow it,SowingTime
+grow it,Cultivation
+how to grow it,Cultivation
+how to cultivate it,Cultivation
+harvest it,HarvestTime
+when to harvest it,HarvestTime
+when should i harvest it,HarvestTime
+fertilize it,Fertilizer
+fertilizer for it,Fertilizer
+water it,Irrigation
+irrigation for it,Irrigation
+sow this,SowingTime
+sow that,SowingTime
+grow this,Cultivation
+grow that,Cultivation
+when to plant it,SowingTime
+when to harvest it,HarvestTime
+best time for it,SowingTime
+suitable time for it,SowingTime
+is it good,Confirm
+is this good,Confirm
+is that good,Confirm
+should i grow it,Confirm
+should i plant it,Confirm
+can i grow it,Confirm
+is it suitable,Confirm
+is it best,Confirm
+is this the best,Confirm
+will it work,Confirm
+will it grow,Confirm
+is it profitable,Confirm
+is this profitable,Confirm
+tell me about,Cultivation
+more about,Cultivation
+details about,Cultivation
+info about,Cultivation
+information about,Cultivation
+best variety,Varieties
+which variety,Varieties
+recommended variety,Varieties
+popular variety,Varieties
+high yielding variety,Varieties
+good variety,Varieties
+now,SowingTime
+this season,SowingTime
+next season,SowingTime
+current season,SowingTime
+which month,SowingTime
+what month,SowingTime
+suitable season,SowingTime
+right season,SowingTime
+best month,SowingTime
+ideal time,SowingTime
+how much,Yield
+how many,Yield
+per acre,Yield
+per hectare,Yield
+yield per acre,Yield
+production per acre,Yield
+how much yield,Yield
+expected yield,Yield
+average yield,Yield
+requirements,Cultivation
+what is needed,Cultivation
+what do i need,Cultivation
+things needed,Cultivation
+materials needed,Cultivation
+tools needed,Cultivation
+equipment needed,Cultivation
+what all is required,Cultivation
+full requirements,Cultivation
+cost,MarketPrice
+price,MarketPrice
+rate,MarketPrice
+expense,MarketPrice
+budget,MarketPrice
+investment,MarketPrice
+how much does it cost,MarketPrice
+what is the price,MarketPrice
+current market price,MarketPrice
+today price,MarketPrice
+mandi rate,MarketPrice
+wholesale price,MarketPrice
+retail price,MarketPrice
+farm gate price,MarketPrice
+problem,Diseases
+issues,Diseases
+sick,Diseases
+dying,Diseases
+not growing,Diseases
+yellow leaves,Diseases
+brown spots,Diseases
+wilted,Diseases
+drooping,Diseases
+not fruiting,Diseases
+no yield,Diseases
+low yield,Diseases
+attack,Diseases
+infestation,Diseases
+infected,Diseases
+pest attack,Diseases
+disease attack,Diseases
+bug attack,Diseases
+how to fix,Diseases
+how to solve,Diseases
+treatment,Diseases
+remedy,Diseases
+solution,Diseases
+control,Diseases
+prevent,Diseases
+prevention,Diseases
+avoid,Diseases
+vs,Cultivation
+versus,Cultivation
+compare,Cultivation
+difference between,Cultivation
+which is better,Cultivation
+between,Cultivation
+or,Cultivation
+step by step,Cultivation
+steps,Cultivation
+procedure,Cultivation
+process,Cultivation
+method,Cultivation
+technique,Cultivation
+guide,Cultivation
+tutorial,Cultivation
+instructions,Cultivation
+how does it work,Cultivation
+how should i do,Cultivation
+kitna pani,Irrigation
+kitna kg,Yield
+kitna money,MarketPrice
+kab lagay,SowingTime
+kab kaatna,HarvestTime
+kitna time,Yield
+kaisay,Cultivation
+kaise,Cultivation
+kaisa,Cultivation
+kon sa,Varieties
+kaun sa,Varieties
+kis mein,Soil
 my activities,MyActivities
 what are my activities,MyActivities
 show my activities,MyActivities
@@ -4194,22 +6104,51 @@ show my crops,MyCrops
 what is growing on my farm,MyCrops
 my current crops,MyCrops
 which crops am i planting,MyCrops
+what is cultivated,MyCrops
+what is cultivated on my land,MyCrops
+what is cultivated on it,MyCrops
+what is cultivated on this land,MyCrops
+what is grown,MyCrops
+what is grown on my land,MyCrops
+what is grown on it,MyCrops
+what is grown on this land,MyCrops
+what is planted,MyCrops
+what is planted on my land,MyCrops
+what is planted on it,MyCrops
+what is planted on this land,MyCrops
+what is on my land,MyCrops
+what is on my farm,MyCrops
+what is on it,MyCrops
+what is on this land,MyCrops
+currently cultivated,MyCrops
+currently grown,MyCrops
+currently planted,MyCrops
+active crop,MyCrops
+any crop on land,MyCrops
+any crop grown,MyCrops
+cultivated on my lands,MyCrops
+cultivated on my land,MyCrops
 weather of my land,MyLands
 weather for my land,MyLands
 weather of my field,MyLands
 weather for my farm,MyLands
-weather of khoo aly,MyLands
-weather of my land khoo aly,MyLands
 what is weather of my land,MyLands
 tell me weather of my land,MyLands
 info of my land,MyLands
 about my land,MyLands
 land details,MyLands
 field details,MyLands
+my land,MyLands
+my field,MyLands
+my farm,MyLands
+land info,MyLands
+field info,MyLands
+farm info,MyLands
 my land info,MyLands
 farm details,MyLands
+land,MyLands
+fields,MyLands
 neighbors of my land,MyNeighbors
-neighbors of khoo aly,MyNeighbors
 who are my neighbors,MyNeighbors
 neighbors nearby,MyNeighbors
 neighbor details,MyNeighbors
@@ -4247,6 +6186,189 @@ crop suggestion,CropRecommendation
 what crop should i plant,CropRecommendation
 recommend crop for my land,CropRecommendation
 what to grow on my farm,CropRecommendation
+what i should cultivate,CropRecommendation
+most profitable crop,CropRecommendation
+profitable crop,CropRecommendation
+which is most profitable,CropRecommendation
+what suits my land,CropRecommendation
+recommend me a crop,CropRecommendation
+best crop for my land,CropRecommendation
+most profitable crop of my neighbor,CropRecommendation
+neighbor profitable crop,CropRecommendation
+what to cultivate after harvesting,CropRecommendation
+crop after harvest,CropRecommendation
+next season crop,CropRecommendation
+what to grow,CropRecommendation
+suggest me a crop,CropRecommendation
+give me crop suggestion,CropRecommendation
+what is good to grow,CropRecommendation
+which crop grows well,CropRecommendation
+best crop for sandy soil,CropRecommendation
+best crop for loam soil,CropRecommendation
+crop for this season,CropRecommendation
+what can i grow,CropRecommendation
+what should i cultivate on my land,CropRecommendation
+what should i cultivate on it,CropRecommendation
+what i should cultivate on my land,CropRecommendation
+what i should cultivate on it,CropRecommendation
+i should cultivate on my land,CropRecommendation
+i should cultivate on it,CropRecommendation
+should cultivate on my land,CropRecommendation
+should cultivate on it,CropRecommendation
+cultivate on my land,CropRecommendation
+cultivate on it,CropRecommendation
+recommend for my land,CropRecommendation
+best for my soil,CropRecommendation
+good crop for my land,CropRecommendation
+which crop is suitable,CropRecommendation
+suitable crop for me,CropRecommendation
+what crop fits my land,CropRecommendation
+i want to plant,CropRecommendation
+i want to grow,CropRecommendation
+planning to grow,CropRecommendation
+thinking to cultivate,CropRecommendation
+give me recommendations,CropRecommendation
+your recommendation,CropRecommendation
+crop recommendations,CropRecommendation
+suggest crops,CropRecommendation
+which crops to grow,CropRecommendation
+what crops can i grow,CropRecommendation
+what crops to cultivate,CropRecommendation
+advise me a crop,CropRecommendation
+i need crop advice,CropRecommendation
+help me choose crop,CropRecommendation
+these crops,CropRecommendation
+those crops,CropRecommendation
+the crops you mentioned,CropRecommendation
+crops you recommended,CropRecommendation
+show me crops,CropRecommendation
+list the crops,CropRecommendation
+crop names,CropRecommendation
+what are the crops,CropRecommendation
+when to sow,SowingTime
+when to plant,SowingTime
+when should i sow,SowingTime
+when should i plant,SowingTime
+when can i sow,SowingTime
+when can i plant,SowingTime
+sowing time,SowingTime
+planting time,SowingTime
+best sowing time,SowingTime
+best planting time,SowingTime
+suitable time to sow,SowingTime
+suitable time to plant,SowingTime
+right time to sow,SowingTime
+right time to plant,SowingTime
+when is sowing season,SowingTime
+when is planting season,SowingTime
+sowing season,SowingTime
+planting season,SowingTime
+what is sowing time,SowingTime
+what is planting time,SowingTime
+when to harvest,HarvestTime
+when should i harvest,HarvestTime
+when can i harvest,HarvestTime
+harvesting time,HarvestTime
+best harvest time,HarvestTime
+right time to harvest,HarvestTime
+when is harvest season,HarvestTime
+harvest season,HarvestTime
+what is harvest time,HarvestTime
+harvesting season,HarvestTime
+ready for harvest,HarvestTime
+when will it be ready,HarvestTime
+days to harvest,HarvestTime
+harvest after days,HarvestTime
+how many days to harvest,HarvestTime
+time to harvest,HarvestTime
+fertilizer,Fertilizer
+fertilizers,Fertilizer
+fertilizer for,Fertilizer
+what fertilizer,Fertilizer
+which fertilizer,Fertilizer
+best fertilizer,Fertilizer
+recommended fertilizer,Fertilizer
+fertilizer dose,Fertilizer
+fertilizer amount,Fertilizer
+how much fertilizer,Fertilizer
+fertilizer requirement,Fertilizer
+npk for,Fertilizer
+urea for,Fertilizer
+dap for,Fertilizer
+manure for,Fertilizer
+compost for,Fertilizer
+when to apply fertilizer,Fertilizer
+fertilizer timing,Fertilizer
+fertilizer application,Fertilizer
+how to apply fertilizer,Fertilizer
+irrigation,Irrigation
+water requirement,Irrigation
+how much water,Irrigation
+watering,Irrigation
+when to water,Irrigation
+when to irrigate,Irrigation
+irrigation schedule,Irrigation
+watering schedule,Irrigation
+how many times to water,Irrigation
+number of irrigations,Irrigation
+drip irrigation,Irrigation
+sprinkler irrigation,Irrigation
+flood irrigation,Irrigation
+canal water,Irrigation
+water source,Irrigation
+drought tolerant,Irrigation
+soil,Soil
+soil type,Soil
+soil requirement,Soil
+best soil,Soil
+suitable soil,Soil
+soil ph,Soil
+soil preparation,Soil
+how to prepare soil,Soil
+improve soil,Soil
+soil fertility,Soil
+soil health,Soil
+varieties,Varieties
+variety,Varieties
+types,Varieties
+which variety,Varieties
+best variety,Varieties
+recommended variety,Varieties
+high yielding variety,Varieties
+popular variety,Varieties
+local variety,Varieties
+hybrid variety,Varieties
+traditional variety,Varieties
+new variety,Varieties
+improved variety,Varieties
+yield,Yield
+production,Yield
+productivity,Yield
+how much yield,Yield
+expected yield,Yield
+yield per acre,Yield
+production per acre,Yield
+yield per hectare,Yield
+average yield,Yield
+maximum yield,Yield
+minimum yield,Yield
+pests,Pesticide
+pesticide,Pesticide
+pest control,Pesticide
+insects,Pesticide
+insecticide,Pesticide
+common pests,Pesticide
+pest attack,Pesticide
+diseases,Diseases
+disease,Diseases
+disease control,Diseases
+common diseases,Diseases
+disease attack,Diseases
+treatment,Diseases
+remedy,Diseases
+solution,Diseases
+how to control,Diseases
+prevention,Diseases
 which land should i use,LandRecommendation
 which field to use,LandRecommendation
 recommend a land,LandRecommendation
@@ -4292,22 +6414,123 @@ neighbor farmer name,NeighborInfo
 who owns neighbor land,NeighborInfo
 my neighbor details,NeighborInfo
 neighbor farm owner,NeighborInfo
+who owned my neighbor land,NeighborInfo
+who is the owner of this land,NeighborInfo
+neighbor land owner,NeighborInfo
+owner of neighbor land,NeighborInfo
+who is the owner,NeighborInfo
+tell me about owner,NeighborInfo
+what are my last five crop sessions,PastSessions
+my last five crop sessions,PastSessions
+show my past sessions,PastSessions
+my previous cultivation sessions,PastSessions
+my crop history,PastSessions
+what crops did i grow before,PastSessions
+last crop sessions,PastSessions
+my cultivation history,PastSessions
+show my session history,PastSessions
+past crop details,PastSessions
+my farming history,PastSessions
+previous seasons crops,PastSessions
+last season i grew,PastSessions
+what did i grow last season,PastSessions
+my previous growing season,PastSessions
+my neighbor last sessions,NeighborPastSessions
+what did my neighbor grow,NeighborPastSessions
+neighbor past crops,NeighborPastSessions
+neighbor cultivation history,NeighborPastSessions
+what my neighbor cultivated before,NeighborPastSessions
+neighbor previous crops,NeighborPastSessions
+neighbor farming history,NeighborPastSessions
+my neighbor previous sessions,NeighborPastSessions
+activities performed for profit,ProfitActivities
+what activities for profit,ProfitActivities
+activities done for profitability,ProfitActivities
+profitable activities,ProfitActivities
+activities that make profit,ProfitActivities
+how to get profit activities,ProfitActivities
+activities for good yield,ProfitActivities
+activities for better production,ProfitActivities
+what activities increase profit,ProfitActivities
+best activities for profit,ProfitActivities
+tell me profitable sessions,ProfitActivities
+which sessions were profitable,ProfitActivities
+profitable sessions of my land,ProfitActivities
+profitable crops from my past,ProfitablePastCrops
+most profitable crop from my history,ProfitablePastCrops
+which crop gave me profit before,ProfitablePastCrops
+my profitable crops,ProfitablePastCrops
+best crops i grew before,ProfitablePastCrops
+crops that made profit,ProfitablePastCrops
+past profitable crops,ProfitablePastCrops
+crops that gave good returns,ProfitablePastCrops
+which crop earned me money,ProfitablePastCrops
+most earning crop before,ProfitablePastCrops
+profitbake crop of my past,ProfitablePastCrops
+profitable crop from my past,ProfitablePastCrops
+is this suitable for me to cultivate,CropSuitability
+is this suitable for me to grow,CropSuitability
+is suitable for me to cultivate,CropSuitability
+is suitable for me to grow,CropSuitability
+can i grow this on my land,CropSuitability
+can i cultivate this on my land,CropSuitability
+will this grow on my land,CropSuitability
+is this good for my soil,CropSuitability
+should i grow this,CropSuitability
+is this right for me,CropSuitability
+does my land suit this,CropSuitability
+is my land good for this,CropSuitability
+suitable crop for my land,CropSuitability
+is this crop suitable,CropSuitability
+is it suitable for my land,CropSuitability
+can i grow it on my land,CropSuitability
+will it grow on my land,CropSuitability
+should i grow it,CropSuitability
+what are my last five crop sessions,PastSessions
+my last five crop sessions,PastSessions
+show my past sessions,PastSessions
+my previous cultivation sessions,PastSessions
+my crop history,PastSessions
+what crops did i grow before,PastSessions
+last crop sessions,PastSessions
+my cultivation history,PastSessions
+show my session history,PastSessions
+past crop details,PastSessions
+my farming history,PastSessions
+previous seasons crops,PastSessions
+last season i grew,PastSessions
+what did i grow last season,PastSessions
+my previous growing season,PastSessions
+my neighbor last sessions,NeighborPastSessions
+what did my neighbor grow,NeighborPastSessions
+neighbor past crops,NeighborPastSessions
+neighbor cultivation history,NeighborPastSessions
+what my neighbor cultivated before,NeighborPastSessions
+neighbor previous crops,NeighborPastSessions
+neighbor farming history,NeighborPastSessions
+my neighbor previous sessions,NeighborPastSessions
+activities performed for profit,ProfitActivities
+what activities for profit,ProfitActivities
+activities done for profitability,ProfitActivities
+profitable activities,ProfitActivities
+activities that make profit,ProfitActivities
+how to get profit activities,ProfitActivities
+activities for good yield,ProfitActivities
+activities for better production,ProfitActivities
+what activities increase profit,ProfitActivities
+best activities for profit,ProfitActivities
+profitable crops from my past,ProfitablePastCrops
+most profitable crop from my history,ProfitablePastCrops
+which crop gave me profit before,ProfitablePastCrops
+my profitable crops,ProfitablePastCrops
+best crops i grew before,ProfitablePastCrops
+crops that made profit,ProfitablePastCrops
+past profitable crops,ProfitablePastCrops
+crops that gave good returns,ProfitablePastCrops
+which crop earned me money,ProfitablePastCrops
+most earning crop before,ProfitablePastCrops
 what i cultivated,MyCrops
 last crop,MyCrops
 previously grown,MyCrops
 what did i grow last,MyCrops
 my previous crops,MyCrops
-what i should cultivate,CropRecommendation
-most profitable crop,CropRecommendation
-profitable crop,CropRecommendation
-which is most profitable,CropRecommendation
-what suits my land,CropRecommendation
-should i cultivate barley,CropRecommendation
-should i cultivate wheat,CropRecommendation
-recommend me a crop,CropRecommendation
-best crop for my land,CropRecommendation
-most profitable crop of my neighbor,CropRecommendation
-neighbor profitable crop,CropRecommendation
-what to cultivate after harvesting,CropRecommendation
-crop after harvest,CropRecommendation
-next season crop,CropRecommendation

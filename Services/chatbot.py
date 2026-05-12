@@ -1,4 +1,4 @@
-"""Integrated context-aware chatbot enhancement for AgricultureRAGChatbot"""
+"""Integrated context-aware chatbot for AgricultureRAGChatbot"""
 
 import pandas as pd
 import numpy as np
@@ -12,83 +12,14 @@ import warnings
 import os
 warnings.filterwarnings('ignore')
 
-_context_store = {}
-_context_lock = __import__('threading').Lock()
+# Import context functions from ChatbotHelper
+from Services.ChatbotHelper import (
+    get_context as _get_context,
+    set_context as _set_context,
+    reset_context as _reset_context
+)
 
-def _load_context_from_chat(farmer_id, session_id):
-    """Load context from previous chat history"""
-    try:
-        from Model.ChatModel import ChatModel
-        from Model.ChatSessionModel import ChatSessionModel
-        
-        # Get recent chats for this session (last 10)
-        chats = ChatModel.query.join(ChatSessionModel).filter(
-            ChatSessionModel.Farmer_id == farmer_id,
-            ChatSessionModel.chat_session_id == session_id
-        ).order_by(ChatModel.time_stamp.desc()).limit(10).all()
-        
-        # Work backwards to find last set context
-        for chat in reversed(chats):
-            # Check if this was a context-setting intent
-            ctx_intents = ['MyLands', 'CropRecommendation', 'MyNeighbors', 'MyCrops']
-            if chat.chat_type in ctx_intents:
-                # Parse land info from answer - look for numbered lands
-                import re
-                land_matches = re.findall(r'\d+\.\s*([^\n]+)', chat.answer)
-                if land_matches:
-                    # Get actual lands
-                    from Model.LandModel import LandModel
-                    lands = LandModel.query.filter_by(farmer_id=farmer_id, land_Status=1).all()
-                    for land in lands:
-                        if land.land_name.lower() in chat.answer.lower():
-                            return {
-                                'state': 'active',
-                                'current_land': {'land_id': land.land_id, 'land_name': land.land_name, 'soil_type': land.soil_type},
-                                'current_session': None,
-                                'pending_question': None
-                            }
-        
-        return None
-    except Exception as e:
-        print(f"Context load error: {e}")
-        return None
-
-def _get_context(farmer_id, session_id=None):
-    key = f"chatbot_context_{farmer_id}_{session_id}" if session_id else f"chatbot_context_{farmer_id}"
-    
-    # Try in-memory first
-    context = _context_store.get(key, None)
-    if context and context.get('state') != 'none':
-        return context
-    
-    # Try loading from chat history
-    if session_id:
-        loaded = _load_context_from_chat(farmer_id, session_id)
-        if loaded:
-            _context_store[key] = loaded
-            return loaded
-    
-    return {
-        'state': 'none',
-        'current_land': None,
-        'current_session': None,
-        'pending_question': None
-    }
-
-def _set_context(farmer_id, context, session_id=None):
-    key = f"chatbot_context_{farmer_id}_{session_id}" if session_id else f"chatbot_context_{farmer_id}"
-    with _context_lock:
-        _context_store[key] = context
-
-def _reset_context(farmer_id, session_id=None):
-    _set_context(farmer_id, {
-        'state': 'none',
-        'current_land': None,
-        'current_session': None,
-        'pending_question': None
-    }, session_id)
-
-# Singleton instance to prevent reloading on every request
+# Singleton instance
 _chatbot_instance = None
 
 def get_chatbot(use_llm=False):
@@ -98,29 +29,34 @@ def get_chatbot(use_llm=False):
         _chatbot_instance = AgricultureRAGChatbot(use_llm=use_llm)
     return _chatbot_instance
 
+
 class AgricultureRAGChatbot:
     
     CONTEXT_INTENTS = {
         # Priority: More specific first
-        'CropRecommendation': ['what should i grow', 'which crop', 'recommend crop', 'what to cultivate', 'what to grow', 'suggest crop', 'best crop', 'what i should plant', 'what to plant', 'which crop to grow', 'what crop should i', 'what to grow on', 'should i cultivate', 'what suits my land', 'most profitable', 'profitable crop'],
+        'CropRecommendation': ['what should i grow', 'which crop', 'recommend crop', 'what to cultivate'],
         'ActivityRecommendation': ['what should i do now', 'what to do today', 'next activity', 'current task', 'what i should do'],
         'MyNeighbors': ['neighbor', 'neighbours', 'neighbors', 'neighbor doing', 'nearby farmers', 'neighbors growing', 'neighbor crops', 'neighbor planted'],
-        'MyLands': ['my lands', 'my fields', 'list of lands', 'weather of land'],
+        'MyLands': ['my lands', 'my fields', 'list of lands', 'weather of land',
+            'land info', 'land details', 'field info', 'farm info', 
+            'my land', 'about my land', 'show my land', 'which land',
+            'about my field', 'my field details', 'land information'],
         'MyCrops': ['my crops', 'what crops i have', 'what am i growing', 'my cultivation', 'what i cultivated', 'last crop', 'previously grown'],
         'MyActivities': ['my activities', 'my tasks', 'things to do'],
         'PastActivities': ['what activities i performed', 'past activities', 'completed activities', 'how many times', 'did i do', 'performed on', 'history of activities', 'watering done', 'harvesting done'],
         'FarmerInfo': ['what is my name', 'my name', 'who am i', 'my profile', 'my information', 'tell me my name', 'do i know my name', 'what should i know about me', 'my details', 'my account', 'about me', 'my info'],
-        'NeighborInfo': ['neighbor name', 'neighbor land', 'neighbor owner', 'who is my neighbor', 'neighbors names'],
+        'NeighborInfo': ['neighbor name', 'neighbor land', 'neighbor owner', 'who is my neighbor', 'neighbors names', 'who owned', 'owner of this land', 'who is the owner'],
+        'PastSessions': ['past sessions', 'last five crop sessions', 'my crop history', 'previous cultivation', 'crop history', 'last season', 'what did i grow before'],
+        'NeighborPastSessions': ['neighbor past sessions', 'neighbor crop history', 'neighbor previous crops', 'what did neighbor grow', 'neighbor farming history'],
+        'ProfitActivities': ['profitable sessions', 'activities for profit', 'profitable activities', 'activities performed for profit', 'activities that made profit'],
+        'ProfitablePastCrops': ['profitable crops', 'profitable past', 'most profitable crop', 'crops that earned profit', 'best earning crops', 'profitbake crop'],
+        'CropSuitability': ['suitable for me', 'suitable to cultivate', 'good for my land', 'suitable crop', 'is it suitable', 'does my land suit'],
     }
 
     def __init__(self, use_llm=True):
         print(" Loading Agriculture RAG Chatbot...")
         self.ps = PorterStemmer()
         self.use_llm = use_llm
-        self._llm_loaded = False
-        self.model = None
-        self.tokenizer = None
-        self.device = None
         
         self.AGRICULTURE_INTENTS = [
             "Cultivation", "Fertilizer", "Pesticide", "Irrigation", 
@@ -216,48 +152,6 @@ class AgricultureRAGChatbot:
             print(f"Could not create embeddings: {e}")
             self.index = None
 
-    def setup_llm(self):
-        if self._llm_loaded:
-            return
-        try:
-            from transformers import AutoTokenizer, AutoModelForCausalLM
-            import torch
-            print(" Loading local HuggingFace LLM (TinyLlama)...")
-            self.device = "cuda" if torch.cuda.is_available() else "cpu"
-            self.llm_model_name = "TinyLlama/TinyLlama-1.1B-Chat-v1.0"
-            self.tokenizer = AutoTokenizer.from_pretrained(self.llm_model_name)
-            self.model = AutoModelForCausalLM.from_pretrained(
-                self.llm_model_name,
-                dtype=torch.float16 if self.device == "cuda" else torch.float32
-            ).to(self.device)
-            self.model.eval()
-            self._llm_loaded = True
-            print(f"Local LLM loaded successfully")
-        except Exception as e:
-            print(f"Could not load local LLM: {e}")
-            self.use_llm = False
-
-    def paraphrase_with_llm(self, query, answer):
-        if not getattr(self, "use_llm", False):
-            return answer
-        if not self._llm_loaded:
-            self.setup_llm()
-        if not self.model:
-            return answer
-        import torch
-        
-        prompt = f"""You are a helpful agriculture assistant for farmers in Pakistan. User question: "{query}". Knowledge base answer: "{answer}". Rewrite the answer in a friendly, natural way. Keep all facts and numbers EXACTLY the same. Do NOT add new information. Keep it short (2-4 sentences). Rewritten answer:"""
-        
-        inputs = self.tokenizer(prompt, return_tensors="pt", truncation=True, max_length=512).to(self.device)
-        with torch.no_grad():
-            output = self.model.generate(**inputs, max_new_tokens=120, temperature=0.7, top_p=0.9, do_sample=True, pad_token_id=self.tokenizer.eos_token_id)
-            decoded = self.tokenizer.decode(output[0], skip_special_tokens=True)
-            if "Rewritten answer:" in decoded:
-                rewritten = decoded.split("Rewritten answer:")[-1].strip()
-            else:
-                rewritten = decoded.strip()
-            return rewritten if rewritten else answer
-
     def get_intent(self, text):
         if not self.intent_model:
             return self.rule_based_intent(text), 0.5
@@ -299,8 +193,20 @@ class AgricultureRAGChatbot:
     def detect_context_intent(self, text):
         text_lower = text.lower()
         
+        # SPECIAL HANDLING: If query has both grow/cultivate AND land, it's CropRecommendation
+        has_grow_cultivate = any(word in text_lower for word in ['grow', 'cultivate', 'plant', 'sow', 'recommend'])
+        has_land_word = any(word in text_lower for word in ['land', 'field', 'farm'])
+        
+        if has_grow_cultivate and has_land_word:
+            return 'CropRecommendation'
+        
+        # SPECIAL HANDLING: If query has neighbor + land words, it's MyNeighbors
+        has_neighbor_word = any(word in text_lower for word in ['neighbor', 'neighbours', 'neighbors', 'nearby'])
+        if has_neighbor_word and has_land_word:
+            return 'MyNeighbors'
+        
         # Check in prioritized order from CONTEXT_INTENTS
-        priority_order = ['FarmerInfo', 'NeighborInfo', 'PastActivities', 'CropRecommendation', 'ActivityRecommendation', 'MyNeighbors', 'MyLands', 'MyCrops', 'MyActivities']
+        priority_order = ['FarmerInfo', 'NeighborInfo', 'PastSessions', 'NeighborPastSessions', 'ProfitActivities', 'ProfitablePastCrops', 'PastActivities', 'CropSuitability', 'CropRecommendation', 'ActivityRecommendation', 'MyNeighbors', 'MyLands', 'MyCrops', 'MyActivities']
         
         for intent in priority_order:
             keywords = self.CONTEXT_INTENTS.get(intent, [])
@@ -398,88 +304,210 @@ class AgricultureRAGChatbot:
     def generate_response(self, query, farmer_id=None, session_id=None):
         """Main response generation - supports both regular and context-aware queries"""
         
-        if query.lower() in ['reset', 'clear context']:
+        try:
+            if query.lower() in ['reset', 'clear context']:
+                if farmer_id:
+                    _reset_context(farmer_id, session_id)
+                return {'answer': "Context cleared. How can I help you?", 'intent': 'ContextReset', 'requires_context': False}
+
+            context = _get_context(farmer_id, session_id) if farmer_id else {'state': 'none', 'current_land': None}
+
+            # Ensure context is never None
+            if context is None:
+                context = {'state': 'none', 'current_land': None, 'current_session': None,
+                          'pending_question': None, 'last_recommendations': [],
+                          'last_mentioned_crop': None, 'last_intent': None,
+                          'last_mentioned_neighbor': None, 'last_mentioned_activity': None}
+
+            # Handle pending context states
+            if context.get('state') in ['waiting_for_land', 'waiting_for_session'] and farmer_id:
+                result = self._handle_context_response(query, farmer_id, context, session_id)
+                if result:
+                    return result
+
+            # SPECIAL HANDLING: If user just enters a number and was asked for land, handle as land selection
+            if farmer_id and query.strip().isdigit() and len(query.strip()) <= 2:
+                # User is likely selecting a land from list
+                from Services.ChatbotHelper import get_farmer_lands
+                user_lands = get_farmer_lands(farmer_id)
+                if user_lands:
+                    # Check if in waiting state OR has recent land selection context
+                    if context.get('state') in ['waiting_for_land', 'waiting_for_session'] or context.get('current_land'):
+                        result = self._handle_context_response(query, farmer_id, context, session_id)
+                        if result:
+                            return result
+
+            # USE ML MODEL FIRST, then use rule-based as fallback
+            intent, intent_conf = self.get_intent(query)
+
+            # If ML confidence is low, try rule-based fallback
+            if intent_conf < 0.7 and farmer_id:
+                rule_intent = self.detect_context_intent(query)
+                if rule_intent:
+                    intent = rule_intent
+                    intent_conf = 0.8  # Boost confidence with rule-based match
+
+            # Detect if question is asking for detailed explanation or quick answer
+            query_lower = query.lower()
+            is_explanatory = any(word in query_lower for word in ['why', 'explain', 'detail', 'reason', 'how', 'explaination', 'what is', 'tell me'])
+            is_quick = any(word in query_lower for word in ['just', 'quick', 'simple', 'fast', 'brief', 'name', 'list'])
+
+            # Override ML intent for "grow/cultivate on [land]" patterns
             if farmer_id:
-                _reset_context(farmer_id, session_id)
-            return {'answer': "Context cleared. How can I help you?", 'intent': 'ContextReset', 'requires_context': False}
-        
-        context = _get_context(farmer_id, session_id) if farmer_id else {'state': 'none', 'current_land': None}
-        
-        if context.get('state') in ['waiting_for_land', 'waiting_for_session'] and farmer_id:
-            result = self._handle_context_response(query, farmer_id, context, session_id)
-            if result:
-                return result
-        
-        context_intent = self.detect_context_intent(query)
-        
-        if context_intent and farmer_id:
-            return self._handle_context_intent(query, context_intent, farmer_id, context, session_id)
-        
-        intent, intent_conf = self.get_intent(query)
-        
-        # Check if query mentions a specific crop using CROP_KNOWLEDGE_BASE from RecommendationController
-        from Controller.RecommendationController import RecommendationController
-        mentioned_crop = None
-        query_lower = query.lower()
-        for crop in RecommendationController.CROP_KNOWLEDGE_BASE.keys():
-            if crop.lower() in query_lower:
-                mentioned_crop = crop
-                break
-        
-        # If crop is mentioned AND intent is CropRecommendation, change to Cultivation
-        if mentioned_crop and intent == 'CropRecommendation':
-            intent = 'Cultivation'
-        
-        # If ML detected a context intent with high confidence, use it
-        context_intents_priority = ['CropRecommendation', 'ActivityRecommendation', 'MyNeighbors', 'MyLands', 'MyCrops', 'MyActivities', 'FarmerInfo', 'PastActivities', 'NeighborInfo']
-        if farmer_id and intent in context_intents_priority and intent_conf > 0.9:
-            return self._handle_context_intent(query, intent, farmer_id, context, session_id)
-        
-        is_interactional = intent in self.INTERACTION_INTENTS
-        is_low_confidence = intent_conf < self.CONFIDENCE_THRESHOLD
-        
-        if is_interactional or (is_low_confidence and intent == "OutOfScope"):
-            answer = self.get_intent_based_fallback(intent, [])
-            return {'answer': answer, 'intent': intent, 'intent_confidence': float(intent_conf), 'match_type': 'interactional'}
-        
-        entities = self.extract_entities(query)
-        answer, confidence, match_type = self.search_knowledge_base(query, intent, entities)
-        
-        if not answer:
-            answer = self.get_intent_based_fallback(intent, entities)
-            confidence = 0.5
-            match_type = 'fallback'
-        
-        if self.use_llm and answer and intent in self.AGRICULTURE_INTENTS:
-            original_answer = answer
-            answer = self.paraphrase_with_llm(query, answer)
+                has_grow_cultivate = any(word in query_lower for word in ['grow', 'cultivate', 'plant', 'sow'])
+                has_land_word = any(word in query_lower for word in ['land', 'field', 'farm', 'it'])
+                if has_grow_cultivate and has_land_word:
+                    # This is definitely CropRecommendation, override ML
+                    intent = 'CropRecommendation'
+                    intent_conf = 0.95
+                
+                # Override ML intent for "neighbors of [land]" or "neighbor [land name]"
+                has_neighbor_word = any(word in query_lower for word in ['neighbor', 'neighbours', 'neighbors', 'nearby'])
+                if has_neighbor_word and has_land_word:
+                    intent = 'MyNeighbors'
+                    intent_conf = 0.95
+                
+                # Override ML intent for "last five sessions/seasons" patterns -> PastSessions
+                has_session_word = any(word in query_lower for word in ['session', 'sessions', 'season', 'seasons'])
+                has_last_word = any(word in query_lower for word in ['last', 'previous', 'past', 'before'])
+                if has_session_word and has_last_word:
+                    intent = 'PastSessions'
+                    intent_conf = 0.95
+                
+                # Override ML intent for "most profitable crop" or "profitable crop" patterns -> ProfitablePastCrops
+                has_profitable_word = any(word in query_lower for word in ['profitable', 'profit', 'earn', 'earning', 'profitbake'])
+                has_crop_word = any(word in query_lower for word in ['crop', 'crops'])
+                if has_profitable_word and has_crop_word:
+                    intent = 'ProfitablePastCrops'
+                    intent_conf = 0.95
+                
+                # Override for "is this good for me" - should be CropSuitability (not harvest info)
+                is_good_for_me = ('good' in query_lower or 'suitable' in query_lower or 'right' in query_lower) and ('me' in query_lower or 'my' in query_lower or 'it' in query_lower or 'this' in query_lower)
+                if is_good_for_me and not any(word in query_lower for word in ['wheat', 'rice', 'cotton', 'bajra', 'corn', 'maize']):
+                    intent = 'CropSuitability'
+                    intent_conf = 0.95
+
+            # If ML detected a context intent with high confidence, use it
+            context_intents_priority = ['CropRecommendation', 'ActivityRecommendation', 'MyNeighbors', 'MyLands', 'MyCrops', 'MyActivities', 'FarmerInfo', 'PastActivities', 'NeighborInfo', 'PastSessions', 'NeighborPastSessions', 'ProfitActivities', 'ProfitablePastCrops', 'CropSuitability']
+            if farmer_id and intent in context_intents_priority and intent_conf > 0.7:
+                return self._handle_context_intent(query, intent, farmer_id, context, session_id, is_quick, is_explanatory)
+
+            # ENHANCED PRONOUN HANDLING: If user says "it" or "on it" and has stored land/crop in context
+            if farmer_id and context.get('current_land'):
+                is_pronoun_ref = any(word in query_lower for word in ['it', 'this', 'that', 'these', 'those', 'on it', 'to it', 'about it'])
+                is_farm_question = any(word in query_lower for word in ['grow', 'cultivate', 'plant', 'sow', 'should', 'recommend', 'neighbor', 'activity', 'crop'])
+                
+                # Check if it's a follow-up on previous crop recommendations
+                last_rec = context.get('last_recommendations', [])
+                if is_pronoun_ref and (is_farm_question or last_rec):
+                    intent = 'CropRecommendation'
+                    return self._handle_context_intent(query, intent, farmer_id, context, session_id, is_quick, is_explanatory)
+            if farmer_id and context.get('current_land'):
+                has_pronoun = any(word in query_lower for word in ['it', 'this', 'that', 'these', 'those', 'on it', 'to it'])
+                has_grow_cultivate = any(word in query_lower for word in ['grow', 'cultivate', 'plant', 'sow', 'recommend', 'should'])
+                if has_pronoun and has_grow_cultivate:
+                    intent = 'CropRecommendation'
+                    return self._handle_context_intent(query, intent, farmer_id, context, session_id, is_quick, is_explanatory)
+
+            # Check if query mentions a specific crop
+            mentioned_crop = None
+            query_lower = query.lower()
+            common_crops = ['wheat', 'rice', 'cotton', 'sugarcane', 'maize', 'potato', 'tomato', 'onion', 'mustard', 'gram', 'barley', 'sunflower', 'groundnut', 'chilies', 'bajra', 'bitter gourd', 'bottle gourd']
+            for crop in common_crops:
+                if crop in query_lower:
+                    mentioned_crop = crop.capitalize()
+                    break
+
+            # If a crop was mentioned, update context with it (FOR ALL INTENTS)
+            if mentioned_crop and farmer_id:
+                _set_context(farmer_id, {
+                    'state': context.get('state', 'active'),
+                    'current_land': context.get('current_land'),
+                    'current_session': context.get('current_session'),
+                    'pending_question': context.get('pending_question'),
+                    'last_recommendations': context.get('last_recommendations', []),
+                    'last_mentioned_crop': mentioned_crop,
+                    'last_intent': intent,
+                    'last_mentioned_neighbor': context.get('last_mentioned_neighbor'),
+                    'last_mentioned_activity': context.get('last_mentioned_activity'),
+                    'conversation_history': context.get('conversation_history', [])
+                }, session_id)
+
+            is_interactional = intent in self.INTERACTION_INTENTS
+            is_low_confidence = intent_conf < self.CONFIDENCE_THRESHOLD
+
+            if is_interactional or (is_low_confidence and intent == "OutOfScope"):
+                answer = self.get_intent_based_fallback(intent, [])
+                return {'answer': answer, 'intent': intent, 'intent_confidence': float(intent_conf), 'match_type': 'interactional'}
+
+            entities = self.extract_entities(query)
+            answer, confidence, match_type = self.search_knowledge_base(query, intent, entities)
+
             if not answer:
-                answer = original_answer
-        
-        return {
-            'query': query,
-            'answer': answer,
-            'intent': intent,
-            'intent_confidence': float(intent_conf),
-            'entities': entities,
-            'match_type': match_type,
-            'confidence': confidence
-        }
+                answer = self.get_intent_based_fallback(intent, entities)
+                confidence = 0.5
+                match_type = 'fallback'
+
+            if self.use_llm and answer and intent in self.AGRICULTURE_INTENTS:
+                from Services.LLMService import get_llm_service
+                llm = get_llm_service()
+                original_answer = answer
+                if llm.is_available():
+                    try:
+                        prompt = f"""You are a helpful agriculture assistant for farmers in Pakistan. User question: "{query}". Knowledge base answer: "{answer}". Rewrite the answer in a friendly, natural way. Keep all facts and numbers EXACTLY the same. Do NOT add new information. Keep it short (2-4 sentences). Rewritten answer:"""
+                        answer = llm.generate_response(prompt, system_prompt="You are a helpful agriculture assistant.")
+                        if not answer:
+                            answer = original_answer
+                    except:
+                        answer = original_answer
+                else:
+                    answer = original_answer
+
+            return {
+                'query': query,
+                'answer': answer,
+                'intent': intent,
+                'intent_confidence': float(intent_conf),
+                'entities': entities,
+                'confidence': confidence,
+                'match_type': match_type
+            }
+
+        except Exception as e:
+            import traceback
+            print(f"Error in generate_response: {type(e).__name__}: {str(e)}")
+            traceback.print_exc()
+            return {'answer': "I'm having trouble processing your request. Please try again.", 'intent': 'Error'}
 
     def _handle_context_response(self, query, farmer_id, context, session_id=None):
         """Handle when user responds to a context request"""
         from Model.LandModel import LandModel
-        
+        from Services.ChatbotHelper import find_land_in_query, get_farmer_lands
+
         waiting_state = context.get('state')
         pending_question = context.get('pending_question')
-        
-        lands = LandModel.query.filter_by(farmer_id=farmer_id, land_Status=1).all()
-        selected_land = None
-        for land in lands:
-            if land.land_name.lower() in query.lower():
-                selected_land = land
-                break
-        
+
+        # If pending_question is empty, use stored last_intent from context to determine what to do
+        if not pending_question:
+            last_intent = context.get('last_intent', 'CropRecommendation')
+            # Construct a default query based on what the user was asking about
+            if last_intent == 'CropRecommendation':
+                pending_question = "what crops should I grow"
+            elif last_intent == 'ActivityRecommendation':
+                pending_question = "what activities should I do"
+            elif last_intent == 'MyNeighbors':
+                pending_question = "show my neighbors"
+            else:
+                pending_question = f"show my {last_intent.lower()}"
+
+        user_lands = get_farmer_lands(farmer_id)
+        selected_land = find_land_in_query(query.lower(), user_lands)
+
+        # Detect if user is referring to "it" or "this" - use stored land
+        query_lower = query.lower()
+        is_pronoun = any(word in query_lower for word in ['it', 'this', 'that', 'these', 'those'])
+        stored_land = context.get('current_land')
+
         if selected_land:
             _set_context(farmer_id, {
                 'state': 'active',
@@ -487,17 +515,17 @@ class AgricultureRAGChatbot:
                 'current_session': None,
                 'pending_question': None
             }, session_id)
-            
+
             # Get fresh context and handle the original pending question
             fresh_context = _get_context(farmer_id, session_id)
-            return self._handle_context_intent(pending_question or query, self.detect_context_intent(pending_question or query), farmer_id, fresh_context, session_id)
-        
+            return self._handle_context_intent(pending_question, self.detect_context_intent(pending_question), farmer_id, fresh_context, session_id)
+
         # Check if response is a land number
         query_stripped = query.strip()
         if query_stripped.isdigit():
             idx = int(query_stripped) - 1
-            if 0 <= idx < len(lands):
-                selected_land = lands[idx]
+            if 0 <= idx < len(user_lands):
+                selected_land = user_lands[idx]
                 _set_context(farmer_id, {
                     'state': 'active',
                     'current_land': {'land_id': selected_land.land_id, 'land_name': selected_land.land_name, 'soil_type': selected_land.soil_type},
@@ -505,27 +533,147 @@ class AgricultureRAGChatbot:
                     'pending_question': None
                 }, session_id)
                 fresh_context = _get_context(farmer_id, session_id)
-                return self._handle_context_intent(pending_question or query, self.detect_context_intent(pending_question or query), farmer_id, fresh_context, session_id)
-        
+                return self._handle_context_intent(pending_question, self.detect_context_intent(pending_question), farmer_id, fresh_context, session_id)
+
+        # Handle pronoun reference - user said "it" or "on it"
+        if is_pronoun and stored_land:
+            _set_context(farmer_id, {
+                'state': 'active',
+                'current_land': stored_land,
+                'current_session': None,
+                'pending_question': None
+            }, session_id)
+            fresh_context = _get_context(farmer_id, session_id)
+            return self._handle_context_intent(pending_question, self.detect_context_intent(pending_question), farmer_id, fresh_context, session_id)
+
         return {'answer': "I couldn't find that land. Please specify the land name from the list.", 'intent': 'ContextGathering', 'requires_context': True}
 
-    def _handle_context_intent(self, query, intent, farmer_id, context, session_id=None):
+    def _handle_context_intent(self, query, intent, farmer_id, context, session_id=None, is_quick=False, is_explanatory=False):
         """Handle context-aware intents using EXISTING services"""
         from Services.ChatbotHelper import (
             get_farmer_lands, find_land_in_query, format_land_info, format_weather,
             get_farmer_profile, get_farmer_crops, format_neighbors, get_past_activities,
-            get_upcoming_activities, get_neighbor_info, get_crop_name
+            get_upcoming_activities, get_neighbor_info, get_crop_name, get_crop_sowing_info,
+            get_active_sessions_for_farmer
         )
-        from Services.ActivitySuggestionService import ActivitySuggestionService
         from Model.LandModel import LandModel
-        
-        _reset_context(farmer_id, session_id)
+        from Model.NeighbourModel import NeighbourModel
+        from Model.CultivationSessionModel import CultivationSessionModel
+        from Model.CropModel import CropModel
+
         user_lands = get_farmer_lands(farmer_id)
         query_lower = query.lower()
-        
+
+        # Track last mentioned crop from this query
+        mentioned_crop = None
+        all_crops = CropModel.query.all()
+        for crop in all_crops:
+            if crop.crop_name.lower() in query_lower:
+                mentioned_crop = crop.crop_name
+                break
+
+        # DYNAMIC LAND DETECTION - Check if ANY land name is mentioned in query
+        mentioned_land = find_land_in_query(query_lower, user_lands)
+
+        # If land is mentioned (with "land" in query), redirect to MyLands
+        if mentioned_land and 'land' in query_lower:
+            intent = 'MyLands'
+
+        # If a crop was mentioned, update context with it
+        if mentioned_crop:
+            _set_context(farmer_id, {
+                'state': context.get('state', 'active'),
+                'current_land': context.get('current_land'),
+                'current_session': context.get('current_session'),
+                'pending_question': context.get('pending_question'),
+                'last_recommendations': context.get('last_recommendations', []),
+                'last_mentioned_crop': mentioned_crop
+            }, session_id)
+            # Refresh context
+            context = _get_context(farmer_id, session_id)
+
+        # Handle follow-up about previous crop recommendation
+        last_rec = context.get('last_recommendations', [])
+        if last_rec and any(word in query_lower for word in ['bajra', 'bitter gourd', 'bottle gourd', 'chilies', 'crop', 'recommend']):
+            if is_quick:
+                crop_list = ", ".join([r['Name'] for r in last_rec[:4]])
+                return {'answer': f"Recommended crops: {crop_list}", 'intent': intent}
+            elif is_explanatory:
+                return self._get_crop_recommendation(context.get('current_land', {}).get('land_id'), is_quick=is_quick, is_explanatory=is_explanatory, farmer_id=farmer_id, session_id=session_id)
+            else:
+                crop_list = ", ".join([r['Name'] for r in last_rec[:4]])
+                return {'answer': f"Based on your land, I recommend: {crop_list}. These suit your soil and water conditions.", 'intent': intent}
+
+        # Handle crop-specific follow-up questions
+        crop_followup_keywords = ['when', 'sow', 'plant', 'cultivate', 'grow', 'season', 'time', 'start', 'prepare']
+        has_crop_followup = any(word in crop_followup_keywords for word in query_lower.split())
+
+        crop_name = None
+
+        # First check: is crop explicitly mentioned in this query?
+        if last_rec:
+            for rec in last_rec:
+                rec_name = rec.get('Name', '').lower()
+                if rec_name in query_lower:
+                    crop_name = rec.get('Name', '')
+                    break
+
+        # Second check: check if user is referring to previously discussed crop
+        # PRIORITY: Use last_recommendations crop if available, else use last_mentioned_crop
+        if not crop_name:
+            has_pronoun = any(word in query_lower for word in ['it', 'this', 'that', 'these', 'those'])
+            
+            # If user asks "when to sow it" without naming a crop, use LAST recommended crop (most recent discussion)
+            if has_pronoun and has_crop_followup:
+                if last_rec:
+                    crop_name = last_rec[0].get('Name', '')
+                elif context.get('last_mentioned_crop'):
+                    crop_name = context.get('last_mentioned_crop')
+
+        # Third check: look for any crop name in query from database
+        if not crop_name:
+            for crop in all_crops:
+                if crop.crop_name.lower() in query_lower:
+                    crop_name = crop.crop_name
+                    break
+
+        # If user mentions a crop from previous recommendations and asks about timing/cultivation
+        if crop_name and has_crop_followup:
+            sowing_info = get_crop_sowing_info(crop_name)
+            if sowing_info:
+                if is_quick:
+                    return {'answer': f"{crop_name} is usually sown in {sowing_info.get('season', 'the appropriate season')}.", 'intent': 'CropSowingTime'}
+                elif is_explanatory:
+                    details = f"{crop_name} should be cultivated during {sowing_info.get('season', 'the appropriate season')}. "
+                    details += f"The ideal time is {sowing_info.get('sowing_time', 'when weather conditions are suitable')}. "
+                    details += f"Key tips: {sowing_info.get('tips', 'Follow recommended farming practices')}"
+                    return {'answer': details, 'intent': 'CropSowingTime'}
+                else:
+                    return {'answer': f"You should sow {crop_name} in {sowing_info.get('season', 'the appropriate season')}. {sowing_info.get('tips', '')}", 'intent': 'CropSowingTime'}
+
+        # If no context match and this looks like a crop timing question without prior recommendations
+        if has_crop_followup and not crop_name:
+            for crop in all_crops:
+                if crop.crop_name.lower() in query_lower:
+                    crop_name = crop.crop_name
+                    break
+
+            if crop_name:
+                sowing_info = get_crop_sowing_info(crop_name)
+                if sowing_info:
+                    if is_quick:
+                        return {'answer': f"{crop_name} is usually sown in {sowing_info.get('season', 'the appropriate season')}.", 'intent': 'CropSowingTime'}
+                    elif is_explanatory:
+                        details = f"{crop_name} should be cultivated during {sowing_info.get('season', 'the appropriate season')}. "
+                        details += f"The ideal time is {sowing_info.get('sowing_time', 'when weather conditions are suitable')}. "
+                        details += f"Key tips: {sowing_info.get('tips', 'Follow recommended farming practices')}"
+                        return {'answer': details, 'intent': 'CropSowingTime'}
+                    else:
+                        return {'answer': f"You should sow {crop_name} in {sowing_info.get('season', 'the appropriate season')}. {sowing_info.get('tips', '')}", 'intent': 'CropSowingTime'}
+
         if intent == 'MyLands':
             target_land = find_land_in_query(query_lower, user_lands)
-            
+
             if target_land:
                 _set_context(farmer_id, {
                     'state': 'active',
@@ -533,97 +681,112 @@ class AgricultureRAGChatbot:
                     'current_session': None,
                     'pending_question': None
                 }, session_id)
-                
+
                 if 'weather' in query_lower:
                     weather_response = format_weather(target_land)
                     if weather_response:
                         return {'answer': weather_response, 'intent': intent}
                     return {'answer': f"Could not fetch weather for {target_land.land_name}.", 'intent': intent}
-                
+
                 return {'answer': format_land_info(target_land), 'intent': intent}
-            
+
             if not user_lands:
                 return {'answer': "You don't have any lands registered yet.", 'intent': intent}
-            
+
             response = "Here are YOUR lands:\n"
             for i, land in enumerate(user_lands, 1):
                 response += f"{i}. {land.land_name} ({land.land_in_acres} acres, {land.soil_type} soil)\n"
             response += "\nSpecify a land name for details or weather."
             return {'answer': response, 'intent': intent}
-        
+
         elif intent == 'MyCrops':
             crops_response = get_farmer_crops(farmer_id)
             if not crops_response:
                 return {'answer': "You don't have any active crops. Start a new cultivation session!", 'intent': intent}
             return {'answer': crops_response, 'intent': intent}
-        
+
         elif intent == 'CropRecommendation':
             current_land = context.get('current_land')
-            
-            if not lands:
-                return {'answer': "You don't have any lands registered to recommend crops for.", 'intent': intent}
-            
-            if not current_land:
-                if len(lands) == 1:
-                    land = lands[0]
+
+            if not current_land and user_lands:
+                if len(user_lands) == 1:
+                    land = user_lands[0]
                     _set_context(farmer_id, {'state': 'active', 'current_land': {'land_id': land.land_id, 'land_name': land.land_name, 'soil_type': land.soil_type}, 'current_session': None, 'pending_question': None}, session_id)
-                    return self._get_crop_recommendation(land.land_id)
-                
-                _set_context(farmer_id, {'state': 'waiting_for_land', 'current_land': None, 'current_session': None, 'pending_question': query}, session_id)
+                    return self._get_crop_recommendation(land.land_id, is_quick=is_quick, is_explanatory=is_explanatory)
+                else:
+                    for land in user_lands:
+                        if land.land_name.lower() in query_lower:
+                            _set_context(farmer_id, {'state': 'active', 'current_land': {'land_id': land.land_id, 'land_name': land.land_name, 'soil_type': land.soil_type}, 'current_session': None, 'pending_question': None}, session_id)
+                            return self._get_crop_recommendation(land.land_id, is_quick=is_quick, is_explanatory=is_explanatory, farmer_id=farmer_id, session_id=session_id)
+
+            if not user_lands:
+                return {'answer': "You don't have any lands registered to recommend crops for.", 'intent': intent}
+
+            if not current_land:
+                _set_context(farmer_id, {'state': 'waiting_for_land', 'current_land': None, 'current_session': None, 'pending_question': query, 'last_intent': intent}, session_id)
                 response = "On which land would you like to grow crops? Here are your lands:\n"
-                for i, land in enumerate(lands, 1):
+                for i, land in enumerate(user_lands, 1):
                     response += f"{i}. {land.land_name} ({land.land_in_acres} acres, {land.soil_type} soil)\n"
                 return {'answer': response, 'intent': intent, 'requires_context': True}
-            
-            return self._get_crop_recommendation(current_land['land_id'])
-        
+
+            return self._get_crop_recommendation(current_land['land_id'], is_quick=is_quick, is_explanatory=is_explanatory)
+
         elif intent == 'MyNeighbors':
-            # Get user's own lands fresh - security check
             user_lands = LandModel.query.filter_by(farmer_id=farmer_id).all()
             user_land_ids = [l.land_id for l in user_lands]
-            
-            # Clear any stale context
-            _reset_context(farmer_id, session_id)
-            
-            # Try to find land from query - must be user's own land
+
             target_land = None
-            query_lower = query.lower()
+            
+            # FIRST: Check if land mentioned in query
             for land in user_lands:
                 if land.land_name.lower() in query_lower:
                     target_land = land
                     break
             
-            # If no land found in query, ask user to specify their own land
+            # SECOND: If no land in query, use stored context land (from previous crop recommendation)
+            if not target_land and context.get('current_land'):
+                stored_land_name = context.get('current_land', {}).get('land_name', '').lower()
+                for land in user_lands:
+                    if land.land_name.lower() == stored_land_name:
+                        target_land = land
+                        break
+
             if not target_land:
                 if len(user_lands) == 1:
                     target_land = user_lands[0]
                 else:
+                    # Store context so user can respond with number
+                    _set_context(farmer_id, {
+                        'state': 'waiting_for_land',
+                        'current_land': None,
+                        'current_session': None,
+                        'pending_question': query,
+                        'last_intent': intent
+                    }, session_id)
                     response = "Which of YOUR lands' neighbors would you like to know about? Here are your lands:\n"
                     for i, land in enumerate(user_lands, 1):
                         response += f"{i}. {land.land_name}\n"
-                    return {'answer': response, 'intent': intent}
-            
+                    return {'answer': response, 'intent': intent, 'requires_context': True}
+
             land_id = target_land.land_id
-            
+
             if not land_id:
                 return {'answer': "Please specify which of YOUR lands' neighbors you want to know about.", 'intent': intent}
-            
+
             neighbors = NeighbourModel.query.filter(
                 ((NeighbourModel.land_id == land_id) | (NeighbourModel.neighbour_land_id == land_id)),
                 NeighbourModel.status == 1
             ).all()
             land_name = target_land.land_name if target_land else 'this land'
-            
+
             if not neighbors:
                 return {'answer': f"No neighbors found for {land_name}.", 'intent': intent}
-            
+
             response = f"Neighbors of {land_name}:\n"
             for i, neighbor in enumerate(neighbors, 1):
-                # Check both directions
                 other_land_id = neighbor.neighbour_land_id if neighbor.neighbour_land_id != land_id else neighbor.land_id
                 neighbor_land = LandModel.query.get(other_land_id)
-                
-                # Check what crop the neighbor is growing on their land (only if public)
+
                 neighbor_sessions = CultivationSessionModel.query.filter_by(land_id=other_land_id, session_status='Active', is_public=1).all()
                 neighbor_crops = []
                 for session in neighbor_sessions:
@@ -633,104 +796,347 @@ class AgricultureRAGChatbot:
                             neighbor_crops.append(crop.crop_name)
                     if session.seed_name:
                         neighbor_crops.append(session.seed_name)
-                
+
                 crops_str = ", ".join(neighbor_crops) if neighbor_crops else "No active crop"
                 response += f"{i}. {neighbor_land.land_name if neighbor_land else 'Unknown'}: {crops_str}\n"
-            
+
             return {'answer': response, 'intent': intent}
-        
+
         elif intent == 'ActivityRecommendation' or intent == 'MyActivities':
-            from Services.ChatbotHelper import get_upcoming_activities
-            
-            target_land = find_land_in_query(query_lower, user_lands)
+            active_sessions = get_active_sessions_for_farmer(farmer_id)
+            active_land_ids = set(s.land_id for s in active_sessions)
+            active_lands = [l for l in user_lands if l.land_id in active_land_ids]
+            target_land = find_land_in_query(query_lower, active_lands) if active_lands else find_land_in_query(query_lower, user_lands)
             specific_land = target_land.land_name if target_land else None
-            
+
             response, _ = get_upcoming_activities(farmer_id, specific_land)
             return {'answer': response, 'intent': intent}
-        
+
         elif intent == 'PastActivities':
-            from Services.ChatbotHelper import get_past_activities
-            
             activity_keywords = {
                 'watering': 'watering', 'harvesting': 'harvesting',
                 'fertilizer': 'fertilizer', 'pesticide': 'pesticide', 'weeding': 'weeding'
             }
-            
+
             specific_type = None
             for act_type, keywords in activity_keywords.items():
                 if any(kw in query_lower for kw in keywords):
                     specific_type = act_type
                     break
-            
+
             response = get_past_activities(farmer_id, specific_type)
             return {'answer': response, 'intent': intent}
-        
+
         elif intent == 'FarmerInfo':
-            from Services.ChatbotHelper import get_farmer_profile
-            
             response = get_farmer_profile(farmer_id)
             if not response:
                 return {'answer': "Farmer not found.", 'intent': intent}
             return {'answer': response, 'intent': intent}
-        
+
         elif intent == 'NeighborInfo':
-            from Services.ChatbotHelper import format_neighbors
-            
-            include_names = 'name' in query_lower
-            response = format_neighbors(farmer_id, include_names)
+            # Check if user specifies a specific neighbor land
+            from Services.ChatbotHelper import get_neighbor_info, get_neighbor_owner_info
+            neighbor_land_name = None
+            for nl in get_neighbor_info(farmer_id):
+                if nl.land_name.lower() in query_lower:
+                    neighbor_land_name = nl.land_name
+                    break
+            if neighbor_land_name:
+                response = get_neighbor_owner_info(farmer_id, neighbor_land_name)
+            else:
+                active_sessions = get_active_sessions_for_farmer(farmer_id)
+                active_land_ids = set(s.land_id for s in active_sessions)
+                user_lands_filtered = [l for l in user_lands if l.land_id in active_land_ids]
+                include_names = 'name' in query_lower or 'owner' in query_lower or 'who' in query_lower
+                response = format_neighbors(farmer_id, include_names, user_lands_filtered if user_lands_filtered else None)
             return {'answer': response, 'intent': intent}
-        
+
+        elif intent == 'PastSessions':
+            from Services.ChatbotHelper import get_my_past_sessions, get_past_sessions_for_land
+            # Check if user specifies a specific land
+            target_land = find_land_in_query(query_lower, user_lands)
+            if target_land:
+                sessions = get_past_sessions_for_land(target_land.land_id, limit=5)
+                if not sessions:
+                    return {'answer': f"No past sessions found for {target_land.land_name}.", 'intent': intent}
+                response = f"Past crop sessions for {target_land.land_name}:\n"
+                for i, s in enumerate(sessions, 1):
+                    profit_status = "Profitable" if s.get('is_profit') == 1 else "Not profitable"
+                    response += f"{i}. {s['crop_name']} ({profit_status})\n"
+                return {'answer': response, 'intent': intent}
+            else:
+                sessions = get_my_past_sessions(farmer_id, limit=5)
+                if not sessions:
+                    return {'answer': "No past crop sessions found for your lands.", 'intent': intent}
+                response = "Your past crop sessions:\n"
+                for i, s in enumerate(sessions, 1):
+                    profit_status = "Profitable" if s.get('is_profit') == 1 else "Not profitable"
+                    response += f"{i}. {s['crop_name']} on {s['land_name']} ({profit_status})\n"
+                return {'answer': response, 'intent': intent}
+
+        elif intent == 'NeighborPastSessions':
+            from Services.ChatbotHelper import get_neighbor_past_sessions
+            # Check if user specifies a specific neighbor land
+            neighbor_lands = get_neighbor_info(farmer_id)
+            target_neighbor = None
+            for nl in neighbor_lands:
+                if nl.land_name.lower() in query_lower:
+                    target_neighbor = nl.land_name
+                    break
+            sessions = get_neighbor_past_sessions(farmer_id, limit=5, neighbor_land_name=target_neighbor)
+            if not sessions:
+                return {'answer': "No past sessions found for your neighbors.", 'intent': intent}
+            response = "Your neighbors' past crop sessions:\n"
+            for i, s in enumerate(sessions, 1):
+                profit_status = "Profitable" if s.get('is_profit') == 1 else "Not profitable"
+                response += f"{i}. {s['crop_name']} on {s['land_name']} ({profit_status})\n"
+            return {'answer': response, 'intent': intent}
+
+        elif intent == 'ProfitActivities':
+            from Services.ChatbotHelper import get_profitable_sessions, get_activities_for_profitable_sessions
+            # Check if user wants profitable sessions or activities for profit
+            if 'activity' in query_lower or 'perform' in query_lower:
+                target_land = find_land_in_query(query_lower, user_lands)
+                land_name = target_land.land_name if target_land else None
+                response = get_activities_for_profitable_sessions(farmer_id, land_name)
+                return {'answer': response, 'intent': intent}
+            else:
+                target_land = find_land_in_query(query_lower, user_lands)
+                land_name = target_land.land_name if target_land else None
+                sessions = get_profitable_sessions(farmer_id, land_name)
+                if not sessions:
+                    return {'answer': "No profitable sessions found.", 'intent': intent}
+                response = "Your profitable sessions:\n"
+                for i, s in enumerate(sessions, 1):
+                    response += f"{i}. {s['crop_name']} on {s['land_name']}"
+                    if s.get('amount_per_acre'):
+                        response += f" (Earned: {s['amount_per_acre']})"
+                    response += "\n"
+                return {'answer': response, 'intent': intent}
+
+        elif intent == 'ProfitablePastCrops':
+            from Services.ChatbotHelper import get_profitable_past_crops
+            response = get_profitable_past_crops(farmer_id)
+            return {'answer': response, 'intent': intent}
+
+        elif intent == 'CropSuitability':
+            from Services.ChatbotHelper import check_crop_suitability
+            from Model.CropModel import CropModel
+            # Get current land from context or find from query
+            current_land = context.get('current_land')
+            if not current_land:
+                current_land_obj = find_land_in_query(query_lower, user_lands)
+                if current_land_obj:
+                    current_land = {'land_id': current_land_obj.land_id, 'land_name': current_land_obj.land_name, 'soil_type': current_land_obj.soil_type}
+            
+            if not current_land:
+                # Ask user to select a land
+                if len(user_lands) == 1:
+                    land = user_lands[0]
+                    current_land = {'land_id': land.land_id, 'land_name': land.land_name, 'soil_type': land.soil_type}
+                else:
+                    _set_context(farmer_id, {'state': 'waiting_for_land', 'current_land': None, 'current_session': None, 'pending_question': query, 'last_intent': intent}, session_id)
+                    response = "On which land would you like to check crop suitability? Here are your lands:\n"
+                    for i, land in enumerate(user_lands, 1):
+                        response += f"{i}. {land.land_name} ({land.soil_type} soil)\n"
+                    return {'answer': response, 'intent': intent, 'requires_context': True}
+            
+            # Find crop name from query or context
+            crop_name = None
+            all_crops = CropModel.query.all()
+            for crop in all_crops:
+                if crop.crop_name.lower() in query_lower:
+                    crop_name = crop.crop_name
+                    break
+            
+            # Also check last mentioned crop in context
+            if not crop_name and context.get('last_mentioned_crop'):
+                crop_name = context.get('last_mentioned_crop')
+            
+            # Check last recommendations
+            if not crop_name and context.get('last_recommendations'):
+                for rec in context.get('last_recommendations'):
+                    if rec.get('Name', '').lower() in query_lower:
+                        crop_name = rec.get('Name', '')
+                        break
+            
+            if not crop_name:
+                # Ask user which crop they want to check
+                return {'answer': "Which crop would you like to check suitability for? Please specify the crop name.", 'intent': intent}
+            
+            # Check suitability
+            result = check_crop_suitability(current_land['land_id'], crop_name)
+            if not result:
+                return {'answer': f"Could not check suitability for {crop_name}. Please try another crop.", 'intent': intent}
+            
+            response = f"Crop Suitability for {crop_name} on {current_land['land_name']}:\n"
+            for reason in result.get('reasons', []):
+                response += f"  • {reason}\n"
+            
+            # Store crop in context for follow-up
+            _set_context(farmer_id, {
+                'state': 'active',
+                'current_land': current_land,
+                'last_mentioned_crop': crop_name
+            }, session_id)
+            
+            return {'answer': response, 'intent': intent}
+
         return None
 
-    def _get_crop_recommendation(self, land_id):
+    def _get_crop_recommendation(self, land_id, is_quick=False, is_explanatory=False, farmer_id=None, session_id=None):
         """Use RecommendationController for crop recommendations"""
         from Model.LandModel import LandModel
+        from Model.ProvinceModel import ProvinceModel
         from flask import json
         from Controller.RecommendationController import RecommendationController
-        
+
         land = LandModel.query.get(land_id)
         if not land:
             return {'answer': "Land not found.", 'intent': 'CropRecommendation'}
         
+        # Update context with current land AND store recommendations for follow-up
+        if farmer_id:
+            _set_context(farmer_id, {
+                'state': 'active',
+                'current_land': {'land_id': land.land_id, 'land_name': land.land_name, 'soil_type': land.soil_type},
+                'current_session': None,
+                'pending_question': None,
+                'last_recommendations': []  # Will be updated after getting recommendations
+            }, session_id)
+
         try:
+            # Get city and province names for display
+            city_name = None
+            province_name = None
+            if land.city_id:
+                from Model.CityModel import CityModel
+                city = CityModel.query.get(land.city_id)
+                if city:
+                    city_name = city.city_name
+                    if city.province_rls:
+                        province_name = city.province_rls.province_name
+
             # Call the existing RecommendationController directly
             response, status_code = RecommendationController.get_recommendations(land_id)
-            
+
             if status_code != 200:
                 return {'answer': "Could not get recommendations.", 'intent': 'CropRecommendation'}
-            
+
             # Parse the JSON response
             data = json.loads(response.data)
-            
+
             if not data.get('data') or not data['data'].get('recommendations'):
                 return {'answer': f"No crop recommendations available for this land in current season.", 'intent': 'CropRecommendation'}
-            
+
             recommendations = data['data']['recommendations']
             land_profile = data['data'].get('land_profile', {})
             season = data['data'].get('environmental_context', {}).get('Season', 'Current')
-            
-            response_text = f"Crop Recommendations for {land.land_name} ({land.soil_type} soil) - {season} Season:\n\n"
-            
-            if land_profile.get('previous_crop'):
-                response_text += f"Previous Crop: {land_profile['previous_crop']}\n\n"
-            
-            for i, rec in enumerate(recommendations[:5], 1):
+            env_context = data['data'].get('environmental_context', {})
+
+            # QUICK RESPONSE MODE - just list crops with one-line reason
+            if is_quick:
+                crop_list = []
+                for rec in recommendations[:4]:
+                    crop_name = rec.get('Name', rec.get('crop_name', 'Unknown'))
+                    rationale = rec.get('rationale', '')
+                    reasons = [r.strip() for r in rationale.split('|') if r.strip()]
+                    brief_reason = reasons[0] if reasons else "Suitable for your land"
+                    crop_list.append(f"{crop_name} ({brief_reason})")
+
+                response_text = f"Based on your land in {city_name or 'your area'}, I recommend: {', '.join(crop_list)}."
+                # Save recommendations to context for follow-up questions
+                if farmer_id:
+                    _set_context(farmer_id, {
+                        'last_recommendations': recommendations[:4]
+                    }, session_id)
+                return {'answer': response_text, 'intent': 'CropRecommendation', 'recommendations': recommendations[:4]}
+
+            # DETAILED RESPONSE MODE - full explanation
+            if is_explanatory:
+                location_info = f"{city_name}" if city_name else ""
+                if province_name:
+                    location_info += f", {province_name}"
+
+                response_text = f"🌾 Crop Recommendations for {land.land_name}\n"
+                response_text += f"   📍 Location: {location_info if location_info else 'N/A'}\n"
+                response_text += f"   🌍 Soil: {land.soil_type}\n"
+                response_text += f"   💧 Water: {land.source_of_water}\n"
+                response_text += f"   📅 Season: {season}\n"
+
+                if land_profile.get('previous_crop'):
+                    response_text += f"   🌱 Previous Crop: {land_profile['previous_crop']}\n"
+
+                response_text += "\n" + "="*50 + "\n"
+
+                for i, rec in enumerate(recommendations[:4], 1):
+                    crop_name = rec.get('Name', rec.get('crop_name', 'Unknown'))
+                    confidence = rec.get('confidence_score', 0)
+                    rationale = rec.get('rationale', '')
+
+                    # Convert confidence to stars
+                    stars = "⭐" * (confidence // 20)
+
+                    response_text += f"\n{i}. {crop_name} {stars}\n"
+                    response_text += f"   Confidence: {confidence}%\n"
+
+                    # Parse and simplify rationale - convert to sentences
+                    reasons = [r.strip() for r in rationale.split('|') if r.strip()]
+                    if reasons:
+                        response_text += "   Why: "
+                        # Take first 2-3 key reasons
+                        key_reasons = reasons[:3]
+                        response_text += " • ".join(key_reasons) + "\n"
+
+                    # Add ONE key suggested action
+                    if rec.get('suggested_actions'):
+                        response_text += f"   💡 Tip: {rec['suggested_actions'][0]}\n"
+
+                response_text += "\n" + "="*50
+                response_text += "\n\nFor more details about any crop, just ask!"
+
+                # Save recommendations to context for follow-up questions
+                if farmer_id:
+                    _set_context(farmer_id, {
+                        'last_recommendations': recommendations[:4]
+                    }, session_id)
+                return {'answer': response_text, 'intent': 'CropRecommendation', 'recommendations': recommendations[:4]}
+
+            # DEFAULT/BRIEF MODE - sentences instead of technical format
+            response_text = f"Here are the best crops for your land '{land.land_name}' in {province_name or 'your region'}:\n\n"
+
+            for i, rec in enumerate(recommendations[:4], 1):
                 crop_name = rec.get('Name', rec.get('crop_name', 'Unknown'))
                 confidence = rec.get('confidence_score', 0)
                 rationale = rec.get('rationale', '')
-                
-                response_text += f"{i}. {crop_name} (Confidence: {confidence}%)\n   Why: {rationale}\n"
-                
-                # Add suggested actions
+
+                # Convert to readable sentences
+                reasons = [r.strip() for r in rationale.split('|') if r.strip()]
+                main_reason = reasons[0] if reasons else "Suitable for your conditions"
+
+                # Make it a proper sentence
+                if main_reason.startswith('Region'):
+                    main_reason = main_reason.replace('Region suitable: ', '').replace('.', '')
+                    main_reason = f"This crop grows well in {main_reason}."
+                elif main_reason.startswith('Ideal'):
+                    main_reason = main_reason.replace('Ideal soil match', 'Your soil type is ideal')
+
+                response_text += f"{i}. {crop_name} - {main_reason}\n"
+
+                # Add tip if available
                 if rec.get('suggested_actions'):
-                    response_text += "   Steps:\n"
-                    for action in rec['suggested_actions'][:2]:
-                        response_text += f"    - {action}\n"
-            
-            response_text += "\nFor full details, use the recommendation API."
-            
-            return {'answer': response_text, 'intent': 'CropRecommendation'}
-        
+                    response_text += f"   💡 {rec['suggested_actions'][0]}\n"
+                response_text += "\n"
+
+            response_text += "Ask me about any specific crop for more details!"
+
+            # Save recommendations to context for follow-up questions
+            if farmer_id:
+                _set_context(farmer_id, {
+                    'last_recommendations': recommendations[:4]
+                }, session_id)
+            return {'answer': response_text, 'intent': 'CropRecommendation', 'recommendations': recommendations[:4]}
+
         except Exception as e:
             return {'answer': f"Could not generate recommendations: {str(e)}", 'intent': 'CropRecommendation'}
 
@@ -740,11 +1146,11 @@ class AgricultureRAGChatbot:
         print("=" * 70)
         print(f"Knowledge Base: {len(self.df)} Q&A pairs")
         print("=" * 70)
-        
+
         if query.lower() in ['quit', 'exit', 'bye', 'q', 'allah hafiz']:
             print("\nBot: Allah Hafiz! Happy farming!")
             return
-        
+
         response = self.generate_response(query)
         print(f"\n Bot: {response['answer']}")
         print(f"\n    Intent: {response['intent']}")

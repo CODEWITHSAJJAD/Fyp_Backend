@@ -223,7 +223,10 @@ class RecommendationController:
                     region_suitable = kb.is_crop_grown_in_region(c_name, province_id, city_id)
                     if region_suitable:
                         score += 35
-                        rationale.append(f"Region suitable: {c_name} is suitable for this region (Province ID: {province_id}, City ID: {city_id}).")
+                        if province_name and city_name:
+                            rationale.append(f"Region suitable: {c_name} grows well in {city_name}, {province_name}.")
+                        else:
+                            rationale.append(f"Region suitable: {c_name} is suitable for this region.")
                     else:
                         score -= 25
                         rationale.append(f"Region not suitable: {c_name} is not recommended for this region.")

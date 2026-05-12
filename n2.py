@@ -56,12 +56,12 @@ y_categorical = to_categorical(y)
 
 # Save label encoder
 pickle.dump(le_intent, open('saved_state/intent_label_encoder.sav', 'wb'))
-print("   ✅ Saved intent_label_encoder.sav")
+print("   [OK] Saved intent_label_encoder.sav")
 
 # Save label mapping
 intent_label_map = {cls: idx for idx, cls in enumerate(le_intent.classes_)}
 pickle.dump(intent_label_map, open('saved_state/intent_label_map.sav', 'wb'))
-print(f"   ✅ Saved intent_label_map.sav ({len(intent_label_map)} intents)")
+print(f"   [OK] Saved intent_label_map.sav ({len(intent_label_map)} intents)")
 
 # Train Neural Network
 model = Sequential()
@@ -74,13 +74,13 @@ model.fit(X, y_categorical, batch_size=10, epochs=100, verbose=0)
 
 # Save model
 model.save('saved_state/intent_model.h5')
-print("   ✅ Saved intent_model.h5")
+print("   [OK] Saved intent_model.h5")
 
 # Test accuracy
 y_pred = model.predict(X)
 y_pred_classes = np.argmax(y_pred, axis=1)
 accuracy = np.mean(y_pred_classes == y)
-print(f"   🎯 Training Accuracy: {accuracy:.2%}")
+print(f"   [ACC] Training Accuracy: {accuracy:.2%}")
 
 # ============================================
 # MODEL 2: ENTITY EXTRACTION (NAIVE BAYES)
@@ -109,7 +109,7 @@ print(f"   BoW shape: {X_entity.shape}")
 
 # Save entity vectorizer
 pickle.dump(cv_entity, open('saved_state/EntityCountVectorizer.sav', 'wb'))
-print("   ✅ Saved EntityCountVectorizer.sav")
+print("   [OK] Saved EntityCountVectorizer.sav")
 
 # Encode entity tags
 le_entity = LabelEncoder()
@@ -117,12 +117,12 @@ y_entity = le_entity.fit_transform(tags)
 
 # Save entity label encoder
 pickle.dump(le_entity, open('saved_state/entity_label_encoder.sav', 'wb'))
-print("   ✅ Saved entity_label_encoder.sav")
+print("   [OK] Saved entity_label_encoder.sav")
 
 # Save entity label mapping
 entity_label_map = {cls: idx for idx, cls in enumerate(le_entity.classes_)}
 pickle.dump(entity_label_map, open('saved_state/entity_label_map.sav', 'wb'))
-print(f"   ✅ Saved entity_label_map.sav ({len(entity_label_map)} entity types)")
+print(f"   [OK] Saved entity_label_map.sav ({len(entity_label_map)} entity types)")
 
 # Train Naive Bayes classifier
 nb_classifier = GaussianNB()
@@ -130,15 +130,15 @@ nb_classifier.fit(X_entity, y_entity)
 
 # Save classifier
 pickle.dump(nb_classifier, open('saved_state/entity_model.sav', 'wb'))
-print("   ✅ Saved entity_model.sav")
+print("   [OK] Saved entity_model.sav")
 
 # Test accuracy
 y_pred_entity = nb_classifier.predict(X_entity)
 accuracy = np.mean(y_pred_entity == y_entity)
-print(f"   🎯 Training Accuracy: {accuracy:.2%}")
+print(f"   [ACC] Training Accuracy: {accuracy:.2%}")
 
 print("\n" + "="*60)
-print("✅ ALL MODELS TRAINED SUCCESSFULLY!")
+print("[OK] ALL MODELS TRAINED SUCCESSFULLY!")
 print("="*60)
 print("\n📁 Saved files in 'saved_state' directory:")
 print("   - IntentCountVectorizer.sav")

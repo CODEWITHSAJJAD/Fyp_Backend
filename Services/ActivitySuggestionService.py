@@ -4,6 +4,7 @@ from Model.SuggestedActivityModel import SuggestedActivityModel
 from Model.CropModel import CropModel
 from Model.LandModel import LandModel
 from Model.CityModel import CityModel
+from Model.FarmerModel import FarmerModel
 from Model.PerformActivityModel import PerformedActivityModel
 from Services.CropActivityData import get_activities_for_crop, is_repeating_activity, get_activity_name_by_id
 from Services.WeatherService import get_weather, is_weather_suitable_for_activity, get_weather_delay_days
@@ -11,11 +12,34 @@ from Services.NotificationService import NotificationService
 from Services.DateUtils import (
     date_to_string, string_to_date, add_days_to_string,
     get_current_date_string, get_current_datetime_string,
-    days_until, days_since
+    days_until, days_since, days_between, get_month_number, date_to_custom_string,
+    get_current_date_custom, get_human_readable_period
 )
 
 
 class ActivitySuggestionService:
+    
+    @staticmethod
+    def get_farmer_preferred_date(land_id):
+        """Get farmer's preferred date from FarmerModel through Land"""
+        land = LandModel.query.filter(LandModel.land_id == land_id).first()
+        if not land:
+            return None
+        
+        farmer = FarmerModel.query.filter(FarmerModel.farmer_id == land.farmer_id).first()
+        if not farmer:
+            return None
+        
+        return farmer.Prefered_Date
+    
+    @staticmethod
+    def get_reference_date_for_land(land_id):
+        """Get reference date - prefers farmer's Prefered_Date, falls back to system date"""
+        farmer_date = ActivitySuggestionService.get_farmer_preferred_date(land_id)
+        if farmer_date:
+            return farmer_date
+        return get_current_date_custom()
+    
     @staticmethod
     def seed_suggested_activities(session_id, sowing_date_str):
         try:
@@ -38,15 +62,23 @@ class ActivitySuggestionService:
                 if existing_performed and existing_performed.activity_date:
                     sowing_date_str = existing_performed.activity_date
                 else:
-                    sowing_date_str = get_current_date_string()
+                    # Use farmer's preferred date as reference instead of system date
+                    reference_date = ActivitySuggestionService.get_reference_date_for_land(session.land_id)
+                    sowing_date_str = reference_date
 
             existing = SuggestedActivityModel.query.filter(
                 SuggestedActivityModel.cultivation_session_id == session_id).count()
             if existing > 0:
                 return {"error": "Activities already seeded"}, 400
 
+            added_count = 0
             for act in crop_activities:
                 activity_id = act.get("activity_id")
+                
+                # Skip Land Preparation (activity_id=1) - user will do it manually before sowing
+                if activity_id == 1:
+                    continue
+                
                 days_from_sowing = act.get("days_from_sowing")
                 suggested_date = add_days_to_string(sowing_date_str, days_from_sowing)
                 priority = "high" if days_from_sowing < 0 else (
@@ -62,9 +94,10 @@ class ActivitySuggestionService:
                     weather_delay_reason=None
                 )
                 db.session.add(sa)
+                added_count += 1
 
             db.session.commit()
-            return {"message": f"Seeded {len(crop_activities)} activities", "count": len(crop_activities)}, 201
+            return {"message": f"Seeded {added_count} activities (excluding Land Preparation)", "count": added_count}, 201
 
         except Exception as e:
             db.session.rollback()
@@ -81,10 +114,12 @@ class ActivitySuggestionService:
             land = LandModel.query.filter(LandModel.land_id == session.land_id).first()
             city_name = None
             farmer_id = None
+            reference_date = None
             if land:
                 city = CityModel.query.filter(CityModel.city_id == land.city_id).first()
                 city_name = city.city_name if city else None
                 farmer_id = land.farmer_id
+                reference_date = ActivitySuggestionService.get_reference_date_for_land(land.land_id)
 
             weather = None
             if city_name:
@@ -96,6 +131,21 @@ class ActivitySuggestionService:
 
             if existing_count == 0:
                 ActivitySuggestionService.seed_suggested_activities(session_id, None)
+
+            # Check if Sowing (activity_id=2) has been performed - if so, skip Land Preparation
+            sowing_performed = PerformedActivityModel.query.filter(
+                PerformedActivityModel.cultivation_session_id == session_id,
+                PerformedActivityModel.Activity_id == 2
+            ).first()
+
+            if sowing_performed:
+                # Remove any pending Land Preparation activities if sowing is done
+                SuggestedActivityModel.query.filter(
+                    SuggestedActivityModel.cultivation_session_id == session_id,
+                    SuggestedActivityModel.activity_id == 1,
+                    SuggestedActivityModel.status == "pending"
+                ).update({"status": "skipped", "weather_delay_reason": "Sowing completed - land preparation assumed done"})
+                db.session.commit()
 
             is_harvested = session.session_status and session.session_status == "Harvest"
 
@@ -122,7 +172,10 @@ class ActivitySuggestionService:
                 activity_name = get_activity_name_by_id(a.activity_id)
                 suggested_date = a.suggested_date
                 reason = a.weather_delay_reason
-                day_count = days_until(suggested_date)
+                
+                # Calculate day_count from farmer's preferred date (supports both formats)
+                day_count = days_between(reference_date, suggested_date) if reference_date else 0
+                
                 status = a.status
 
                 if a.activity_id in performed_activity_ids:
@@ -150,7 +203,7 @@ class ActivitySuggestionService:
                                 suggested_date = new_date
                                 status = "postponed"
                                 reason = delay_reason
-                                day_count = days_until(new_date)
+                                day_count = days_between(reference_date, new_date) if reference_date else 0
 
                 result.append({
                     "suggested_activity_id": a.suggested_activity_id,
@@ -201,9 +254,11 @@ class ActivitySuggestionService:
 
             land = LandModel.query.filter(LandModel.land_id == session.land_id).first()
             city_name = None
+            reference_date = None
             if land:
                 city = CityModel.query.filter(CityModel.city_id == land.city_id).first()
                 city_name = city.city_name if city else None
+                reference_date = ActivitySuggestionService.get_reference_date_for_land(land.land_id)
 
             weather = None
             if city_name:
@@ -216,12 +271,23 @@ class ActivitySuggestionService:
             ).order_by(SuggestedActivityModel.suggested_date).all()
 
             reminders = []
-            today = get_current_date_string()
+            if not reference_date:
+                return {"error": "Farmer preferred date not found"}, 404
 
+            # Only include activities that are today or tomorrow (day_count <= 1)
             for a in activities:
                 activity_name = get_activity_name_by_id(a.activity_id)
                 suggested_date = a.suggested_date
-                day_count = days_until(suggested_date)
+                
+                # Calculate day_count using days_between (supports both date formats)
+                day_count = days_between(reference_date, suggested_date) if reference_date else 0
+
+                # Only include if activity is today (day_count = 0) or tomorrow (day_count = 1)
+                if day_count < 0:
+                    continue
+                
+                if day_count > 1:
+                    continue
 
                 if weather and not weather.get("error"):
                     is_suitable, delay_reason = is_weather_suitable_for_activity(activity_name, weather)
@@ -229,33 +295,37 @@ class ActivitySuggestionService:
                         delay_days = get_weather_delay_days(activity_name, weather)
                         if delay_days > 0:
                             new_date = add_days_to_string(suggested_date, delay_days)
-                            new_day_count = days_until(new_date)
-                            reminders.append({
-                                "suggested_activity_id": a.suggested_activity_id,
-                                "activity_name": activity_name,
-                                "original_date": suggested_date,
-                                "suggested_date": new_date,
-                                "day_count": new_day_count,
-                                "status": "postponed",
-                                "weather_note": delay_reason
-                            })
+                            new_day_count = days_between(reference_date, new_date) if reference_date else 0
+                            
+                            if new_day_count <= 1:
+                                reminders.append({
+                                    "suggested_activity_id": a.suggested_activity_id,
+                                    "activity_name": activity_name,
+                                    "original_date": suggested_date,
+                                    "suggested_date": new_date,
+                                    "when": get_human_readable_period(reference_date,suggested_date),
+                                    "day_count": get_human_readable_period(reference_date,suggested_date),
+                                    "status": "postponed",
+                                    "weather_note": delay_reason
+                                })
                             continue
 
                 reminders.append({
                     "suggested_activity_id": a.suggested_activity_id,
                     "activity_name": activity_name,
                     "suggested_date": suggested_date,
-                    "day_count": day_count,
+                    "when": get_human_readable_period(reference_date, suggested_date),
+                    "day_count": get_human_readable_period(reference_date, suggested_date),
                     "status": "pending",
                     "weather_note": None
                 })
 
-            reminders.sort(key=lambda x: x["day_count"])
+            reminders.sort(key=lambda x: days_between(reference_date, x.get("suggested_date", reference_date)) if reference_date else 0)
 
             return {
                 "session_id": session.cultivation_session_id,
                 "city": city_name,
-                "today": today,
+                "today": reference_date,
                 "weather": {
                     "condition": weather.get("condition") if weather else None,
                     "temperature": weather.get("temperature") if weather else None

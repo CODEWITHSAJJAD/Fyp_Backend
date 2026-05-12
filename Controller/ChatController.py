@@ -27,6 +27,14 @@ class ChatController:
             obj = get_translation_service()
             query, lang = obj.process_query(data['question'])
             response = chatbot.generate_response(query, farmer_id=Farmer_id, session_id=session_id)
+            
+            # Handle None response
+            if response is None:
+                return jsonify("I couldn't process your request. Please try again."), 500
+            
+            if response.get('answer') is None:
+                return jsonify("I couldn't generate a response. Please try again."), 500
+            
             required_response = obj.process_response(response['answer'], lang)
             encoded_answer = obj.encode_unicode(required_response)
             encoded_question=obj.encode_unicode(data['question'])
@@ -47,6 +55,7 @@ class ChatController:
                                 'time': newchat.time_stamp,
                                 'farmer': Farmer_id}), 200
         except Exception as e:
+            print(e)
             return jsonify(str(e)), 500
 
     @staticmethod

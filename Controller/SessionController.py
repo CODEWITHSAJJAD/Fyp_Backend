@@ -39,6 +39,8 @@ class SessionController:
             CultivationSessionModel.session_status != "Harvest",
             CultivationSessionModel.session_status == None
         )).all()
+            if not session_allowed:
+                return jsonify("could not add crop because season is started"),404
             if session_allowed and not existingSession:
                 newSession=CultivationSessionModel(
                     crop_id=crop_id,

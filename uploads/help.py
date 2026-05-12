@@ -1,0 +1,3 @@
+text="d2hlbiBzaG91bGQgaSBjdWx0aXZhdGUgYmFqcmEgYW5kIHdoYXQgYXJlIGl0cyByZXF1aXJlbWVudHMg"
+from Services.TranslationService import TranslationService
+print(TranslationService.decode_unicode(text))
