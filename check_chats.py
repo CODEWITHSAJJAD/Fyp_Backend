@@ -13,7 +13,7 @@ def decode_base64(text):
         return text
 
 with engine.connect() as conn:
-    result = conn.execute(text("SELECT TOP 15 chat_id, question, answer, chat_type, time_stamp, chat_session_id FROM Chat ORDER BY time_stamp DESC"))
+    result = conn.execute(text("SELECT top 50 chat_id, question, answer, chat_type, time_stamp, chat_session_id FROM Chat ORDER BY time_stamp DESC"))
     print('=== RECENT CHATS (Latest First) ===\n')
     for row in result:
         q = decode_base64(row[1]) if row[1] else ''

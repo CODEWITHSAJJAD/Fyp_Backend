@@ -1,6 +1,7 @@
 import os
 from flask import Flask, jsonify, send_file, abort
 from werkzeug.security import safe_join
+from Controller.ReminderController import ReminderController
 from Controller.ActivityController import ActivityController
 from Controller.CropController import CropController
 from Controller.LandController import LandController
@@ -299,7 +300,11 @@ def get_suggested_activities(session_id):
 
 @app.get('/getReminders/<land_id>')
 def get_reminders(land_id):
-    return ActivitiesSuggestionsController.get_reminders(land_id)
+    return ReminderController.get_reminders(land_id)
+
+@app.get('/getAlerts/<land_id>')
+def get_alerts(land_id):
+    return ReminderController.get_alerts(land_id)
 
 @app.post('/performActivity')
 def perform_activity():

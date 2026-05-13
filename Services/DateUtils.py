@@ -173,6 +173,45 @@ def string_to_date(date_str):
 
     return None
 
+def get_year_number(date_str):
+    """
+    Get year number from a date string
+
+    Args:
+        date_str: Date string in YYYY-MM-DD format or "Wed-D-M-YYYY" format or datetime object
+
+    Returns:
+        int: year number  or None if invalid
+
+    Examples:
+        >>> get_year_number("2024-12-25")
+        2024
+        >>> get_year_number("2024-01-01")
+        2024
+        >>> get_year_number("Wed-6-2-2026")
+        2026
+    """
+    if date_str is None:
+        return None
+
+    if isinstance(date_str, datetime):
+        return date_str.year
+
+    if isinstance(date_str, str):
+        parts = date_str.strip().split('-')
+        print("parts",parts[3])
+
+        if len(parts) == 4:
+            try:
+                return int(parts[3])
+            except (ValueError, IndexError):
+                pass
+
+        date_obj = string_to_date(date_str)
+        if date_obj is not None:
+            return date_obj.year
+
+    return None
 
 def datetime_to_string(date_obj):
     """Convert datetime object to ISO string YYYY-MM-DDTHH:MM:SS"""
