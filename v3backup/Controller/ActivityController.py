@@ -9,7 +9,7 @@ from Model.ActivityModel import ActivityModel
 from flask import request,jsonify
 import json
 from datetime import datetime
-from Services.ActivitySuggestionService import ActivitySuggestionService
+
 from url import imageurl
 
 
@@ -37,7 +37,6 @@ class ActivityController:
                 CultivationSessionModel.session_status == None
             )).first()
             if existingSession:
-                ActivitySuggestionService.record_performed(session_id=activityJson['cultivation_session_id'],activity_id=activityJson['Activity_id'],performed_date_str=activityJson['activity_date'])
                 if activityJson['Activity_id']==7:
                     session_info = request.form["session_info"]
                     sessionJson = json.loads(session_info)
