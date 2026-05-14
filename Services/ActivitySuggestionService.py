@@ -11,7 +11,7 @@ from Services.WeatherService import get_weather, is_weather_suitable_for_activit
 from Services.NotificationService import NotificationService
 from Services.DateUtils import (
     date_to_string, string_to_date, add_days_to_string,
-    get_current_date_string, get_current_datetime_string,
+    get_current_date_string, get_current_datetime_string,add_days_to_string_preserve_format,
     days_until, days_since, days_between, get_month_number, date_to_custom_string,
     get_current_date_custom, get_human_readable_period
 )
@@ -39,7 +39,7 @@ class ActivitySuggestionService:
         if farmer_date:
             return farmer_date
         return get_current_date_custom()
-    
+
     @staticmethod
     def seed_suggested_activities(session_id, sowing_date_str):
         try:
@@ -74,13 +74,18 @@ class ActivitySuggestionService:
             added_count = 0
             for act in crop_activities:
                 activity_id = act.get("activity_id")
-                
+
                 # Skip Land Preparation (activity_id=1) - user will do it manually before sowing
                 if activity_id == 1:
                     continue
-                
+
+                print(f"Original sowing date: {sowing_date_str}")
                 days_from_sowing = act.get("days_from_sowing")
-                suggested_date = add_days_to_string(sowing_date_str, days_from_sowing)
+
+                # Use the format-preserving function
+                suggested_date = add_days_to_string_preserve_format(sowing_date_str, days_from_sowing)
+                print(f"Suggested date: {suggested_date}")
+
                 priority = "high" if days_from_sowing < 0 else (
                     "medium" if days_from_sowing >= 0 and days_from_sowing <= 20 else "low")
 
@@ -97,7 +102,8 @@ class ActivitySuggestionService:
                 added_count += 1
 
             db.session.commit()
-            return {"message": f"Seeded {added_count} activities (excluding Land Preparation)", "count": added_count}, 201
+            return {"message": f"Seeded {added_count} activities (excluding Land Preparation)",
+                    "count": added_count}, 201
 
         except Exception as e:
             db.session.rollback()
@@ -246,41 +252,11 @@ class ActivitySuggestionService:
 
 
     @staticmethod
-    def record_performed(suggested_activity_id, performed_date_str):
+    def record_performed(session_id,activity_id, performed_date_str):
         try:
-            sa = SuggestedActivityModel.query.filter_by(suggested_activity_id=suggested_activity_id).first()
+            sa = SuggestedActivityModel.query.filter((SuggestedActivityModel.cultivation_session_id==session_id,SuggestedActivityModel.activity_id==activity_id),SuggestedActivityModel.suggested_date==performed_date_str).first()
             if not sa:
                 return {"error": "Suggested activity not found"}, 404
-
-            if performed_date_str is None:
-                performed_date_str = get_current_date_string()
-
-            session = CultivationSessionModel.query.filter(
-                CultivationSessionModel.cultivation_session_id == sa.cultivation_session_id).first()
-            farmer_id = None
-            if session:
-                land = LandModel.query.filter(LandModel.land_id == session.land_id).first()
-                farmer_id = land.farmer_id if land else None
-
-            activity_name = get_activity_name_by_id(sa.activity_id)
-
-            existing = PerformedActivityModel.query.filter(
-                PerformedActivityModel.cultivation_session_id == sa.cultivation_session_id,
-                PerformedActivityModel.Activity_id == sa.activity_id
-            ).first()
-
-            if existing:
-                existing.activity_date = performed_date_str
-                existing.Activity_type = activity_name
-            else:
-                performed = PerformedActivityModel(
-                    cultivation_session_id=sa.cultivation_session_id,
-                    Activity_id=sa.activity_id,
-                    activity_date=performed_date_str,
-                    Activity_type=activity_name
-                )
-                db.session.add(performed)
-
             sa.status = "completed"
             db.session.commit()
 

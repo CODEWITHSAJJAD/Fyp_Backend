@@ -148,7 +148,9 @@ class RemindersService:
                             "alerts":p.Activity_type,
                             "crop":crop.crop_name
                         })
-                    return alerts,200
+            if alerts:
+                return alerts,200
+            else:
                 return {"error": "Alerts not found"},404
         except Exception as e:
             return {"error": str(e)}, 500

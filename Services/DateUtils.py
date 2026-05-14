@@ -465,6 +465,72 @@ def get_date_gap_details(date_str1, date_str2):
     return result
 
 
+def add_days_to_string_preserve_format(date_str, days):
+    """
+    Add days to a date string while preserving the original format.
+    Supports both YYYY-MM-DD and Wed-D-M-YYYY formats.
+
+    Args:
+        date_str: Date string in either format
+        days: Number of days to add (can be negative)
+
+    Returns:
+        Date string in the same format as input, or None if invalid
+    """
+    if date_str is None:
+        return None
+
+    # Parse the date to datetime object
+    date_obj = string_to_date(date_str)
+    if date_obj is None:
+        return None
+
+    # Calculate new date
+    new_date = date_obj + timedelta(days=days)
+
+    # Check original format and return in same format
+    if isinstance(date_str, str):
+        parts = date_str.strip().split('-')
+
+        # If it's in custom format (Wed-D-M-YYYY)
+        if len(parts) == 4 and len(parts[0]) == 3 and parts[0][0].isalpha():
+            # Return in custom format
+            day_name = calendar.day_name[new_date.weekday()][:3]
+            return f"{day_name}-{new_date.day}-{new_date.month}-{new_date.year}"
+
+    # Default to standard YYYY-MM-DD format
+    return date_to_string(new_date)
+
+
+def add_days_to_string(date_str, days):
+    """
+    Original function - adds days to a date string and returns in YYYY-MM-DD format.
+    Kept for backward compatibility.
+    """
+    if date_str is None:
+        return None
+    date_obj = string_to_date(date_str)
+    if date_obj is None:
+        return None
+    new_date = date_obj + timedelta(days=days)
+    return date_to_string(new_date)
+
+
+def add_days_to_custom_string(date_str, days):
+    """
+    Specifically for custom format: adds days and returns in same custom format.
+    Useful when you know the input is in Wed-D-M-YYYY format.
+    """
+    if date_str is None:
+        return None
+    date_obj = string_to_date(date_str)
+    if date_obj is None:
+        return None
+    new_date = date_obj + timedelta(days=days)
+
+    # Format as custom string
+    day_name = calendar.day_name[new_date.weekday()][:3]
+    return f"{day_name}-{new_date.day}-{new_date.month}-{new_date.year}"
 def get_human_readable_period(date_str, reference_date=None):
     """
     Get human readable time difference (e.g., "2 days ago", "3 weeks ago", "1 month from now")

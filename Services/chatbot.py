@@ -64,9 +64,19 @@ class AgricultureRAGChatbot:
             "MarketPrice", "HarvestTime", "SowingTime", "Weather"
         ]
         self.INTERACTION_INTENTS = [
-            "Greeting", "Wassup", "Wellness", "AskingHelp", "OutOfScope"
+            "Greeting", "Wassup", "Wellness", "AskingHelp", "OutOfScope", "Acknowledgment", "Farewell"
         ]
         self.CONFIDENCE_THRESHOLD = 0.6
+        
+        self.ALL_KNOWN_INTENTS = [
+            "Cultivation", "Fertilizer", "Pesticide", "Irrigation", "Soil", "Yield",
+            "Diseases", "Varieties", "MarketPrice", "HarvestTime", "SowingTime", "Weather",
+            "Greeting", "Wassup", "Wellness", "AskingHelp", "OutOfScope", "Acknowledgment", "Farewell",
+            "CropRecommendation", "ActivityRecommendation", "MyNeighbors", "MyLands",
+            "MyCrops", "MyActivities", "FarmerInfo", "PastActivities", "NeighborInfo",
+            "PastSessions", "NeighborPastSessions", "ProfitActivities", "ProfitablePastCrops",
+            "CropSuitability", "LandRecommendation", "ContextGathering", "Quick", "Explanatory", "Confirm"
+        ]
         
         self._load_models()
         self.load_knowledge_base()
@@ -169,7 +179,7 @@ class AgricultureRAGChatbot:
     def rule_based_intent(self, text):
         text_lower = text.lower()
         rules = {
-            'Greeting': ['hello', 'hi', 'hey', 'namaste'],
+            'Greeting': ['hello', 'hi', 'hey',],
             'Wellness': ['how are you', 'how do you do'],
             'AskingHelp': ['help', 'assist'],
             'Fertilizer': ['fertilizer', 'urea', 'dap', 'npk'],
@@ -297,7 +307,9 @@ class AgricultureRAGChatbot:
             'Wassup': "I am here to assist Pakistani farmers with their agriculture-related queries. What's on your mind?",
             'AskingHelp': "I'm here to help! You can ask me about crops, fertilizers, pesticides, soil, irrigation, and more.",
             'Wellness': "I'm doing well, thank you! I'm dedicated to providing the best agricultural advice.",
-            'OutOfScope': "I am specialized in agriculture in Pakistan. Please ask me about crops, soil, or farming!"
+'OutOfScope': "I am specialized in agriculture in Pakistan. Please ask me about crops, soil, or farming!",
+            'Acknowledgment': "Sure! Is there anything else I can help you with regarding your farming?",
+            'Farewell': "Allah Hafiz! Happy farming! Feel free to return anytime you need agriculture advice."
         }
         return fallbacks.get(intent, f"I can help you with agricultural topics like crop cultivation, fertilizers, or pest control.")
 
@@ -327,7 +339,7 @@ class AgricultureRAGChatbot:
 
             # SPECIAL HANDLING: If user just enters a number and was asked for land, handle as land selection
             if farmer_id and query.strip().isdigit() and len(query.strip()) <= 2:
-                # User is likely selecting a land from list
+                # User is likely selecting from a list (land or crop)
                 from Services.ChatbotHelper import get_farmer_lands
                 user_lands = get_farmer_lands(farmer_id)
                 if user_lands:
@@ -336,6 +348,22 @@ class AgricultureRAGChatbot:
                         result = self._handle_context_response(query, farmer_id, context, session_id)
                         if result:
                             return result
+                    
+                    # Also handle number selection for crop recommendations
+                    last_rec = context.get('last_recommendations', [])
+                    if last_rec:
+                        try:
+                            idx = int(query.strip()) - 1
+                            if 0 <= idx < len(last_rec):
+                                selected_crop = last_rec[idx].get('Name', '')
+                                if selected_crop:
+                                    _set_context(farmer_id, {
+                                        'last_mentioned_crop': selected_crop,
+                                        'state': 'active'
+                                    }, session_id)
+                                    return {'answer': f"You selected {selected_crop}. What would you like to know about it? (sowing time, cultivation details, suitability, etc.)", 'intent': 'CropRecommendation'}
+                        except:
+                            pass
 
             # USE ML MODEL FIRST, then use rule-based as fallback
             intent, intent_conf = self.get_intent(query)
@@ -386,11 +414,56 @@ class AgricultureRAGChatbot:
                 if is_good_for_me and not any(word in query_lower for word in ['wheat', 'rice', 'cotton', 'bajra', 'corn', 'maize']):
                     intent = 'CropSuitability'
                     intent_conf = 0.95
+                
+                # Override for "when to sow/harvest it" with crop in context -> SowingTime/HarvestTime
+                if any(word in query_lower for word in ['when', 'time']) and any(word in query_lower for word in ['sow', 'plant']):
+                    if context.get('last_mentioned_crop') or context.get('current_land'):
+                        intent = 'SowingTime'
+                        intent_conf = 0.95
+                
+                # Override for "tell me about X" where X is a crop
+                if any(word in query_lower for word in ['tell me about', 'info about', 'details about', 'what is']):
+                    for crop in ['wheat', 'rice', 'cotton', 'bajra', 'bottle gourd', 'bitter gourd', 'chilies', 'cucumber', 'maize', 'corn']:
+                        if crop in query_lower:
+                            intent = 'Cultivation'
+                            intent_conf = 0.95
+                            break
+                
+                # Override for "what if i do [crop]" or "can i grow [crop]" -> CropSuitability
+                if any(phrase in query_lower for phrase in ['what if i do', 'what if i grow', 'can i do', 'should i do']):
+                    for crop in ['wheat', 'rice', 'cotton', 'bajra', 'bottle gourd', 'bitter gourd', 'chilies', 'cucumber', 'maize', 'corn']:
+                        if crop in query_lower:
+                            intent = 'CropSuitability'
+                            intent_conf = 0.95
+                            break
+                
+                # Override for "but today is [date]" or date-based follow-up questions
+                if any(word in query_lower for word in ['today', 'now', 'current']) and any(word in query_lower for word in ['may', 'june', 'july', 'august', 'sow', 'plant']):
+                    if context.get('last_mentioned_crop') or context.get('current_land'):
+                        intent = 'SowingTime'
+                        intent_conf = 0.95
+                
+                # Override for "why?" - user asking for explanation of previous recommendation
+                if query_lower.strip() in ['why', 'why?', 'why not', 'what is reason', 'tell me why']:
+                    if context.get('last_recommendations') or context.get('current_land'):
+                        intent = 'Explanatory'
+                        intent_conf = 0.95
 
             # If ML detected a context intent with high confidence, use it
             context_intents_priority = ['CropRecommendation', 'ActivityRecommendation', 'MyNeighbors', 'MyLands', 'MyCrops', 'MyActivities', 'FarmerInfo', 'PastActivities', 'NeighborInfo', 'PastSessions', 'NeighborPastSessions', 'ProfitActivities', 'ProfitablePastCrops', 'CropSuitability']
             if farmer_id and intent in context_intents_priority and intent_conf > 0.7:
                 return self._handle_context_intent(query, intent, farmer_id, context, session_id, is_quick, is_explanatory)
+
+            # If user just says a land name (short query with land match), redirect to MyLands
+            if farmer_id and len(query.strip()) < 20:
+                from Services.ChatbotHelper import get_farmer_lands, find_land_in_query
+                user_lands = get_farmer_lands(farmer_id)
+                if user_lands:
+                    matched_land = find_land_in_query(query_lower, user_lands)
+                    if matched_land:
+                        intent = 'MyLands'
+                        intent_conf = 0.95
+                        return self._handle_context_intent(query, intent, farmer_id, context, session_id, is_quick, is_explanatory)
 
             # ENHANCED PRONOUN HANDLING: If user says "it" or "on it" and has stored land/crop in context
             if farmer_id and context.get('current_land'):
@@ -433,6 +506,32 @@ class AgricultureRAGChatbot:
                     'conversation_history': context.get('conversation_history', [])
                 }, session_id)
 
+            query_lower = query.lower()
+            
+            query_lower = query.lower()
+            
+            goodbye_phrases = ['bye', 'goodbye', 'allah hafiz', 'khuda hafiz', 'see you', 'take care', 'tata', 'exit']
+            if any(phrase in query_lower for phrase in goodbye_phrases):
+                return {
+                    'answer': "Allah Hafiz! Happy farming! Feel free to return anytime you need agriculture advice.",
+                    'intent': 'Farewell',
+                    'intent_confidence': float(intent_conf)
+                }
+
+            acknowledgment_phrases = ['ok', 'okay', 'alright', 'all right', 'sure', 'yeah', 'yes', 'ya', 'okay thank', 'thanks', 'thank you', 'good', 'nice', 'cool', 'great', 'okay then', 'alright then', 'hmm', 'okkk', 'ok ok', 'cool then']
+            if any(phrase in query_lower for phrase in acknowledgment_phrases):
+                return {
+                    'answer': "Sure! Is there anything else I can help you with regarding your farming? Feel free to ask about crops, fertilizers, soil, irrigation, or any other agriculture topic.",
+                    'intent': 'Acknowledgment',
+                    'intent_confidence': float(intent_conf)
+                }
+            if any(phrase in query_lower for phrase in acknowledgment_phrases):
+                return {
+                    'answer': "Sure! Is there anything else I can help you with regarding your farming? Feel free to ask about crops, fertilizers, soil, irrigation, or any other agriculture topic.",
+                    'intent': 'Acknowledgment',
+                    'intent_confidence': float(intent_conf)
+                }
+
             is_interactional = intent in self.INTERACTION_INTENTS
             is_low_confidence = intent_conf < self.CONFIDENCE_THRESHOLD
 
@@ -447,6 +546,39 @@ class AgricultureRAGChatbot:
                 answer = self.get_intent_based_fallback(intent, entities)
                 confidence = 0.5
                 match_type = 'fallback'
+
+            is_unknown_intent = intent == "Unknown" or intent not in self.ALL_KNOWN_INTENTS
+            is_low_confidence = intent_conf < self.CONFIDENCE_THRESHOLD
+
+            if is_unknown_intent or intent == "OutOfScope" or len(query.strip()) <= 3 or (is_low_confidence and match_type == 'fallback'):
+                return {
+                    'answer': "I am specialized in agriculture in Pakistan. Please ask me about crops, fertilizers, pesticides, soil, irrigation, farming activities, or your lands!",
+                    'intent': 'OutOfScope',
+                    'intent_confidence': float(intent_conf)
+                }
+
+            if is_low_confidence and len(query.strip()) < 10:
+                return {
+                    'answer': "I am specialized in agriculture in Pakistan. Please ask me about crops, fertilizers, pesticides, soil, irrigation, farming activities, or your lands!",
+                    'intent': 'OutOfScope',
+                    'intent_confidence': float(intent_conf)
+                }
+
+            non_agri_keywords = ['love', 'hate', 'miss', 'happy', 'sad', 'angry', 'friend', 'family', 'school', 'movie', 'song', 'game', 'cricket', 'football', 'politics']
+            if any(word in query_lower for word in non_agri_keywords) and intent in ['Cultivation', 'Unknown']:
+                return {
+                    'answer': "I am specialized in agriculture in Pakistan. Please ask me about crops, fertilizers, pesticides, soil, irrigation, farming activities, or your lands!",
+                    'intent': 'OutOfScope',
+                    'intent_confidence': float(intent_conf)
+                }
+
+            acknowledgment_phrases = ['ok', 'okay', 'alright', 'all right', 'sure', 'yeah', 'yes', 'ya', 'okay thank', 'thanks', 'thank you', 'good', 'nice', 'cool', 'great', 'okay then', 'alright then', 'hmm', 'okkk']
+            if any(phrase in query_lower for phrase in acknowledgment_phrases):
+                return {
+                    'answer': "Sure! Is there anything else I can help you with regarding your farming? Feel free to ask about crops, fertilizers, soil, irrigation, or any other agriculture topic.",
+                    'intent': 'Acknowledgment',
+                    'intent_confidence': float(intent_conf)
+                }
 
             if self.use_llm and answer and intent in self.AGRICULTURE_INTENTS:
                 from Services.LLMService import get_llm_service
@@ -484,7 +616,6 @@ class AgricultureRAGChatbot:
         from Model.LandModel import LandModel
         from Services.ChatbotHelper import find_land_in_query, get_farmer_lands
 
-        waiting_state = context.get('state')
         pending_question = context.get('pending_question')
 
         # If pending_question is empty, use stored last_intent from context to determine what to do
