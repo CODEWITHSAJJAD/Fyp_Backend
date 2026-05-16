@@ -11,6 +11,7 @@ from Controller.fetch import export_city_data_to_file
 from Controller.taskController import TaskContoller
 from Model.CityModel import CityModel
 from Model.ProvinceModel import ProvinceModel
+from Services import WeatherService
 from db import db, init_db
 from Controller.FarmerController import FarmerController
 from Controller.ChatController import ChatController

@@ -904,3 +904,250 @@ def check_crop_suitability(land_id, crop_name):
         'suitable': True,
         'reasons': reasons
     }
+
+
+# ============================================
+# INTENT HANDLER FUNCTIONS
+# ============================================
+
+def get_loss_crops(farmer_id):
+    """Get crops that resulted in loss"""
+    user_lands = get_farmer_lands(farmer_id)
+    if not user_lands:
+        return "No lands found for this farmer."
+    
+    user_land_ids = [l.land_id for l in user_lands]
+    
+    unprofitable_sessions = CultivationSessionModel.query.filter(
+        CultivationSessionModel.land_id.in_(user_land_ids),
+        CultivationSessionModel.is_profit == 0
+    ).all()
+    
+    if not unprofitable_sessions:
+        return "No loss crops found in your history."
+    
+    response = "Crops that resulted in loss:\n"
+    land_map = {l.land_id: l.land_name for l in user_lands}
+    
+    for i, session in enumerate(unprofitable_sessions[:5], 1):
+        crop_name = get_crop_name(session)
+        land_name_str = land_map.get(session.land_id, 'Unknown')
+        amount = session.amount_per_acre if session.amount_per_acre else 0
+        response += f"{i}. {crop_name} on {land_name_str}"
+        if amount:
+            response += f" (Loss: {abs(amount)})"
+        response += "\n"
+    
+    return response
+
+
+def get_most_profitable_crop(farmer_id):
+    """Get single most profitable crop"""
+    user_lands = get_farmer_lands(farmer_id)
+    if not user_lands:
+        return None
+    
+    user_land_ids = [l.land_id for l in user_lands]
+    
+    profitable_sessions = CultivationSessionModel.query.filter(
+        CultivationSessionModel.land_id.in_(user_land_ids),
+        CultivationSessionModel.is_profit == 1
+    ).order_by(CultivationSessionModel.amount_per_acre.desc()).first()
+    
+    if not profitable_sessions:
+        return None
+    
+    land = next((l for l in user_lands if l.land_id == profitable_sessions.land_id), None)
+    crop_name = get_crop_name(profitable_sessions)
+    land_name = land.land_name if land else 'Unknown'
+    amount = profitable_sessions.amount_per_acre if profitable_sessions.amount_per_acre else 0
+    
+    return {
+        'crop_name': crop_name,
+        'land_name': land_name,
+        'amount': amount
+    }
+
+
+def get_activities_for_loss_crops(farmer_id):
+    """Get activities performed for loss crops"""
+    user_lands = get_farmer_lands(farmer_id)
+    if not user_lands:
+        return "No lands found for this farmer."
+    
+    user_land_ids = [l.land_id for l in user_lands]
+    
+    unprofitable_sessions = CultivationSessionModel.query.filter(
+        CultivationSessionModel.land_id.in_(user_land_ids),
+        CultivationSessionModel.is_profit == 0
+    ).all()
+    
+    if not unprofitable_sessions:
+        return "No loss crops found in your history."
+    
+    response = "Activities performed on crops that resulted in loss:\n"
+    land_map = {l.land_id: l.land_name for l in user_lands}
+    
+    for session in unprofitable_sessions[:3]:
+        crop_name = get_crop_name(session)
+        land_name_str = land_map.get(session.land_id, 'Unknown')
+        
+        performed = PerformedActivityModel.query.filter_by(cultivation_session_id=session.cultivation_session_id).all()
+        response += f"\n{crop_name} on {land_name_str}:\n"
+        
+        if performed:
+            for pa in performed:
+                act_name = get_activity_name_by_id(pa.Activity_id) if pa.Activity_id else pa.Activity_type
+                response += f"  • {act_name}\n"
+        else:
+            response += "  No activities recorded\n"
+    
+    return response
+
+
+def get_harvest_info_for_active_crop(farmer_id, crop_name):
+    """Get harvest info for an active crop"""
+    active_sessions = get_active_sessions_for_farmer(farmer_id)
+    
+    active_session = None
+    if crop_name:
+        for session in active_sessions:
+            if crop_name.lower() in get_crop_name(session).lower():
+                active_session = session
+                break
+    
+    if not active_session:
+        return None
+    
+    user_lands = get_farmer_lands(farmer_id)
+    land = next((l for l in user_lands if l.land_id == active_session.land_id), None)
+    land_name = land.land_name if land else 'Unknown'
+    
+    activities_response, _ = get_upcoming_activities(farmer_id, land_name)
+    
+    response = f"Harvest information for your active {crop_name} crop on {land_name}:\n"
+    
+    if 'Harvest' in activities_response:
+        response += f"  {activities_response}"
+    else:
+        response += f"  Your crop is still in growing phase. Monitor for harvest readiness."
+        if hasattr(active_session, 'expected_end_date') and active_session.expected_end_date:
+            response += f"\n  Expected harvest around: {active_session.expected_end_date}"
+    
+    return response
+
+
+def get_irrigation_advice(farmer_id, query_lower):
+    """Get irrigation advice based on current conditions"""
+    active_sessions = get_active_sessions_for_farmer(farmer_id)
+    
+    if not active_sessions:
+        return None
+    
+    response = "Based on your active crops:\n"
+    for session in active_sessions[:3]:
+        crop_name = get_crop_name(session)
+        user_lands = get_farmer_lands(farmer_id)
+        land = next((l for l in user_lands if l.land_id == session.land_id), None)
+        land_name = land.land_name if land else 'Unknown'
+        
+        response += f"\n• {crop_name} on {land_name}: "
+        
+        user_lands = get_farmer_lands(farmer_id)
+        activities_response, _ = get_upcoming_activities(farmer_id, land_name)
+        
+        if 'Watering' in activities_response:
+            response += "Watering is scheduled. "
+        else:
+            response += "Check soil moisture before next watering. "
+        
+        if 'rain' in query_lower:
+            response += "Since it rained recently, you may not need to irrigate tomorrow unless soil is dry."
+    
+    response += "\n\nFor specific irrigation schedules, please specify the land name."
+    
+    return response
+
+
+def handle_neighbor_past_sessions(farmer_id, query_lower):
+    """Handle neighbor past sessions questions"""
+    neighbor_lands = get_neighbor_info(farmer_id)
+    target_neighbor = None
+    for nl in neighbor_lands:
+        if nl.land_name.lower() in query_lower:
+            target_neighbor = nl.land_name
+            break
+    
+    sessions = get_neighbor_past_sessions(farmer_id, limit=5, neighbor_land_name=target_neighbor)
+    
+    if not sessions:
+        return "No past sessions found for your neighbors."
+    
+    response = "Your neighbors' past crop sessions:\n"
+    for i, s in enumerate(sessions, 1):
+        profit_status = "Profitable" if s.get('is_profit') == 1 else "Not profitable"
+        response += f"{i}. {s['crop_name']} on {s['land_name']} ({profit_status})\n"
+    
+    return response
+
+
+def get_my_past_sessions_formatted(farmer_id, land_id=None):
+    """Get formatted past sessions"""
+    if land_id:
+        sessions = CultivationSessionModel.query.filter_by(land_id=land_id).order_by(
+            CultivationSessionModel.cultivation_session_id.desc()
+        ).limit(5).all()
+        
+        if not sessions:
+            return None
+        
+        response = f"Past crop sessions for this land:\n"
+        for i, session in enumerate(sessions, 1):
+            crop_name = get_crop_name(session)
+            profit_status = "Profitable" if session.is_profit == 1 else "Not profitable"
+            response += f"{i}. {crop_name} ({profit_status})\n"
+    else:
+        user_lands = get_farmer_lands(farmer_id)
+        if not user_lands:
+            return "No lands found for this farmer."
+        
+        user_land_ids = [l.land_id for l in user_lands]
+        sessions = CultivationSessionModel.query.filter(
+            CultivationSessionModel.land_id.in_(user_land_ids)
+        ).order_by(CultivationSessionModel.cultivation_session_id.desc()).limit(5).all()
+        
+        if not sessions:
+            return "No past crop sessions found for your lands."
+        
+        land_map = {l.land_id: l.land_name for l in user_lands}
+        response = "Your past crop sessions:\n"
+        for i, session in enumerate(sessions, 1):
+            crop_name = get_crop_name(session)
+            land_name = land_map.get(session.land_id, 'Unknown')
+            profit_status = "Profitable" if session.is_profit == 1 else "Not profitable"
+            response += f"{i}. {crop_name} on {land_name} ({profit_status})\n"
+    
+    return response
+
+
+def format_crop_suitability_response(current_land, crop_name, result):
+    """Format crop suitability response"""
+    response = f"Crop Suitability for {crop_name} on {current_land['land_name']}:\n"
+    for reason in result.get('reasons', []):
+        response += f"  • {reason}\n"
+    return response
+
+
+def get_land_names_response(user_lands):
+    """Format list of land names for response"""
+    response = "Here are YOUR lands:\n"
+    for i, land in enumerate(user_lands, 1):
+        response += f"{i}. {land.land_name} ({land.land_in_acres} acres, {land.soil_type} soil)\n"
+    response += "\nSpecify a land name for details or weather."
+    return response
+
+
+def get_remaining_activities(farmer_id, specific_land=None):
+    """Get remaining/pending activities"""
+    response, _ = get_upcoming_activities(farmer_id, specific_land)
+    return response

@@ -1,5 +1,9 @@
 from datetime import datetime, timedelta
+from Services.TranslationService import get_translation_service
 
+obj = get_translation_service()
+msg="I am specialized in agriculture in Pakistan. Please ask me about crops, soil, or farming!"
+print(obj.encode_unicode(msg))
 
 def string_to_date(date_str):
     """
